@@ -17,15 +17,12 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.red,
+        backgroundColor: const Color(0xffCA110F),
         leading: Container(
-          margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-          width: 5,
-          height: 5,
-          child: Image.asset(
-            "assets/PUTIH.png",
-          ),
-        ),
+            margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+            width: 5,
+            height: 5,
+            child: const Image(image: AssetImage('assets/PUTIH.png'))),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 10),
@@ -62,39 +59,82 @@ class _HomePageState extends State<HomePage> {
             Column(
               children: [
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.18,
+                  height: MediaQuery.of(context).size.height * 0.19,
                 ),
-                const ServiceIconButton(),
-                const ServiceIconButton(),
-                Container(
-                  margin: const EdgeInsets.symmetric(vertical: 20),
-                  height: 200,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    children: <Widget>[
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        width: MediaQuery.of(context).size.width - 32,
-                        color: Colors.red,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        width: MediaQuery.of(context).size.width - 32,
-                        color: Colors.green,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        width: MediaQuery.of(context).size.width - 32,
-                        color: Colors.blue,
-                      ),
-                      Container(
-                        margin: const EdgeInsets.symmetric(horizontal: 16),
-                        width: MediaQuery.of(context).size.width - 32,
-                        color: Colors.amber,
-                      ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ServiceIcon(
+                          name: "Jogja Ride", icon: Icons.directions_bike),
+                      ServiceIcon(name: "Jogja Car", icon: Icons.car_repair),
+                      ServiceIcon(name: "Jogja Food", icon: Icons.fastfood),
+                      ServiceIcon(name: "Jogja Kurir", icon: Icons.pages),
                     ],
                   ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 24),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      ServiceIcon(name: "Jogja Toko", icon: Icons.store),
+                      ServiceIcon(name: "Jogja Pay", icon: Icons.payments),
+                      ServiceIcon(name: "Jogja Shop", icon: Icons.shopping_bag),
+                      ServiceIcon(
+                          name: "Misi", icon: Icons.track_changes_outlined),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Column(
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16),
+                      child: Row(
+                        children: [
+                          Text(
+                            "Istimewa Buatmu",
+                            style: TextStyle(
+                                fontSize: 16, fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    Container(
+                      // margin: const EdgeInsets.symmetric(vertical: 20),
+                      height: 200,
+                      child: ListView.builder(
+                        itemCount: 3,
+                        itemBuilder: (context, index) {
+                          return Container(
+                              clipBehavior: Clip.antiAlias,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15)),
+                              margin:
+                                  const EdgeInsets.symmetric(horizontal: 16),
+                              width: MediaQuery.of(context).size.width - 32,
+                              child: const Image(
+                                  fit: BoxFit.cover,
+                                  image:
+                                      AssetImage('assets/promo_banner.png')));
+                        },
+                        scrollDirection: Axis.horizontal,
+                        shrinkWrap: true,
+                      ),
+                    ),
+                  ],
                 ),
               ],
             ),

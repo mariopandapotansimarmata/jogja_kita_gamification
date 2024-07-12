@@ -64,9 +64,9 @@ class _BonusCardState extends State<BonusCard> {
                       child: Text(
                         "Pakai Bonusmu",
                         style: TextStyle(
-                          color: Colors.green,
-                          fontSize: 16,
-                        ),
+                            color: Colors.green,
+                            fontSize: 16,
+                            fontWeight: FontWeight.w500),
                       ),
                     )
                   ],
@@ -100,9 +100,9 @@ class _BonusCardState extends State<BonusCard> {
                     Text(
                       "Aktifkan Saldo",
                       style: TextStyle(
-                        color: Colors.green,
-                        fontSize: 16,
-                      ),
+                          color: Colors.green,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w500),
                     )
                   ],
                 ),

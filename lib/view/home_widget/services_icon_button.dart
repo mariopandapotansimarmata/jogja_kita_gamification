@@ -1,57 +1,37 @@
 import 'package:flutter/material.dart';
 
-class ServiceIconButton extends StatefulWidget {
-  const ServiceIconButton({super.key});
+class ServiceIcon extends StatelessWidget {
+  const ServiceIcon({super.key, required this.name, required this.icon});
 
-  @override
-  State<ServiceIconButton> createState() => _ServiceIconButtonState();
-}
+  final String name;
+  final IconData icon;
 
-class _ServiceIconButtonState extends State<ServiceIconButton> {
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 24),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.center,
+    return SizedBox(
+      height: 79,
+      width: 79,
+      child: Column(
         children: [
-          Column(
-            children: [
-              Icon(
-                Icons.abc,
-                size: 50,
-              ),
-              Text("JogjaRide")
-            ],
+          Container(
+            height: 46,
+            width: 46,
+            decoration: BoxDecoration(
+                color: const Color(0xffFCE7E9),
+                borderRadius: BorderRadius.circular(50)),
+            child: Icon(
+              icon,
+              size: 37,
+              color: const Color(0xffB30F10),
+            ),
           ),
-          Column(
-            children: [
-              Icon(
-                Icons.abc,
-                size: 50,
-              ),
-              Text("JogjaRide")
-            ],
-          ),
-          Column(
-            children: [
-              Icon(
-                Icons.abc,
-                size: 50,
-              ),
-              Text("JogjaRide")
-            ],
-          ),
-          Column(
-            children: [
-              Icon(
-                Icons.abc,
-                size: 50,
-              ),
-              Text("JogjaRide")
-            ],
-          ),
+          Text(
+            name,
+            style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                color: Color.fromARGB(255, 59, 52, 53)),
+          )
         ],
       ),
     );
