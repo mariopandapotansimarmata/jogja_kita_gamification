@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/view/home.dart';
+import 'package:jogja_kita_gamification/views/home/home.dart';
 
 void main() {
   runApp(const MyApp());
