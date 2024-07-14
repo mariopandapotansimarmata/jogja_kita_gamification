@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../../component/profile_badges.dart';
+
 class LocationWidget extends StatefulWidget {
   const LocationWidget({super.key});
 
@@ -17,7 +19,7 @@ class _LocationWidgetState extends State<LocationWidget> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             height: MediaQuery.of(context).size.height * 0.09,
             width: MediaQuery.of(context).size.width * 0.5 - 16,
@@ -36,7 +38,7 @@ class _LocationWidgetState extends State<LocationWidget> {
               ],
             ),
           ),
-          Container(
+          SizedBox(
             // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             width: MediaQuery.of(context).size.width * 0.3,
             child: const Row(
@@ -51,7 +53,7 @@ class _LocationWidgetState extends State<LocationWidget> {
           Column(
             children: [
               Container(
-                padding: EdgeInsetsDirectional.only(top: 10),
+                padding: const EdgeInsetsDirectional.only(top: 10),
                 height: MediaQuery.of(context).size.height * 0.08,
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,27 +67,5 @@ class _LocationWidgetState extends State<LocationWidget> {
         ],
       ),
     );
-  }
-}
-
-class ProfileBadges extends StatelessWidget {
-  const ProfileBadges({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Stack(children: [
-      Container(
-          height: 60,
-          width: 60,
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(50),
-              border: Border.all(color: Color(0xff36AE7C), width: 4),
-              color: const Color(0xffCAC6C5)),
-          child: const Icon(
-            Icons.person,
-            color: Colors.white,
-            size: 50,
-          )),
-    ]);
   }
 }

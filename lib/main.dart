@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/views/home/home.dart';
+import 'package:jogja_kita_gamification/screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
         useMaterial3: true,
       ),
-      home: const HomePage(),
+      home: const Screen(),
     );
   }
 }
