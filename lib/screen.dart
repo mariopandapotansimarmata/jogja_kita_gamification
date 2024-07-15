@@ -23,38 +23,41 @@ class _ScreenState extends State<Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        bottomNavigationBar: BottomNavigationBar(
-          elevation: 0,
-          enableFeedback: false,
-          type: BottomNavigationBarType.fixed,
-          iconSize: 28,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home,
+        bottomNavigationBar: SizedBox(
+          height: MediaQuery.of(context).size.height * 0.07,
+          child: BottomNavigationBar(
+            elevation: 0,
+            enableFeedback: false,
+            type: BottomNavigationBarType.fixed,
+            iconSize: 28,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                ),
+                label: 'Home',
               ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.play_circle_fill),
-              label: 'Video',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.video_call),
-              label: 'Posting',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.list_alt),
-              label: 'Posting',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person),
-              label: 'Profil',
-            ),
-          ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: const Color(0xffB30F10),
-          onTap: _onItemTapped,
+              BottomNavigationBarItem(
+                icon: Icon(Icons.play_circle_fill),
+                label: 'Video',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.video_call),
+                label: 'Posting',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.list_alt),
+                label: 'Posting',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person),
+                label: 'Profil',
+              ),
+            ],
+            currentIndex: _selectedIndex,
+            selectedItemColor: const Color(0xffB30F10),
+            onTap: _onItemTapped,
+          ),
         ),
         appBar: _selectedIndex == 0
             ? AppBar(
@@ -93,10 +96,10 @@ class _ScreenState extends State<Screen> {
                   ),
                 ],
               )
-            : const PreferredSize(
-                preferredSize: Size.fromHeight(0),
+            : PreferredSize(
+                preferredSize: const Size.fromHeight(0),
                 child: SizedBox(
-                  height: 50,
+                  height: MediaQuery.of(context).size.height * 0.06,
                 )),
         body: <Widget>[
           const HomePage(),

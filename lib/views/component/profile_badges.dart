@@ -11,7 +11,8 @@ class ProfileBadges extends StatelessWidget {
           width: size + 10,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
-              border: Border.all(color: const Color(0xff36AE7C), width: 4),
+              border: Border.all(
+                  color: const Color(0xff36AE7C), width: size <= 30 ? 2 : 4),
               color: const Color(0xffCAC6C5)),
           child: Icon(
             Icons.person,

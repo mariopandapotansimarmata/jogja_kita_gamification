@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/card_follower.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/exp_bar.dart';
+import 'package:jogja_kita_gamification/views/profile/profile_widget/profile_navbar.dart';
+import 'package:jogja_kita_gamification/views/profile/profile_widget/video_views.dart/leaderboard.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -18,7 +20,7 @@ class _ProfilPageState extends State<ProfilePage> {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
           // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-          height: MediaQuery.of(context).size.height * 0.35,
+          height: MediaQuery.of(context).size.height * 0.4,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -99,6 +101,27 @@ class _ProfilPageState extends State<ProfilePage> {
             ],
           ),
         ),
+        const Row(
+          children: [
+            ProfileNavbar(
+              label: "Video Kamu",
+              selected: true,
+            ),
+            ProfileNavbar(
+              label: "Video Disukai",
+              selected: false,
+            ),
+            ProfileNavbar(
+              label: "LeaderBoard",
+              selected: false,
+            ),
+          ],
+        ),
+        Container(
+          height: MediaQuery.of(context).size.height * 0.42,
+          // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+          child: Leaderboard(),
+        )
       ],
     );
   }
