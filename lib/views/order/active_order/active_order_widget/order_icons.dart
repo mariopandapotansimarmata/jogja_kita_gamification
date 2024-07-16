@@ -50,7 +50,8 @@ class ContactIcon extends StatelessWidget {
       height: size + 15,
       width: size + 15,
       decoration: BoxDecoration(
-          color: Color(0xffD53737), borderRadius: BorderRadius.circular(50)),
+          color: const Color(0xffD53737),
+          borderRadius: BorderRadius.circular(50)),
       child: Icon(
         icon,
         size: size,

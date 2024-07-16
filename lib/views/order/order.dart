@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order.dart';
+import 'package:jogja_kita_gamification/views/order/history_order/history_order.dart';
 
 class OrderPage extends StatefulWidget {
   const OrderPage({super.key});
@@ -14,7 +15,7 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 0,
+      initialIndex: 1,
       length: 2,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -56,7 +57,7 @@ class _OrderPageState extends State<OrderPage> {
           body: const TabBarView(
             children: <Widget>[
               ActiveOrder(),
-              Text("It's cloudy here"),
+              HistoryOrder(),
             ],
           ),
         ),

@@ -16,30 +16,28 @@ class DriverCard extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Container(
+          SizedBox(
             // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             width: MediaQuery.of(context).size.width * 0.6,
-            child: Row(
+            child: const Row(
               children: [
-                const DriverProfileIcon(size: 35),
-                const SizedBox(
+                DriverProfileIcon(size: 35),
+                SizedBox(
                   width: 10,
                 ),
-                Container(
-                  child: const Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "Christian Cahyo Saputra",
-                        style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                            fontWeight: FontWeight.w900),
-                      ),
-                      Text("Xride | AB 5920")
-                    ],
-                  ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Christian Cahyo Saputra",
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w900),
+                    ),
+                    Text("Xride | AB 5920")
+                  ],
                 )
               ],
             ),

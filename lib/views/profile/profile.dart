@@ -117,10 +117,10 @@ class _ProfilPageState extends State<ProfilePage> {
             ),
           ],
         ),
-        Container(
+        SizedBox(
           height: MediaQuery.of(context).size.height * 0.42,
           // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
-          child: Leaderboard(),
+          child: const Leaderboard(),
         )
       ],
     );

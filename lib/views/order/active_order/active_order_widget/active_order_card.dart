@@ -7,9 +7,9 @@ class ActiveOrderCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return const SizedBox(
       height: 86,
-      child: const Row(
+      child: Row(
         children: [
           ActiveOrderIcon(
             size: 75,
