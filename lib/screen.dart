@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
+import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
 
 class Screen extends StatefulWidget {
@@ -12,7 +13,7 @@ class Screen extends StatefulWidget {
 //
 
 class _ScreenState extends State<Screen> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 3;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -105,7 +106,7 @@ class _ScreenState extends State<Screen> {
           const HomePage(),
           const HomePage(),
           const HomePage(),
-          const HomePage(),
+          const OrderPage(),
           const ProfilePage()
         ][_selectedIndex]);
   }
