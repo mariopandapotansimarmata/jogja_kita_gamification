@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogj_ride.dart';
 import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
 
@@ -13,7 +14,7 @@ class Screen extends StatefulWidget {
 //
 
 class _ScreenState extends State<Screen> {
-  int _selectedIndex = 0;
+  int _selectedIndex = 2;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -30,7 +31,7 @@ class _ScreenState extends State<Screen> {
             elevation: 0,
             enableFeedback: false,
             type: BottomNavigationBarType.fixed,
-            iconSize: 28,
+            iconSize: 25,
             items: const <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(
@@ -105,7 +106,7 @@ class _ScreenState extends State<Screen> {
         body: <Widget>[
           const HomePage(),
           const HomePage(),
-          const HomePage(),
+          OrderJogjaRide(),
           const OrderPage(),
           const ProfilePage()
         ][_selectedIndex]);

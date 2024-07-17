@@ -54,7 +54,7 @@ class _LocationWidgetState extends State<LocationWidget> {
             children: [
               Container(
                 padding: const EdgeInsetsDirectional.only(top: 10),
-                height: MediaQuery.of(context).size.height * 0.08,
+                height: MediaQuery.of(context).size.height * 0.082,
                 child: const Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [

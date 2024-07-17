@@ -1,9 +1,14 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
+import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
-class DraggableScrollableSheetExampleApp extends StatelessWidget {
-  const DraggableScrollableSheetExampleApp({super.key});
+class JogjaRide extends StatelessWidget {
+  const JogjaRide({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -47,8 +52,7 @@ class DraggableScrollableSheetExampleApp extends StatelessWidget {
                 ),
                 Positioned(
                     top: 50,
-                    child: Container(
-                        child: Column(
+                    child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
@@ -56,11 +60,11 @@ class DraggableScrollableSheetExampleApp extends StatelessWidget {
                           width: MediaQuery.of(context).size.width,
                           height:
                               (MediaQuery.of(context).size.height * 0.4) - 160,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               border: Border(
                                   bottom: BorderSide(color: Colors.grey)),
                               color: Colors.white,
-                              borderRadius: const BorderRadius.vertical(
+                              borderRadius: BorderRadius.vertical(
                                   top: Radius.circular(10))),
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -116,7 +120,7 @@ class DraggableScrollableSheetExampleApp extends StatelessWidget {
                             width: MediaQuery.of(context).size.width,
                             child: Column(
                               children: [
-                                Container(
+                                SizedBox(
                                     width: MediaQuery.of(context).size.width,
                                     child: const Text(
                                       "Alamat Tersimpan",
@@ -125,24 +129,17 @@ class DraggableScrollableSheetExampleApp extends StatelessWidget {
                                           fontWeight: FontWeight.bold),
                                     )),
                                 const Image(
-                                    width: 150,
+                                    width: 120,
                                     fit: BoxFit.cover,
                                     image:
                                         AssetImage("assets/address_none.png")),
-                                // Image.asset("assets/address_none.png")
                               ],
                             ))
                       ],
-                    ))),
+                    )),
               ],
             ),
-            body: const Column(
-              children: [
-                Center(
-                  child: Text("This is the Widget behind the sliding panel"),
-                ),
-              ],
-            ),
+            body: Container(child: const GoogleMapView()),
           ),
         ),
       ),

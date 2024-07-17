@@ -36,7 +36,7 @@ class _HomePageState extends State<HomePage> {
                       onTap: () {
                         Navigator.push(context, MaterialPageRoute(
                           builder: (context) {
-                            return const DraggableScrollableSheetExampleApp();
+                            return const JogjaRide();
                           },
                         ));
                       },

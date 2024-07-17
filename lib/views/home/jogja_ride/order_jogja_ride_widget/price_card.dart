@@ -1,0 +1,72 @@
+import 'package:flutter/material.dart';
+
+class PriceCardOrder extends StatelessWidget {
+  const PriceCardOrder(
+      {super.key,
+      required this.icon,
+      required this.name,
+      required this.price,
+      required this.color,
+      required this.isBordered});
+
+  final IconData icon;
+  final String name;
+  final String price;
+  final Color color;
+  final bool isBordered;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      height: 75,
+      decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(24),
+          border: isBordered
+              ? Border.all(color: const Color(0xffC21515))
+              : Border.all(color: Colors.transparent, width: 0)),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Icon(
+            icon,
+            size: 52,
+            color: Color(0xffB30F10),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width * 0.7,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      name,
+                      style:
+                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    Text(
+                      "9 Menit",
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 111, 111, 111),
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold),
+                    )
+                  ],
+                ),
+                Text(
+                  price,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
