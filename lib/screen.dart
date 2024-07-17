@@ -13,7 +13,7 @@ class Screen extends StatefulWidget {
 //
 
 class _ScreenState extends State<Screen> {
-  int _selectedIndex = 3;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {

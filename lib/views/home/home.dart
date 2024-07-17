@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
 
 import 'home_widget/location_widget.dart';
 import 'home_widget/recomendation.dart';
@@ -25,17 +26,27 @@ class _HomePageState extends State<HomePage> {
               SizedBox(
                 height: MediaQuery.of(context).size.height * 0.19,
               ),
-              const Padding(
-                padding: EdgeInsets.symmetric(horizontal: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ServiceIcon(
-                        name: "Jogja Ride", icon: Icons.directions_bike),
-                    ServiceIcon(name: "Jogja Car", icon: Icons.car_repair),
-                    ServiceIcon(name: "Jogja Food", icon: Icons.fastfood),
-                    ServiceIcon(name: "Jogja Kurir", icon: Icons.pages),
+                    InkWell(
+                      onTap: () {
+                        Navigator.push(context, MaterialPageRoute(
+                          builder: (context) {
+                            return const DraggableScrollableSheetExampleApp();
+                          },
+                        ));
+                      },
+                      child: const ServiceIcon(
+                          name: "Jogja Ride", icon: Icons.directions_bike),
+                    ),
+                    const ServiceIcon(
+                        name: "Jogja Car", icon: Icons.car_repair),
+                    const ServiceIcon(name: "Jogja Food", icon: Icons.fastfood),
+                    const ServiceIcon(name: "Jogja Kurir", icon: Icons.pages),
                   ],
                 ),
               ),

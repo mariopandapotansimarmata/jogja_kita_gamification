@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/order/history_order/history_order_widget/history_order_widget.dart';
 
 class HistoryOrder extends StatelessWidget {
@@ -11,27 +12,9 @@ class HistoryOrder extends StatelessWidget {
       children: [
         Container(
           margin: const EdgeInsets.only(top: 30, bottom: 20),
-          height: 49,
-          child: TextFormField(
-            decoration: const InputDecoration(
-              hintStyle: TextStyle(
-                color: Color.fromARGB(255, 135, 131, 132),
-              ),
-              hintText: "Cari resto, menu, atau tujuan.",
-              prefixIcon: Icon(
-                color: Color.fromARGB(255, 161, 155, 156),
-                Icons.search,
-                size: 30,
-              ),
-              filled: true,
-              fillColor: Color.fromARGB(255, 230, 228, 228),
-              focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent, width: 0),
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-              enabledBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.transparent, width: 0),
-                  borderRadius: BorderRadius.all(Radius.circular(12))),
-            ),
+          child: const FormFieldText(
+            icon: Icons.search,
+            name: 'Cari resto, menu, tujuan',
           ),
         ),
         const Column(
