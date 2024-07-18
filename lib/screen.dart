@@ -106,7 +106,7 @@ class _ScreenState extends State<Screen> {
         body: <Widget>[
           const HomePage(),
           const HomePage(),
-          OrderJogjaRide(),
+          const OrderJogjaRide(),
           const OrderPage(),
           const ProfilePage()
         ][_selectedIndex]);

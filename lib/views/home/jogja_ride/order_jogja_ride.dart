@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
-import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/price_card.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+
+import 'order_jogja_ride_widget/price_card.dart';
 
 class OrderJogjaRide extends StatefulWidget {
   const OrderJogjaRide({super.key});
@@ -32,6 +34,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        AppBar(),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           width: MediaQuery.of(context).size.width,

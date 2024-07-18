@@ -13,7 +13,7 @@ class FormFieldText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       // margin: const EdgeInsets.only(top: 30, bottom: 20),
       height: 49,
       child: TextFormField(

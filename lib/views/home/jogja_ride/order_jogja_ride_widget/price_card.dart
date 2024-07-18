@@ -33,9 +33,9 @@ class PriceCardOrder extends StatelessWidget {
           Icon(
             icon,
             size: 52,
-            color: Color(0xffB30F10),
+            color: const Color(0xffB30F10),
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width * 0.7,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -46,10 +46,10 @@ class PriceCardOrder extends StatelessWidget {
                   children: [
                     Text(
                       name,
-                      style:
-                          TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                    Text(
+                    const Text(
                       "9 Menit",
                       style: TextStyle(
                           color: Color.fromARGB(255, 111, 111, 111),
@@ -60,7 +60,8 @@ class PriceCardOrder extends StatelessWidget {
                 ),
                 Text(
                   price,
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 18, fontWeight: FontWeight.bold),
                 )
               ],
             ),

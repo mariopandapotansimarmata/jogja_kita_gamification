@@ -1,8 +1,4 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
@@ -139,7 +135,7 @@ class JogjaRide extends StatelessWidget {
                     )),
               ],
             ),
-            body: Container(child: const GoogleMapView()),
+            body: const GoogleMapView(),
           ),
         ),
       ),
