@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogj_ride.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class JogjaRide extends StatelessWidget {
@@ -75,37 +76,45 @@ class JogjaRide extends StatelessWidget {
                                 iconColor: Color(0xffCA110F),
                                 name: "Cari Lokasi Tujuan",
                               ),
-                              Container(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 10),
-                                child: const Row(
-                                  children: [
-                                    Icon(
-                                      Icons.map,
-                                      color: Color(0xffCA110F),
-                                    ),
-                                    SizedBox(
-                                      width: 15,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          "Pilih lokasi dari maps",
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        Text(
-                                          "Cari lokasi dengan geser-geser maps",
-                                          style: TextStyle(
-                                              color: Color.fromARGB(
-                                                  255, 116, 115, 116)),
-                                        )
-                                      ],
-                                    ),
-                                  ],
+                              InkWell(
+                                onTap: () =>
+                                    Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return const OrderJogjaRide();
+                                  },
+                                )),
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 10),
+                                  child: const Row(
+                                    children: [
+                                      Icon(
+                                        Icons.map,
+                                        color: Color(0xffCA110F),
+                                      ),
+                                      SizedBox(
+                                        width: 15,
+                                      ),
+                                      Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "Pilih lokasi dari maps",
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Cari lokasi dengan geser-geser maps",
+                                            style: TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 116, 115, 116)),
+                                          )
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],

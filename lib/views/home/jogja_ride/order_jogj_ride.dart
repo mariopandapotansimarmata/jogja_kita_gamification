@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/price_card.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
@@ -21,8 +22,8 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
       home: Scaffold(
         body: SafeArea(
           child: SlidingUpPanel(
-            minHeight: MediaQuery.of(context).size.height * 0.38,
-            maxHeight: MediaQuery.of(context).size.height * 0.38,
+            minHeight: MediaQuery.of(context).size.height * 0.45,
+            maxHeight: MediaQuery.of(context).size.height * 0.45,
             isDraggable: false,
             panel: Stack(
               alignment: Alignment.topLeft,
@@ -32,6 +33,10 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
+                        // AppBar(
+                        //   leading: Icon(Icons.abc),
+                        //   backgroundColor: Colors.transparent,
+                        // ),
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 16),
                           width: MediaQuery.of(context).size.width,
@@ -116,30 +121,101 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                           ),
                         ),
                         Container(
+                            height: 150,
                             padding: const EdgeInsets.all(16),
                             width: MediaQuery.of(context).size.width,
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                               children: [
                                 SizedBox(
                                     width: MediaQuery.of(context).size.width,
-                                    child: const Text(
-                                      "Alamat Tersimpan",
-                                      style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold),
+                                    child: const Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        BottomPayment(
+                                          icon: Icon(
+                                            Icons.payments_outlined,
+                                            color: Color(0xffCA110F),
+                                          ),
+                                          name: "Tunai",
+                                        ),
+                                        SizedBox(
+                                          width: 10,
+                                        ),
+                                        BottomPayment(
+                                          icon: Icon(
+                                            Icons.discount,
+                                            color: Color(0xff299640),
+                                          ),
+                                          name: "Pakai Voucher",
+                                        ),
+                                        Icon(Icons.more_horiz)
+                                      ],
                                     )),
-                                const Image(
-                                    width: 120,
-                                    fit: BoxFit.cover,
-                                    image:
-                                        AssetImage("assets/address_none.png")),
+                                Container(
+                                  height: 60,
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                          backgroundColor:
+                                              const Color(0xffCB1112)),
+                                      onPressed: () {},
+                                      child: const Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            "Pesan Sekarang",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "Rp 12.000",
+                                            style: TextStyle(
+                                                color: Colors.white,
+                                                fontWeight: FontWeight.bold),
+                                          )
+                                        ],
+                                      )),
+                                )
                               ],
                             ))
                       ],
                     )),
               ],
             ),
-            body: const GoogleMapView(),
+            body: Stack(
+              children: [
+                const GoogleMapView(),
+                Positioned(
+                    left: 16,
+                    top: MediaQuery.of(context).size.height * 0.42,
+                    child: InkWell(
+                      onTap: () => Navigator.pop(context),
+                      child: Container(
+                          height: 45,
+                          width: 45,
+                          decoration: BoxDecoration(
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  spreadRadius: 5,
+                                  blurRadius: 7,
+                                  offset: const Offset(0, 3),
+                                )
+                              ],
+                              color: Colors.white,
+                              // border: Border.all(color: Colors.black),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(50))),
+                          child: const Icon(
+                            Icons.arrow_back,
+                            weight: 50,
+                          )),
+                    )),
+              ],
+            ),
           ),
         ),
       ),

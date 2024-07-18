@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
-import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogj_ride.dart';
 import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
+
+import 'views/home/jogja_ride/order_jogj_ride.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
