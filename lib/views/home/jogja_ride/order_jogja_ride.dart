@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/price_card.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/pickup_jogja_ride.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
+import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 
 class OrderJogjaRide extends StatefulWidget {
   const OrderJogjaRide({super.key});
@@ -159,7 +161,39 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       style: ElevatedButton.styleFrom(
                                           backgroundColor:
                                               const Color(0xffCB1112)),
-                                      onPressed: () {},
+                                      onPressed: () async {
+                                        OverlayLoadingProgress.start(context,
+                                            widget: const Scaffold(
+                                              backgroundColor:
+                                                  Colors.transparent,
+                                              body: Center(
+                                                child: Column(
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
+                                                  children: [
+                                                    CircularProgressIndicator(),
+                                                    Text(
+                                                      "Pesanan sedang di proses",
+                                                      style: TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 20,
+                                                          fontWeight:
+                                                              FontWeight.bold),
+                                                    )
+                                                  ],
+                                                ),
+                                              ),
+                                            ));
+                                        await Future.delayed(
+                                            const Duration(seconds: 2));
+                                        OverlayLoadingProgress.stop();
+                                        Navigator.push(context,
+                                            MaterialPageRoute(
+                                          builder: (context) {
+                                            return const PickupJogjaRide();
+                                          },
+                                        ));
+                                      },
                                       child: const Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,

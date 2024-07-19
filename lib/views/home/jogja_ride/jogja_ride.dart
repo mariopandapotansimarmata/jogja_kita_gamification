@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
-import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogj_ride.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 class JogjaRide extends StatelessWidget {

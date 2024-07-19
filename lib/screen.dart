@@ -3,7 +3,7 @@ import 'package:jogja_kita_gamification/views/home/home.dart';
 import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
 
-import 'views/home/jogja_ride/order_jogj_ride.dart';
+import 'views/home/jogja_ride/order_jogja_ride.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -15,7 +15,7 @@ class Screen extends StatefulWidget {
 //
 
 class _ScreenState extends State<Screen> {
-  int _selectedIndex = 2;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
