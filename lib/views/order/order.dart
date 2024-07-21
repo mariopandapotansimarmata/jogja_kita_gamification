@@ -15,7 +15,7 @@ class _OrderPageState extends State<OrderPage> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      initialIndex: 1,
+      initialIndex: 0,
       length: 2,
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),

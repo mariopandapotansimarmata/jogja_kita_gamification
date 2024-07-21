@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/core/db/order_db.dart';
+import 'package:jogja_kita_gamification/core/model/order_model.dart';
+import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/price_card.dart';
@@ -15,6 +18,28 @@ class OrderJogjaRide extends StatefulWidget {
 
 class _OrderJogjaRideState extends State<OrderJogjaRide> {
   bool light = true;
+  bool isLoading = false;
+
+  OrderDb orderDB = OrderDb.instance;
+
+  Future<void> createNote() async {
+    setState(() {
+      isLoading = true;
+    });
+
+    final data = OrderModel(
+        isFinish: 0,
+        userId: currentUser!.userId.toString(),
+        dateTime: DateTime.now().toIso8601String(),
+        amount: 20000);
+
+    await orderDB.create(data);
+
+    setState(() {
+      isLoading = false;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -162,6 +187,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                           backgroundColor:
                                               const Color(0xffCB1112)),
                                       onPressed: () async {
+                                        createNote();
                                         OverlayLoadingProgress.start(context,
                                             widget: const Scaffold(
                                               backgroundColor:
@@ -184,6 +210,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                                 ),
                                               ),
                                             ));
+
                                         await Future.delayed(
                                             const Duration(seconds: 2));
                                         OverlayLoadingProgress.stop();

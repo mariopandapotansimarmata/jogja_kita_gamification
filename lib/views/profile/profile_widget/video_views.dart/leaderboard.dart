@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 
+import '../../../../core/db/user_db.dart';
+import '../../../../core/model/user_model.dart';
+
 class Leaderboard extends StatefulWidget {
   const Leaderboard({super.key});
 
@@ -9,13 +12,38 @@ class Leaderboard extends StatefulWidget {
 }
 
 class _LeaderboardState extends State<Leaderboard> {
+  UserDb userDb = UserDb.instance;
+
+  List<UserModel> usersList = [];
+
+  @override
+  void initState() {
+    refreshNotes();
+    super.initState();
+  }
+
+  // @override
+  // void dispose() {
+  //   userDb.jogjaKitaDb.close();
+  //   super.dispose();
+  // }
+
+  Future<void> refreshNotes() async {
+    final users = await userDb.readAll();
+    setState(() {
+      usersList = users;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.builder(
-          itemCount: 10,
+          itemCount: usersList.length,
           itemBuilder: (context, index) {
+            final user = usersList[index];
+
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 9),
               child: Column(
@@ -45,16 +73,16 @@ class _LeaderboardState extends State<Leaderboard> {
                           const SizedBox(
                             width: 15,
                           ),
-                          const Text(
-                            "Mario Pandapotan Simarmata",
-                            style: TextStyle(
+                          Text(
+                            "${user.name}",
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           )
                         ],
                       ),
-                      const Text(
-                        "8450",
-                        style: TextStyle(
+                      Text(
+                        "${user.exp}",
+                        style: const TextStyle(
                             fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                     ],

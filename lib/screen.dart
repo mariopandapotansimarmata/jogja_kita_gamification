@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
 import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
+import 'package:jogja_kita_gamification/views/temp_page.dart';
 
 import 'views/home/jogja_ride/order_jogja_ride.dart';
 
@@ -106,7 +107,7 @@ class _ScreenState extends State<Screen> {
                 )),
         body: <Widget>[
           const HomePage(),
-          const HomePage(),
+          const TempPage(),
           const OrderJogjaRide(),
           const OrderPage(),
           const ProfilePage()

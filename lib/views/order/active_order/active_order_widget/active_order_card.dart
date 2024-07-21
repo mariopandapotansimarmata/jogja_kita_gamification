@@ -3,11 +3,25 @@ import 'package:flutter/material.dart';
 import 'order_icons.dart';
 
 class ActiveOrderCard extends StatelessWidget {
-  const ActiveOrderCard({super.key});
+  const ActiveOrderCard(
+      {super.key,
+      required this.orderId,
+      required this.dateTime,
+      required this.amount,
+      required this.isFinish});
+
+  // isFinish: false,
+  //     userId: currentUser!.userId.toString(),
+  //     dateTime: DateTime.now(),
+  //     amount: 20000);
+  final String orderId;
+  final String? dateTime;
+  final int amount;
+  final bool isFinish;
 
   @override
   Widget build(BuildContext context) {
-    return const SizedBox(
+    return SizedBox(
       height: 86,
       child: Row(
         children: [
@@ -40,7 +54,7 @@ class ActiveOrderCard extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                "12:20-1230",
+                dateTime!,
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )
             ],

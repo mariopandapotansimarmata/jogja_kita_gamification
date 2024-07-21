@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/main.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
@@ -120,6 +121,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const LocationWidget(),
+          Text(currentUser!.userName ?? "no data"),
           const BonusCard()
         ],
       ),
