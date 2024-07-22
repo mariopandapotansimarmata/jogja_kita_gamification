@@ -3,7 +3,7 @@ import 'package:jogja_kita_gamification/core/db/user_db.dart';
 import 'package:jogja_kita_gamification/core/model/user_model.dart';
 import 'package:jogja_kita_gamification/screen.dart';
 
-import 'views/home/jogja_ride/pickup_jogja_ride.dart';
+import 'views/order/active_order/active_order.dart';
 
 UserModel? currentUser;
 

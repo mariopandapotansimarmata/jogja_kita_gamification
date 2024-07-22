@@ -7,9 +7,6 @@ import 'package:sliding_up_panel/sliding_up_panel.dart';
 
 import '../../component/google_maps.dart';
 
-final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
-    GlobalKey<ScaffoldMessengerState>();
-
 class PickupJogjaRide extends StatefulWidget {
   const PickupJogjaRide({
     super.key,
@@ -23,12 +20,12 @@ class PickupJogjaRide extends StatefulWidget {
 class _PickupJogjaRideState extends State<PickupJogjaRide> {
   @override
   Widget build(BuildContext context) {
-    Future.delayed(const Duration(seconds: 5), () {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
-        content: Text('Returned from Second Screen'),
-      ));
-    });
+    // Future.delayed(const Duration(seconds: 5), () {
+    //   Navigator.of(context).popUntil((route) => route.isFirst);
+    //   scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
+    //     content: Text('Returned from Second Screen'),
+    //   ));
+    // });
 
     return MaterialApp(
       theme: ThemeData(
@@ -52,7 +49,10 @@ class _PickupJogjaRideState extends State<PickupJogjaRide> {
                   child: AppBar(
                     // centerTitle: true,
                     leading: IconButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context)
+                            .popUntil((route) => route.isFirst);
+                      },
                       icon: const Icon(Icons.arrow_back),
                       color: Colors.white,
                     ),

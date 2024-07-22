@@ -2,22 +2,20 @@ import 'package:flutter/material.dart';
 
 import 'order_icons.dart';
 
-class ActiveOrderCard extends StatelessWidget {
-  const ActiveOrderCard(
+class ActiveOrderRideCard extends StatelessWidget {
+  const ActiveOrderRideCard(
       {super.key,
       required this.orderId,
       required this.dateTime,
       required this.amount,
-      required this.isFinish});
+      required this.isFinish,
+      required this.icon});
 
-  // isFinish: false,
-  //     userId: currentUser!.userId.toString(),
-  //     dateTime: DateTime.now(),
-  //     amount: 20000);
   final String orderId;
   final String? dateTime;
   final int amount;
   final bool isFinish;
+  final IconData icon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,27 +24,28 @@ class ActiveOrderCard extends StatelessWidget {
       child: Row(
         children: [
           ActiveOrderIcon(
+            icon: icon,
             size: 75,
           ),
-          SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
+              const Text(
                 "Mie Gacoan, Gejayan",
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
-              Text(
+              const Text(
                 "Driver menuju resto Mie Gacoan, Gejayan",
                 style: TextStyle(
                     fontSize: 12,
                     color: Color(0xffAB1F21),
                     fontWeight: FontWeight.bold),
               ),
-              Text(
+              const Text(
                 "Pesanan diperkirakan akan tiba",
                 style: TextStyle(
                     fontSize: 12,
@@ -55,7 +54,8 @@ class ActiveOrderCard extends StatelessWidget {
               ),
               Text(
                 dateTime!,
-                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
+                style:
+                    const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )
             ],
           )

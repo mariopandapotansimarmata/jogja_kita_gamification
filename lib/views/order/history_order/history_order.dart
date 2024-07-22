@@ -1,14 +1,39 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/order/history_order/history_order_widget/history_order_widget.dart';
 
-class HistoryOrder extends StatelessWidget {
+import '../../../core/db/order_db.dart';
+import '../../../core/model/order_model.dart';
+
+class HistoryOrder extends StatefulWidget {
   const HistoryOrder({super.key});
 
   @override
+  State<HistoryOrder> createState() => _HistoryOrderState();
+}
+
+class _HistoryOrderState extends State<HistoryOrder> {
+  OrderDb orderDb = OrderDb.instance;
+  List<OrderModel> listOrders = [];
+
+  @override
+  void initState() {
+    showAllOrders();
+    super.initState();
+  }
+
+  Future<void> showAllOrders() async {
+    final orders = await orderDb.readAll();
+    setState(() {
+      listOrders = orders;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ListView(
-      shrinkWrap: true,
+    return Column(
       children: [
         Container(
           margin: const EdgeInsets.only(top: 30, bottom: 20),
@@ -21,7 +46,7 @@ class HistoryOrder extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Pesanan Aktif",
+              "Riwayat Pesanan",
               style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
             ),
             Text(
@@ -35,20 +60,47 @@ class HistoryOrder extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        const HistoryOrderCard(),
         Container(
-          margin: const EdgeInsets.only(top: 20),
-          height: 42,
-          width: MediaQuery.of(context).size.width * 0.8,
-          child: ElevatedButton(
-              onPressed: () {},
-              style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xffAB1F21),
-                  shadowColor: Colors.transparent),
-              child: const Text(
-                "Pesan Lagi",
-                style: TextStyle(color: Colors.white),
-              )),
+          height: 400,
+          child: ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                OrderModel order = listOrders[index];
+                return Column(
+                  children: [
+                    HistoryOrderCard(
+                      icon: order.orderCategory == "ride"
+                          ? Icons.directions_bike
+                          : Icons.fastfood,
+                      orderId: order.orderId!,
+                      amount: order.amount!,
+                      dateTime: order.dateTime!,
+                      orderCategory: order.orderCategory!,
+                      orderName: order.orderName!,
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(top: 20),
+                      height: 42,
+                      width: MediaQuery.of(context).size.width,
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                                backgroundColor: const Color(0xffAB1F21),
+                                shadowColor: Colors.transparent),
+                            child: const Text(
+                              "Pesan Lagi",
+                              style: TextStyle(color: Colors.white),
+                            )),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 25,
+                    )
+                  ],
+                );
+              }),
         ),
       ],
     );

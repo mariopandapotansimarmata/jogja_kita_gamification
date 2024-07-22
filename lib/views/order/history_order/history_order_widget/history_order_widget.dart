@@ -3,7 +3,20 @@ import 'package:flutter/material.dart';
 import '../../active_order/active_order_widget/order_icons.dart';
 
 class HistoryOrderCard extends StatelessWidget {
-  const HistoryOrderCard({super.key});
+  const HistoryOrderCard(
+      {super.key,
+      required this.orderId,
+      required this.dateTime,
+      required this.amount,
+      required this.orderName,
+      required this.orderCategory,
+      required this.icon});
+  final IconData icon;
+  final int orderId;
+  final String dateTime;
+  final String orderName;
+  final String orderCategory;
+  final int amount;
 
   @override
   Widget build(BuildContext context) {
@@ -11,8 +24,9 @@ class HistoryOrderCard extends StatelessWidget {
       // height: 86,
       child: Row(
         children: [
-          const ActiveOrderIcon(
+          ActiveOrderIcon(
             size: 75,
+            icon: icon,
           ),
           const SizedBox(
             width: 20,
@@ -21,8 +35,8 @@ class HistoryOrderCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Mie Gacoan, Gejayan",
+              Text(
+                orderName,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
               SizedBox(

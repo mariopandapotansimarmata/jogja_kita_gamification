@@ -28,6 +28,8 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
     });
 
     final data = OrderModel(
+        orderCategory: "ride",
+        orderName: "UPNYK Babarsari",
         isFinish: 0,
         userId: currentUser!.userId.toString(),
         dateTime: DateTime.now().toIso8601String(),

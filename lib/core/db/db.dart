@@ -45,6 +45,8 @@ class JogjaKitaDb {
       order_id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id VARCHAR NOT NULL,
       date_time DateTime NOT NULL,
+      order_name VARCHAR NOT NULL,
+      order_category VARCHAR NOT NULL,
       amount INTEGER NOT NULL,
       is_finish BOOL NOT NULL,
       FOREIGN KEY (user_id) REFERENCES users (user_id)                  

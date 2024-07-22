@@ -9,7 +9,7 @@ class DriverCard extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
           border: Border(
-              top: BorderSide(color: Colors.grey, width: 0.3),
+              // top: BorderSide(color: Colors.grey, width: 0.3),
               bottom: BorderSide(color: Colors.grey, width: 0.3))),
       height: 75,
       child: Row(

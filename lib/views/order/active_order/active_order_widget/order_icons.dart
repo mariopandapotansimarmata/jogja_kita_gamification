@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 class ActiveOrderIcon extends StatelessWidget {
-  const ActiveOrderIcon({super.key, required this.size});
+  const ActiveOrderIcon({super.key, required this.size, required this.icon});
   final double size;
+  final IconData icon;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -12,7 +13,7 @@ class ActiveOrderIcon extends StatelessWidget {
           color: const Color(0xffFCE7E9),
           borderRadius: BorderRadius.circular(50)),
       child: Icon(
-        Icons.fastfood,
+        icon,
         size: size,
         color: const Color(0xffB30F10),
       ),

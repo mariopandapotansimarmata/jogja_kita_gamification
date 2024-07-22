@@ -22,7 +22,9 @@ class OrderDb {
     final db = await jogjaKitaDb.database;
     final maps = await db.query(
       tableName,
-      columns: ["order_id, user_id, coupon_name, dicount, is_finish"],
+      columns: [
+        "order_id, user_id, date_time, order_name,order_category ,is_finish"
+      ],
       where: 'user_id = ?',
       whereArgs: [userId],
     );
@@ -32,6 +34,15 @@ class OrderDb {
     } else {
       throw Exception('ID $userId not found');
     }
+  }
+
+  Future<List<OrderModel>> readActiveOrders() async {
+    final db = await jogjaKitaDb.database;
+    const orderBy = 'order_id DESC';
+    final result = await db.query(tableName,
+        orderBy: orderBy, where: "is_finish = ?", whereArgs: [0]);
+
+    return result.map((json) => OrderModel.fromJson(json)).toList();
   }
 
   Future<List<OrderModel>> readAll() async {
@@ -48,7 +59,7 @@ class OrderDb {
     return db.update(
       tableName,
       order.toJson(),
-      where: 'coupon_id = ?',
+      where: 'order_id = ?',
       whereArgs: [order.orderId],
     );
   }

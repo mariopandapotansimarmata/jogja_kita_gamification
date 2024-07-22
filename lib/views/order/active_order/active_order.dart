@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/order_db.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
-import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
 
@@ -15,21 +13,36 @@ class ActiveOrder extends StatefulWidget {
   State<ActiveOrder> createState() => _ActiveOrderState();
 }
 
+final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
+    GlobalKey<ScaffoldMessengerState>();
+
 class _ActiveOrderState extends State<ActiveOrder> {
   OrderDb orderDb = OrderDb.instance;
   List<OrderModel> listOrders = [];
 
   @override
   void initState() {
-    refreshNotes();
+    showAllActiveOrder();
     super.initState();
   }
 
   Future<void> refreshNotes() async {
-    final orders = await orderDb.readAll();
+    final orders = await orderDb.readActiveOrders();
     setState(() {
       listOrders = orders;
     });
+  }
+
+  Future<void> showAllActiveOrder() async {
+    final orders = await orderDb.readActiveOrders();
+    setState(() {
+      listOrders = orders;
+    });
+  }
+
+  Future<void> updateFinishStatus(OrderModel order) async {
+    await orderDb.update(order);
+    refreshNotes();
   }
 
   @override
@@ -64,27 +77,48 @@ class _ActiveOrderState extends State<ActiveOrder> {
                     itemCount: listOrders.length,
                     itemBuilder: (context, index) {
                       final OrderModel order = listOrders[index];
-                      return InkWell(
-                          onTap: () =>
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return const PickupJogjaRide();
-                                },
+                      return Column(
+                        children: [
+                          InkWell(
+                              onTap: () =>
+                                  Navigator.push(context, MaterialPageRoute(
+                                    builder: (context) {
+                                      return const PickupJogjaRide();
+                                    },
+                                  )),
+                              child: Column(
+                                children: [
+                                  ActiveOrderRideCard(
+                                    icon: order.orderCategory == "ride"
+                                        ? Icons.directions_bike
+                                        : Icons.fastfood,
+                                    amount: order.amount!,
+                                    dateTime: order.dateTime,
+                                    isFinish: false,
+                                    orderId: order.orderId.toString(),
+                                  ),
+                                ],
                               )),
-                          child: Column(
-                            children: [
-                              ActiveOrderCard(
-                                amount: order.amount!,
-                                dateTime: order.dateTime,
-                                isFinish: false,
-                                orderId: order.orderId.toString(),
-                              ),
-                              const DriverCard(),
-                              const SizedBox(
-                                height: 20,
-                              ),
-                            ],
-                          ));
+                          InkWell(
+                              onLongPress: () {
+                                setState(() {
+                                  listOrders.removeAt(index);
+                                });
+                                order.setIsFinish = 1;
+                                updateFinishStatus(order);
+
+                                scaffoldMessengerKey.currentState?.showSnackBar(
+                                  const SnackBar(
+                                    content: Text('Order '),
+                                  ),
+                                );
+                              },
+                              child: const DriverCard()),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                        ],
+                      );
                     }),
           ),
         ],
