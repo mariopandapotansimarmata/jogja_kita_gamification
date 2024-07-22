@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/order/history_order/history_order_widget/history_order_widget.dart';
@@ -60,47 +58,49 @@ class _HistoryOrderState extends State<HistoryOrder> {
         const SizedBox(
           height: 20,
         ),
-        Container(
+        SizedBox(
           height: 400,
-          child: ListView.builder(
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                OrderModel order = listOrders[index];
-                return Column(
-                  children: [
-                    HistoryOrderCard(
-                      icon: order.orderCategory == "ride"
-                          ? Icons.directions_bike
-                          : Icons.fastfood,
-                      orderId: order.orderId!,
-                      amount: order.amount!,
-                      dateTime: order.dateTime!,
-                      orderCategory: order.orderCategory!,
-                      orderName: order.orderName!,
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 20),
-                      height: 42,
-                      width: MediaQuery.of(context).size.width,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        child: ElevatedButton(
-                            onPressed: () {},
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xffAB1F21),
-                                shadowColor: Colors.transparent),
-                            child: const Text(
-                              "Pesan Lagi",
-                              style: TextStyle(color: Colors.white),
-                            )),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 25,
-                    )
-                  ],
-                );
-              }),
+          child: listOrders.isEmpty
+              ? const Text("No Data Found")
+              : ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (context, index) {
+                    OrderModel order = listOrders[index];
+                    return Column(
+                      children: [
+                        HistoryOrderCard(
+                          icon: order.orderCategory == "ride"
+                              ? Icons.directions_bike
+                              : Icons.fastfood,
+                          orderId: order.orderId!,
+                          amount: order.amount!,
+                          dateTime: order.dateTime!,
+                          orderCategory: order.orderCategory!,
+                          orderName: order.orderName!,
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(top: 20),
+                          height: 42,
+                          width: MediaQuery.of(context).size.width,
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width,
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                style: ElevatedButton.styleFrom(
+                                    backgroundColor: const Color(0xffAB1F21),
+                                    shadowColor: Colors.transparent),
+                                child: const Text(
+                                  "Pesan Lagi",
+                                  style: TextStyle(color: Colors.white),
+                                )),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        )
+                      ],
+                    );
+                  }),
         ),
       ],
     );

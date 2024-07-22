@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/main.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class ExpBar extends StatelessWidget {
@@ -15,10 +16,10 @@ class ExpBar extends StatelessWidget {
       animation: true,
       lineHeight: 24.0,
       animationDuration: 2500,
-      percent: 0.8,
-      center: const Text(
-        "80.0%",
-        style: TextStyle(
+      percent: (currentUser!.exp! / 500),
+      center: Text(
+        "${currentUser!.exp.toString()} / 500",
+        style: const TextStyle(
             color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
       ),
       barRadius: const Radius.circular(20),

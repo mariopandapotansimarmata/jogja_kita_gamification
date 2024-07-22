@@ -65,13 +65,13 @@ class _ActiveOrderState extends State<ActiveOrder> {
           const SizedBox(
             height: 30,
           ),
-          Container(
+          SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.6,
             child: listOrders.isEmpty
                 ? const Text(
                     'No Notes yet',
-                    style: TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.black),
                   )
                 : ListView.builder(
                     itemCount: listOrders.length,

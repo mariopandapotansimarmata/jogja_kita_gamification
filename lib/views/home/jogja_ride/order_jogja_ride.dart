@@ -182,7 +182,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                         Icon(Icons.more_horiz)
                                       ],
                                     )),
-                                Container(
+                                SizedBox(
                                   height: 60,
                                   child: ElevatedButton(
                                       style: ElevatedButton.styleFrom(

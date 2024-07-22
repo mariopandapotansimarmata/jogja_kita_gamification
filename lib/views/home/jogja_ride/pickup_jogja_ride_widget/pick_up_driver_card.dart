@@ -6,7 +6,7 @@ class PickUpDriverCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       // decoration: const BoxDecoration(
       //     border: Border(
       //         top: BorderSide(color: Colors.grey, width: 0.3),

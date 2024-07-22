@@ -21,7 +21,7 @@ class DetailPickup extends StatelessWidget {
               ),
             ],
           ),
-          Container(
+          SizedBox(
             height: 120,
             child: Row(
               children: [
@@ -61,7 +61,7 @@ class DetailPickup extends StatelessWidget {
                             "UPNYK Kampus 1",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          const Text("Jl.Ringroad Utara",
+                          Text("Jl.Ringroad Utara",
                               style: TextStyle(fontSize: 13)),
                         ],
                       ),

@@ -57,31 +57,33 @@ class _TempPageState extends State<TempPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Data"),
+        title: const Text("Data"),
       ),
       body: ListView(
         children: [
           Container(
-            padding: EdgeInsets.all(16),
+            padding: const EdgeInsets.all(16),
             height: MediaQuery.of(context).size.height * 0.3,
             child: Column(
               children: [
                 TextField(
                   controller: nameController,
-                  decoration: InputDecoration(labelText: "Name"),
+                  decoration: const InputDecoration(labelText: "Name"),
                 ),
                 TextField(
                   controller: userNameController,
-                  decoration: InputDecoration(labelText: "Username"),
+                  decoration: const InputDecoration(labelText: "Username"),
                 ),
                 ElevatedButton(
                   onPressed: createNote, // Call the function here
-                  child: isLoading ? CircularProgressIndicator() : Text("Save"),
+                  child: isLoading
+                      ? const CircularProgressIndicator()
+                      : const Text("Save"),
                 ),
               ],
             ),
           ),
-          Container(
+          SizedBox(
             height: MediaQuery.of(context).size.height * 0.3,
             child: notes.isEmpty
                 ? const Text(
