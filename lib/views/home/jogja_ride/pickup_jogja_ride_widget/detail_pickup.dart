@@ -58,11 +58,15 @@ class DetailPickup extends StatelessWidget {
                                 fontSize: 12,
                               )),
                           Text(
-                            "UPNYK Kampus 1",
+                            "Mie Gacoan Gejayan",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Text("Jl.Ringroad Utara",
-                              style: TextStyle(fontSize: 13)),
+                          Row(
+                            children: [
+                              Text("Jl.Affandi ",
+                                  style: TextStyle(fontSize: 13)),
+                            ],
+                          ),
                         ],
                       ),
                     ),
@@ -76,15 +80,11 @@ class DetailPickup extends StatelessWidget {
                                 fontSize: 12,
                               )),
                           Text(
-                            "Mie Gacoan Gejayan",
+                            "UPNYK Kampus 1",
                             style: TextStyle(fontWeight: FontWeight.bold),
                           ),
-                          Row(
-                            children: [
-                              Text("Jl.Affandi ",
-                                  style: TextStyle(fontSize: 13)),
-                            ],
-                          ),
+                          Text("Jl.Ringroad Utara",
+                              style: TextStyle(fontSize: 13)),
                         ],
                       ),
                     ),

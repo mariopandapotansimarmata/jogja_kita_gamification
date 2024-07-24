@@ -5,6 +5,7 @@ import 'package:jogja_kita_gamification/views/profile/profile.dart';
 import 'package:jogja_kita_gamification/views/temp_page.dart';
 
 import 'views/home/jogja_ride/order_jogja_ride.dart';
+import 'views/order/active_order/active_order.dart';
 
 class Screen extends StatefulWidget {
   const Screen({super.key});
@@ -19,9 +20,26 @@ class _ScreenState extends State<Screen> {
   int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    if (index == 1 || index == 2) {
+      scaffoldMessengerKey.currentState?.showSnackBar(
+        const SnackBar(
+          // backgroundColor: Colors.blue[500],
+          content: Row(
+            children: [
+              Text('Halaman tidak bisa diakses'),
+              // Icon(
+              //   Icons.control_camera_outlined,
+              //   color: Colors.blue,
+              // ),
+            ],
+          ),
+        ),
+      );
+    } else {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
   }
 
   @override
@@ -51,7 +69,7 @@ class _ScreenState extends State<Screen> {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt),
-                label: 'Posting',
+                label: 'Pesanan',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.person),

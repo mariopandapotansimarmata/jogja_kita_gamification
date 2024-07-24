@@ -40,13 +40,13 @@ class UserDb {
     return result.map((json) => UserModel.fromJson(json)).toList();
   }
 
-  Future<int> update(UserModel note) async {
+  Future<int> update(UserModel user) async {
     final db = await jogjaKitaDb.database;
     return db.update(
       tableName,
-      note.toJson(),
-      where: 'userId = ?',
-      whereArgs: [note.userId],
+      user.toJson(),
+      where: 'user_name = ?',
+      whereArgs: [user.userName],
     );
   }
 

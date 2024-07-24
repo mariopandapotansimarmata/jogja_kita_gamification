@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/core/model/order_model.dart';
 
 import 'order_icons.dart';
 
 class ActiveOrderRideCard extends StatelessWidget {
-  const ActiveOrderRideCard(
-      {super.key,
-      required this.orderId,
-      required this.dateTime,
-      required this.amount,
-      required this.isFinish,
-      required this.icon});
+  const ActiveOrderRideCard({
+    super.key,
+    required this.order,
+  });
 
-  final String orderId;
-  final String? dateTime;
-  final int amount;
-  final bool isFinish;
-  final IconData icon;
+  // final String orderId;
+  // final String? dateTime;
+  // final int amount;
+  // final bool isFinish;
+  // final IconData icon;
+
+  final OrderModel order;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,9 @@ class ActiveOrderRideCard extends StatelessWidget {
       child: Row(
         children: [
           ActiveOrderIcon(
-            icon: icon,
+            icon: order.orderCategory == "ride"
+                ? Icons.directions_bike
+                : Icons.fastfood,
             size: 75,
           ),
           const SizedBox(
@@ -34,8 +36,8 @@ class ActiveOrderRideCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Mie Gacoan, Gejayan",
+              Text(
+                order.orderName!,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
               const Text(
@@ -46,14 +48,14 @@ class ActiveOrderRideCard extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               const Text(
-                "Pesanan diperkirakan akan tiba",
+                "Jl. Ringroad Utara",
                 style: TextStyle(
                     fontSize: 12,
                     color: Color.fromARGB(255, 88, 86, 87),
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                dateTime!,
+                order.dateTime!,
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )

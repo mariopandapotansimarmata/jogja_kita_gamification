@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/card_follower.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/exp_bar.dart';
@@ -6,7 +7,9 @@ import 'package:jogja_kita_gamification/views/profile/profile_widget/profile_nav
 import 'package:jogja_kita_gamification/views/profile/profile_widget/video_views.dart/leaderboard.dart';
 
 class ProfilePage extends StatefulWidget {
-  const ProfilePage({super.key});
+  const ProfilePage({
+    super.key,
+  });
 
   @override
   State<ProfilePage> createState() => _ProfilPageState();
@@ -53,7 +56,8 @@ class _ProfilPageState extends State<ProfilePage> {
                       )),
                 ],
               ),
-              const ProfileBadges(
+              ProfileBadges(
+                exp: currentUser!.exp!,
                 size: 60,
               ),
               const SizedBox(
@@ -105,7 +109,7 @@ class _ProfilPageState extends State<ProfilePage> {
           children: [
             ProfileNavbar(
               label: "Video Kamu",
-              selected: true,
+              selected: false,
             ),
             ProfileNavbar(
               label: "Video Disukai",
@@ -113,7 +117,7 @@ class _ProfilPageState extends State<ProfilePage> {
             ),
             ProfileNavbar(
               label: "LeaderBoard",
-              selected: false,
+              selected: true,
             ),
           ],
         ),

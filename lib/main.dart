@@ -11,7 +11,7 @@ UserDb userDb = UserDb.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  currentUser = await userDb.read("mario");
+  currentUser = await userDb.read("mario_pan");
   runApp(const MyApp());
 }
 

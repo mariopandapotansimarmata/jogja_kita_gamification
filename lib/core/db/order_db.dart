@@ -53,6 +53,15 @@ class OrderDb {
     return result.map((json) => OrderModel.fromJson(json)).toList();
   }
 
+  Future<List<OrderModel>> readFinisedOrders() async {
+    final db = await jogjaKitaDb.database;
+    const orderBy = 'order_id DESC';
+    final result = await db.query(tableName,
+        orderBy: orderBy, where: "is_finish = ?", whereArgs: [1]);
+
+    return result.map((json) => OrderModel.fromJson(json)).toList();
+  }
+
   Future<int> update(OrderModel order) async {
     final db = await jogjaKitaDb.database;
 

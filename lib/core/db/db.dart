@@ -58,9 +58,9 @@ class JogjaKitaDb {
     CREATE TABLE ${CouponDb.tableName} (
       coupon_id INTEGER PRIMARY KEY AUTOINCREMENT,
       user_id VARCHAR NOT NULL,
+      coupon_category VARCHAR NOT NULL,
       coupon_name DateTime NOT NULL,
       discount INTEGER NOT NULL,
-      is_claim BOOL NOT NULL,
       FOREIGN KEY (user_id) REFERENCES users (user_id)                  
        ON DELETE NO ACTION ON UPDATE NO ACTION
     )
@@ -89,7 +89,31 @@ class JogjaKitaDb {
         'users', {'name': 'Ivy Thomas', 'user_name': 'ivy_thomas', 'exp': 200});
     batch.insert(
         'users', {'name': 'Jack Lee', 'user_name': 'jack_lee', 'exp': 500});
-    batch.insert('users', {'name': 'mario', 'user_name': 'mario', 'exp': 123});
+    batch.insert(
+        'users', {'name': 'mario', 'user_name': 'mario_pan', 'exp': 123});
+
+    batch.insert('coupons', {
+      'user_id': 'mario_pan',
+      'coupon_name': "Discount 2rb",
+      "coupon_category": "food",
+      "discount": 2000,
+    });
+
+    batch.insert('coupons', {
+      'user_id': 'mario_pan',
+      'coupon_name': "Discount 2rb",
+      "coupon_category": "ride",
+      "discount": 2000,
+    });
+
+    // Map<String, Object?> toJson() => {
+    //       "coupon_id": couponId,
+    //       "user_id": userId,
+    //       "coupon_name": couponName,
+    //       "coupon_category": couponCategory,
+    //       "discount": discount,
+    //       "is_claim": isClaim
+    //     };
 
     await batch.commit(noResult: true);
   }

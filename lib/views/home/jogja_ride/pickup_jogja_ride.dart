@@ -8,8 +8,9 @@ import '../../component/google_maps.dart';
 class PickupJogjaRide extends StatefulWidget {
   const PickupJogjaRide({
     super.key,
+    required this.total,
   });
-  // final bool? isNewOrder;
+  final int total;
 
   @override
   State<PickupJogjaRide> createState() => _PickupJogjaRideState();
@@ -18,13 +19,6 @@ class PickupJogjaRide extends StatefulWidget {
 class _PickupJogjaRideState extends State<PickupJogjaRide> {
   @override
   Widget build(BuildContext context) {
-    // Future.delayed(const Duration(seconds: 5), () {
-    //   Navigator.of(context).popUntil((route) => route.isFirst);
-    //   scaffoldMessengerKey.currentState?.showSnackBar(const SnackBar(
-    //     content: Text('Returned from Second Screen'),
-    //   ));
-    // });
-
     return MaterialApp(
       theme: ThemeData(
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade100),
@@ -101,10 +95,10 @@ class _PickupJogjaRideState extends State<PickupJogjaRide> {
                                     const EdgeInsets.symmetric(horizontal: 10),
                                 margin: const EdgeInsets.only(top: 20),
                                 width: MediaQuery.of(context).size.width,
-                                child: const Column(
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(
+                                    const Text(
                                       "Detail Pengantaran",
                                       style: TextStyle(
                                           fontSize: 16,
@@ -114,7 +108,7 @@ class _PickupJogjaRideState extends State<PickupJogjaRide> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Column(
+                                        const Column(
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
@@ -128,8 +122,8 @@ class _PickupJogjaRideState extends State<PickupJogjaRide> {
                                           ],
                                         ),
                                         Text(
-                                          "Rp 15.000",
-                                          style: TextStyle(
+                                          "Rp ${widget.total}",
+                                          style: const TextStyle(
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold),
                                         ),

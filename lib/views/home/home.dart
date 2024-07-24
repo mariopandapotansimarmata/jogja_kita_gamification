@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
@@ -25,46 +26,91 @@ class _HomePageState extends State<HomePage> {
           Column(
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height * 0.19,
+                height: MediaQuery.of(context).size.height * 0.17,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(context, MaterialPageRoute(
-                          builder: (context) {
-                            return const JogjaRide();
-                          },
-                        ));
-                      },
-                      child: const ServiceIcon(
-                          name: "Jogja Ride", icon: Icons.directions_bike),
-                    ),
-                    const ServiceIcon(
-                        name: "Jogja Car", icon: Icons.car_repair),
-                    const ServiceIcon(name: "Jogja Food", icon: Icons.fastfood),
-                    const ServiceIcon(name: "Jogja Kurir", icon: Icons.pages),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              const Padding(
+              Container(
+                margin: EdgeInsets.symmetric(vertical: 10),
                 padding: EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ServiceIcon(name: "Jogja Toko", icon: Icons.store),
-                    ServiceIcon(name: "Jogja Pay", icon: Icons.payments),
-                    ServiceIcon(name: "Jogja Shop", icon: Icons.shopping_bag),
-                    ServiceIcon(
-                        name: "Misi", icon: Icons.track_changes_outlined),
+                    Text(
+                      "Anda memiliki quest harian",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+                    Container(
+                      width: 110,
+                      height: 40,
+                      child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xffCA110F),
+                              shadowColor: Colors.transparent),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => CouponPage(),
+                                ));
+                          },
+                          child: Text(
+                            "Kupon",
+                            style: TextStyle(color: Colors.white),
+                          )),
+                    )
+                  ],
+                ),
+              ),
+              Container(
+                height: 180,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const JogjaRide();
+                                },
+                              ));
+                            },
+                            child: const ServiceIcon(
+                                name: "Jogja Ride",
+                                icon: Icons.directions_bike),
+                          ),
+                          const ServiceIcon(
+                              name: "Jogja Car", icon: Icons.car_repair),
+                          const ServiceIcon(
+                              name: "Jogja Food", icon: Icons.fastfood),
+                          const ServiceIcon(
+                              name: "Jogja Kurir", icon: Icons.pages),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 10,
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 24),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          ServiceIcon(name: "Jogja Toko", icon: Icons.store),
+                          ServiceIcon(name: "Jogja Pay", icon: Icons.payments),
+                          ServiceIcon(
+                              name: "Jogja Shop", icon: Icons.shopping_bag),
+                          ServiceIcon(
+                              name: "Misi", icon: Icons.track_changes_outlined),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -113,11 +159,15 @@ class _HomePageState extends State<HomePage> {
               const SizedBox(
                 height: 20,
               ),
-              const RecomendationResto(),
+              const RecomendationResto(
+                name: "Resto Terdekat",
+              ),
               const SizedBox(
                 height: 20,
               ),
-              const RecomendationResto()
+              const RecomendationResto(
+                name: "Sedang Promo",
+              )
             ],
           ),
           const LocationWidget(),

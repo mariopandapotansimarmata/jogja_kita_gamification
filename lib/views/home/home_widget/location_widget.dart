@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/main.dart';
 
 import '../../component/profile_badges.dart';
 
@@ -55,10 +56,12 @@ class _LocationWidgetState extends State<LocationWidget> {
               Container(
                 padding: const EdgeInsetsDirectional.only(top: 10),
                 height: MediaQuery.of(context).size.height * 0.082,
-                child: const Column(
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    ProfileBadges(),
+                    ProfileBadges(
+                      exp: currentUser!.exp!,
+                    ),
                   ],
                 ),
               ),

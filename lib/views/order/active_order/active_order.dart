@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/order_db.dart';
+import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
 
@@ -45,6 +47,17 @@ class _ActiveOrderState extends State<ActiveOrder> {
     refreshNotes();
   }
 
+  Future<void> updateUserExp(UserModel user) async {
+    await userDb.update(user);
+    refreshNotes();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -69,9 +82,24 @@ class _ActiveOrderState extends State<ActiveOrder> {
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.6,
             child: listOrders.isEmpty
-                ? const Text(
-                    'No Notes yet',
-                    style: TextStyle(color: Colors.black),
+                ? Column(
+                    children: [
+                      Container(
+                          padding: EdgeInsets.only(right: 20),
+                          clipBehavior: Clip.antiAlias,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(15)),
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 16),
+                          width: 150,
+                          child: const Image(
+                              fit: BoxFit.cover,
+                              image: AssetImage('assets/food-delivery.png'))),
+                      Text(
+                        'Tidak ada pesanan aktif ',
+                        style: TextStyle(color: Colors.black, fontSize: 14),
+                      ),
+                    ],
                   )
                 : ListView.builder(
                     itemCount: listOrders.length,
@@ -83,19 +111,15 @@ class _ActiveOrderState extends State<ActiveOrder> {
                               onTap: () =>
                                   Navigator.push(context, MaterialPageRoute(
                                     builder: (context) {
-                                      return const PickupJogjaRide();
+                                      return PickupJogjaRide(
+                                        total: order.amount!,
+                                      );
                                     },
                                   )),
                               child: Column(
                                 children: [
                                   ActiveOrderRideCard(
-                                    icon: order.orderCategory == "ride"
-                                        ? Icons.directions_bike
-                                        : Icons.fastfood,
-                                    amount: order.amount!,
-                                    dateTime: order.dateTime,
-                                    isFinish: false,
-                                    orderId: order.orderId.toString(),
+                                    order: order,
                                   ),
                                 ],
                               )),
@@ -105,11 +129,23 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   listOrders.removeAt(index);
                                 });
                                 order.setIsFinish = 1;
+                                currentUser!.setExp = 50;
+                                print("exp saat ini ${currentUser!.exp}");
                                 updateFinishStatus(order);
-
+                                updateUserExp(currentUser!);
                                 scaffoldMessengerKey.currentState?.showSnackBar(
-                                  const SnackBar(
-                                    content: Text('Order '),
+                                  SnackBar(
+                                    backgroundColor: Colors.blue[500],
+                                    content: const Row(
+                                      children: [
+                                        const Text(
+                                            'Selamat Anda mendapatkan + 50'),
+                                        Icon(
+                                          Icons.control_camera_outlined,
+                                          color: Colors.blue,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 );
                               },

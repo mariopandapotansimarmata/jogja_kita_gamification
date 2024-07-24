@@ -18,15 +18,21 @@ class _HistoryOrderState extends State<HistoryOrder> {
 
   @override
   void initState() {
-    showAllOrders();
+    showAllFinishOrders();
     super.initState();
   }
 
-  Future<void> showAllOrders() async {
-    final orders = await orderDb.readAll();
+  Future<void> showAllFinishOrders() async {
+    final orders = await orderDb.readFinisedOrders();
     setState(() {
       listOrders = orders;
     });
+  }
+
+  Future<void> deleteOrder(OrderModel? order) async {
+    if (order != null && order.orderId != null) {
+      await orderDb.delete(order.orderId!);
+    }
   }
 
   @override
@@ -59,46 +65,72 @@ class _HistoryOrderState extends State<HistoryOrder> {
           height: 20,
         ),
         SizedBox(
-          height: 400,
+          height: MediaQuery.of(context).size.height * 0.55,
           child: listOrders.isEmpty
-              ? const Text("No Data Found")
+              ? Column(
+                  children: [
+                    Container(
+                        padding: EdgeInsets.only(right: 20),
+                        clipBehavior: Clip.antiAlias,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15)),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
+                        width: 150,
+                        child: const Image(
+                            fit: BoxFit.cover,
+                            image: AssetImage('assets/food-delivery.png'))),
+                    Text(
+                      'Tidak ada riwayat pesanan',
+                      style: TextStyle(color: Colors.black, fontSize: 14),
+                    ),
+                  ],
+                )
               : ListView.builder(
-                  itemCount: 5,
+                  itemCount: listOrders.length,
                   itemBuilder: (context, index) {
                     OrderModel order = listOrders[index];
-                    return Column(
-                      children: [
-                        HistoryOrderCard(
-                          icon: order.orderCategory == "ride"
-                              ? Icons.directions_bike
-                              : Icons.fastfood,
-                          orderId: order.orderId!,
-                          amount: order.amount!,
-                          dateTime: order.dateTime!,
-                          orderCategory: order.orderCategory!,
-                          orderName: order.orderName!,
-                        ),
-                        Container(
-                          margin: const EdgeInsets.only(top: 20),
-                          height: 42,
-                          width: MediaQuery.of(context).size.width,
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: const Color(0xffAB1F21),
-                                    shadowColor: Colors.transparent),
-                                child: const Text(
-                                  "Pesan Lagi",
-                                  style: TextStyle(color: Colors.white),
-                                )),
+                    return InkWell(
+                      onLongPress: () {
+                        setState(() {
+                          listOrders.removeAt(index);
+                          deleteOrder(order);
+                        });
+                      },
+                      child: Column(
+                        children: [
+                          HistoryOrderCard(
+                            icon: order.orderCategory == "ride"
+                                ? Icons.directions_bike
+                                : Icons.fastfood,
+                            orderId: order.orderId!,
+                            amount: order.amount!,
+                            dateTime: order.dateTime!,
+                            orderCategory: order.orderCategory!,
+                            orderName: order.orderName!,
                           ),
-                        ),
-                        const SizedBox(
-                          height: 25,
-                        )
-                      ],
+                          Container(
+                            margin: const EdgeInsets.only(top: 20),
+                            height: 42,
+                            width: MediaQuery.of(context).size.width,
+                            child: SizedBox(
+                              width: MediaQuery.of(context).size.width,
+                              child: ElevatedButton(
+                                  onPressed: () {},
+                                  style: ElevatedButton.styleFrom(
+                                      backgroundColor: const Color(0xffAB1F21),
+                                      shadowColor: Colors.transparent),
+                                  child: const Text(
+                                    "Pesan Lagi",
+                                    style: TextStyle(color: Colors.white),
+                                  )),
+                            ),
+                          ),
+                          const SizedBox(
+                            height: 25,
+                          )
+                        ],
+                      ),
                     );
                   }),
         ),

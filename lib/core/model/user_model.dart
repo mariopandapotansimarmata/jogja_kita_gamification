@@ -2,9 +2,13 @@ class UserModel {
   final int? userId;
   final String? name;
   final String? userName;
-  final int? exp;
+  int? exp;
 
   UserModel({this.userId, this.name, this.userName, this.exp = 0});
+
+  set setExp(int addExp) {
+    exp = exp! + addExp;
+  }
 
   Map<String, Object?> toJson() =>
       {"user_id": userId, "name": name, "user_name": userName, "exp": exp};

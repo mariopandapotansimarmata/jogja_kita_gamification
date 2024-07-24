@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class RecomendationResto extends StatelessWidget {
-  const RecomendationResto({super.key});
+  const RecomendationResto({super.key, required this.name});
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +10,15 @@ class RecomendationResto extends StatelessWidget {
       children: [
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: const Row(
+          child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
-                "Resto Terdekat",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                name,
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
               ),
-              Text("Lihat Semua",
+              const Text("Lihat Semua",
                   style: TextStyle(fontSize: 14, color: Colors.red))
             ],
           ),
@@ -33,16 +35,16 @@ class RecomendationResto extends StatelessWidget {
               return Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                    color: Colors.white,
-                    boxShadow: const [
-                      BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 2,
-                        offset: Offset(0.5, 1), // Shadow position
-                      ),
-                    ],
-                    borderRadius: BorderRadius.circular(16),
-                    border: Border.all(color: Colors.grey)),
+                  color: Colors.white,
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.grey,
+                      blurRadius: 1,
+                      offset: Offset(0, 0.5), // Shadow position
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(16),
+                ),
                 margin: const EdgeInsets.all(5),
                 height: 245,
                 width: 160,
@@ -62,7 +64,8 @@ class RecomendationResto extends StatelessWidget {
                     const Expanded(
                       child: Text(
                         "Ayam Bakar P Widodo Galih, Wahid Hasyim, C",
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(
+                            fontWeight: FontWeight.w500, fontSize: 14),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),

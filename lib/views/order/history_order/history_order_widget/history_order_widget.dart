@@ -70,11 +70,11 @@ class HistoryOrderCard extends StatelessWidget {
                 ),
               ),
               const Text(
-                "1 Udang Keju + 1 Mie Hompimpa Lv1",
+                "Jl. Ringroad Utara ",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
               ),
               const Text(
-                "12:20-1230",
+                "3,2 KM",
                 style: TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )
             ],
