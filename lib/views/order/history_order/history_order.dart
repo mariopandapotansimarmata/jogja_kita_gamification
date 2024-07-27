@@ -70,7 +70,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
               ? Column(
                   children: [
                     Container(
-                        padding: EdgeInsets.only(right: 20),
+                        padding: const EdgeInsets.only(right: 20),
                         clipBehavior: Clip.antiAlias,
                         decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(15)),
@@ -80,7 +80,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
                         child: const Image(
                             fit: BoxFit.cover,
                             image: AssetImage('assets/food-delivery.png'))),
-                    Text(
+                    const Text(
                       'Tidak ada riwayat pesanan',
                       style: TextStyle(color: Colors.black, fontSize: 14),
                     ),

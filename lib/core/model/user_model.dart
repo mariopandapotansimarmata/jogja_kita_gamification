@@ -1,29 +1,47 @@
 class UserModel {
-  final int? userId;
-  final String? name;
   final String? userName;
+  final String? name;
   int? exp;
+  int? poin;
+  String? badge;
 
-  UserModel({this.userId, this.name, this.userName, this.exp = 0});
+  UserModel(
+      {this.name, this.userName, this.exp = 0, this.poin = 0, this.badge});
 
   set setExp(int addExp) {
     exp = exp! + addExp;
   }
 
-  Map<String, Object?> toJson() =>
-      {"user_id": userId, "name": name, "user_name": userName, "exp": exp};
+  set setBadge(String newBadge) {
+    badge = newBadge;
+  }
 
-  UserModel copy({int? userId, String? name, String? userName, int? exp}) =>
+  Map<String, Object?> toJson() => {
+        "name": name,
+        "user_name": userName,
+        "exp": exp,
+        "poin": poin,
+        "badge": badge
+      };
+
+  UserModel copy(
+          {String? userName,
+          String? name,
+          int? exp,
+          int? poin,
+          String? badge}) =>
       UserModel(
-          userId: userId ?? this.userId,
-          name: name ?? this.name,
           userName: userName ?? this.userName,
-          exp: exp ?? 0);
+          name: name ?? this.name,
+          exp: exp ?? 0,
+          poin: poin ?? 0,
+          badge: badge ?? "Amateur");
 
   factory UserModel.fromJson(Map<String?, Object?> json) => UserModel(
-        userId: json["user_id"] as int?,
-        name: json["name"] as String?,
         userName: json["user_name"] as String?,
+        name: json["name"] as String?,
         exp: json["exp"] as int?,
+        poin: json["poin"] as int?,
+        badge: json["badge"] as String?,
       );
 }

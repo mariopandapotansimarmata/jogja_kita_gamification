@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/user_db.dart';
 import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/main_view_model.dart';
 import 'package:jogja_kita_gamification/screen.dart';
+import 'package:provider/provider.dart';
 
 import 'views/order/active_order/active_order.dart';
 
@@ -21,15 +23,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      scaffoldMessengerKey: scaffoldMessengerKey,
-      debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
-        useMaterial3: true,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => MainViewModel()),
+      ],
+      child: MaterialApp(
+        scaffoldMessengerKey: scaffoldMessengerKey,
+        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.red),
+          useMaterial3: true,
+        ),
+        home: const Screen(),
       ),
-      home: const Screen(),
     );
   }
 }

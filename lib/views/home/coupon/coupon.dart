@@ -59,7 +59,7 @@ class _CouponPageState extends State<CouponPage> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: listCoupons.isEmpty
             ? Container(
-                margin: EdgeInsets.only(top: 20),
+                margin: const EdgeInsets.only(top: 20),
                 child: Center(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,13 +79,13 @@ class _CouponPageState extends State<CouponPage> {
                         child: Column(
                           children: [
                             Container(
-                              margin: EdgeInsets.symmetric(vertical: 20),
+                              margin: const EdgeInsets.symmetric(vertical: 20),
                               child: Image.asset(
                                 "assets/no-coupon.png",
                                 width: 100,
                               ),
                             ),
-                            Text(
+                            const Text(
                               "tidak ada Coupon",
                               style: TextStyle(fontSize: 16),
                             )

@@ -1,6 +1,6 @@
 class OrderModel {
   final int? orderId;
-  final String? userId;
+  final String? userName;
   final String? dateTime;
   final String? orderName;
   final String? orderCategory;
@@ -9,7 +9,7 @@ class OrderModel {
 
   OrderModel({
     this.orderId,
-    this.userId,
+    this.userName,
     this.dateTime,
     this.amount,
     this.orderName,
@@ -23,7 +23,7 @@ class OrderModel {
 
   Map<String, Object?> toJson() => {
         "order_id": orderId,
-        "user_id": userId,
+        "user_name": userName,
         "date_time": dateTime,
         "order_name": orderName,
         "order_category": orderCategory,
@@ -33,7 +33,7 @@ class OrderModel {
 
   OrderModel copy(
           {int? orderId,
-          String? userId,
+          String? userName,
           String? dateTime,
           String? orderName,
           String? orderCategory,
@@ -41,17 +41,17 @@ class OrderModel {
           int? isFInish}) =>
       OrderModel(
         orderId: orderId ?? this.orderId,
-        userId: userId ?? this.userId,
+        userName: userName ?? this.userName,
         dateTime: dateTime ?? this.dateTime,
         orderName: orderName ?? this.orderName,
         orderCategory: orderCategory ?? this.orderCategory,
         amount: amount ?? this.amount,
-        isFinish: isFinish ?? this.isFinish,
+        isFinish: isFinish ?? isFinish,
       );
 
   factory OrderModel.fromJson(Map<String?, Object?> json) => OrderModel(
         orderId: json["order_id"] as int?,
-        userId: json["user_id"] as String?,
+        userName: json["user_name"] as String?,
         dateTime: json["date_time"] as String?,
         orderName: json["order_name"] as String?,
         orderCategory: json["order_category"] as String?,

@@ -38,7 +38,8 @@ class ActiveOrderRideCard extends StatelessWidget {
             children: [
               Text(
                 order.orderName!,
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
+                style:
+                    const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
               const Text(
                 "Driver menuju resto Mie Gacoan, Gejayan",

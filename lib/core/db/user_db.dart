@@ -10,17 +10,16 @@ class UserDb {
   UserDb._();
   // final _instance = UserDb();
 
-  Future<UserModel> create(UserModel user) async {
+  Future<void> create(UserModel user) async {
     final db = await jogjaKitaDb.database;
-    final id = await db.insert(tableName, user.toJson());
-    return user.copy(userId: id);
+    await db.insert(tableName, user.toJson());
   }
 
   Future<UserModel> read(String userName) async {
     final db = await jogjaKitaDb.database;
     final maps = await db.query(
       tableName,
-      columns: ["user_id, name, user_name, exp"],
+      columns: ["user_name, name, exp, poin, badge"],
       where: 'user_name = ?',
       whereArgs: [userName],
     );
@@ -50,12 +49,12 @@ class UserDb {
     );
   }
 
-  Future<int> delete(int id) async {
+  Future<int> delete(String userName) async {
     final db = await jogjaKitaDb.database;
     return await db.delete(
       tableName,
-      where: 'userId = ?',
-      whereArgs: [id],
+      where: 'user_name = ?',
+      whereArgs: [userName],
     );
   }
 
@@ -66,7 +65,6 @@ class UserDb {
       where: "userName = ?",
       whereArgs: [user.userName],
       <String, Object?>{
-        "user_id": user.userId,
         "name": user.name,
         "user_name": user.userName,
         "exp": user.exp! + 50

@@ -18,21 +18,21 @@ class OrderDb {
     return order.copy(orderId: id);
   }
 
-  Future<OrderModel> read(int userId) async {
+  Future<OrderModel> read(String userName) async {
     final db = await jogjaKitaDb.database;
     final maps = await db.query(
       tableName,
       columns: [
-        "order_id, user_id, date_time, order_name,order_category ,is_finish"
+        "order_id, user_name, date_time, order_name,order_category ,is_finish"
       ],
-      where: 'user_id = ?',
-      whereArgs: [userId],
+      where: 'user_name = ?',
+      whereArgs: [userName],
     );
 
     if (maps.isNotEmpty) {
       return OrderModel.fromJson(maps.first);
     } else {
-      throw Exception('ID $userId not found');
+      throw Exception('ID $userName not found');
     }
   }
 

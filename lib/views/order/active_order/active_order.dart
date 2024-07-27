@@ -4,6 +4,7 @@ import 'package:jogja_kita_gamification/core/model/user_model.dart';
 import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
+import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 
 import '../../../core/model/order_model.dart';
 import '../../home/jogja_ride/pickup_jogja_ride.dart';
@@ -18,9 +19,24 @@ class ActiveOrder extends StatefulWidget {
 final GlobalKey<ScaffoldMessengerState> scaffoldMessengerKey =
     GlobalKey<ScaffoldMessengerState>();
 
+class ExpBadge {
+  final int maxExp;
+  final String badge;
+
+  ExpBadge(
+    this.maxExp,
+    this.badge,
+  );
+}
+
 class _ActiveOrderState extends State<ActiveOrder> {
   OrderDb orderDb = OrderDb.instance;
   List<OrderModel> listOrders = [];
+  List<ExpBadge> listExpBadges = [
+    ExpBadge(249, "Amateur"),
+    ExpBadge(599, "Professional"),
+    ExpBadge(999, "Champion")
+  ];
 
   @override
   void initState() {
@@ -52,10 +68,9 @@ class _ActiveOrderState extends State<ActiveOrder> {
     refreshNotes();
   }
 
-  @override
-  void dispose() {
-    // TODO: implement dispose
-    super.dispose();
+  Future<void> updateUserBadge(UserModel user) async {
+    await userDb.update(currentUser!);
+    refreshNotes();
   }
 
   @override
@@ -85,7 +100,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
                 ? Column(
                     children: [
                       Container(
-                          padding: EdgeInsets.only(right: 20),
+                          padding: const EdgeInsets.only(right: 20),
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(15)),
@@ -95,7 +110,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
                           child: const Image(
                               fit: BoxFit.cover,
                               image: AssetImage('assets/food-delivery.png'))),
-                      Text(
+                      const Text(
                         'Tidak ada pesanan aktif ',
                         style: TextStyle(color: Colors.black, fontSize: 14),
                       ),
@@ -124,22 +139,20 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                 ],
                               )),
                           InkWell(
-                              onLongPress: () {
+                              onLongPress: () async {
                                 setState(() {
                                   listOrders.removeAt(index);
                                 });
                                 order.setIsFinish = 1;
                                 currentUser!.setExp = 50;
-                                print("exp saat ini ${currentUser!.exp}");
                                 updateFinishStatus(order);
                                 updateUserExp(currentUser!);
                                 scaffoldMessengerKey.currentState?.showSnackBar(
                                   SnackBar(
-                                    backgroundColor: Colors.blue[500],
+                                    backgroundColor: Colors.blue[300],
                                     content: const Row(
                                       children: [
-                                        const Text(
-                                            'Selamat Anda mendapatkan + 50'),
+                                        Text('Selamat Anda mendapatkan + 50'),
                                         Icon(
                                           Icons.control_camera_outlined,
                                           color: Colors.blue,
@@ -148,6 +161,48 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                     ),
                                   ),
                                 );
+                                int currentindex = 0;
+                                listExpBadges.indexWhere((element) {
+                                  if (currentUser!.badge == element.badge) {
+                                    index = listExpBadges.indexOf(
+                                        element); // Store the index when found
+                                    return true; // Return true when a match is found
+                                  }
+                                  return false;
+                                });
+                                if (currentUser!.exp! >
+                                    listExpBadges[currentindex].maxExp) {
+                                  currentUser!.setBadge =
+                                      listExpBadges[currentindex + 1].badge;
+
+                                  OverlayLoadingProgress.start(context,
+                                      widget: const Scaffold(
+                                        backgroundColor: Colors.transparent,
+                                        body: Center(
+                                          child: Column(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.center,
+                                            children: [
+                                              CircularProgressIndicator(),
+                                              Text(
+                                                "Pesanan sedang di proses",
+                                                style: TextStyle(
+                                                    color: Colors.white,
+                                                    fontSize: 20,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ));
+                                  await Future.delayed(
+                                      const Duration(seconds: 2));
+                                  OverlayLoadingProgress.stop();
+                                } else if (currentUser!.exp! >
+                                    listExpBadges.last.maxExp) {
+                                  currentUser!.setBadge = "Legendary";
+                                }
                               },
                               child: const DriverCard()),
                           const SizedBox(

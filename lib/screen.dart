@@ -14,8 +14,6 @@ class Screen extends StatefulWidget {
   State<Screen> createState() => _ScreenState();
 }
 
-//
-
 class _ScreenState extends State<Screen> {
   int _selectedIndex = 0;
 
@@ -23,14 +21,9 @@ class _ScreenState extends State<Screen> {
     if (index == 1 || index == 2) {
       scaffoldMessengerKey.currentState?.showSnackBar(
         const SnackBar(
-          // backgroundColor: Colors.blue[500],
           content: Row(
             children: [
               Text('Halaman tidak bisa diakses'),
-              // Icon(
-              //   Icons.control_camera_outlined,
-              //   color: Colors.blue,
-              // ),
             ],
           ),
         ),

@@ -54,28 +54,26 @@ class _LeaderboardState extends State<Leaderboard> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Container(
-                                  width: 25,
-                                  child: Text(
-                                    "${index + 1}.",
-                                    style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.bold),
-                                  ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              SizedBox(
+                                width: 25,
+                                child: Text(
+                                  "${index + 1}.",
+                                  style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold),
                                 ),
-                                const SizedBox(
-                                  width: 7,
-                                ),
-                                ProfileBadges(
-                                  exp: user.exp!,
-                                  size: 30,
-                                ),
-                              ],
-                            ),
+                              ),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              ProfileBadges(
+                                exp: user.exp!,
+                                size: 30,
+                              ),
+                            ],
                           ),
                           const SizedBox(
                             width: 15,
@@ -90,14 +88,14 @@ class _LeaderboardState extends State<Leaderboard> {
                       Row(
                         children: [
                           Text(
-                            "${user.exp}",
+                            "${user.badge}",
                             style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
-                          Icon(
+                          const Icon(
                             Icons.control_camera_outlined,
                             color: Colors.blue,
                           )

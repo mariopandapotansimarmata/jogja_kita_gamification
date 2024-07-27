@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/main_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
+import 'package:provider/provider.dart';
 
 import 'home_widget/location_widget.dart';
 import 'home_widget/recomendation.dart';
@@ -18,7 +19,17 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    context.read<MainViewModel>().getCurrentUser("mario_pan");
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (context.watch<MainViewModel>().currentUser == null) {
+      return const CircularProgressIndicator();
+    }
+
     return ListView(children: [
       Stack(
         alignment: Alignment.topCenter,
@@ -29,17 +40,17 @@ class _HomePageState extends State<HomePage> {
                 height: MediaQuery.of(context).size.height * 0.17,
               ),
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10),
-                padding: EdgeInsets.symmetric(horizontal: 24),
+                margin: const EdgeInsets.symmetric(vertical: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 24),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(
+                    const Text(
                       "Anda memiliki quest harian",
                       style:
                           TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    Container(
+                    SizedBox(
                       width: 110,
                       height: 40,
                       child: ElevatedButton(
@@ -50,10 +61,10 @@ class _HomePageState extends State<HomePage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => CouponPage(),
+                                  builder: (context) => const CouponPage(),
                                 ));
                           },
-                          child: Text(
+                          child: const Text(
                             "Kupon",
                             style: TextStyle(color: Colors.white),
                           )),
@@ -61,7 +72,7 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 height: 180,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const LocationWidget(),
-          Text(currentUser!.userName ?? "no data"),
+          Text(context.watch<MainViewModel>().currentUser!.name!),
           const BonusCard()
         ],
       ),

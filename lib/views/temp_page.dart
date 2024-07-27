@@ -102,9 +102,9 @@ class _TempPageState extends State<TempPage> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: <Widget>[
-                                Text(
-                                  note.userId.toString(),
-                                ),
+                                // Text(
+                                //   note.userId.toString(),
+                                // ),
                                 Text(
                                   note.name.toString(),
                                   style: Theme.of(context)

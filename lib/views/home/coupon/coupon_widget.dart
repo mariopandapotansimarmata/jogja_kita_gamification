@@ -30,20 +30,18 @@ class CouponCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
-                child: const Row(
-                  children: [
-                    Text(
-                      "50",
-                      style: TextStyle(fontSize: 25, color: Colors.white),
-                    ),
-                    Icon(
-                      Icons.control_camera_outlined,
-                      color: Colors.blue,
-                      size: 40,
-                    ),
-                  ],
-                ),
+              const Row(
+                children: [
+                  Text(
+                    "50",
+                    style: TextStyle(fontSize: 25, color: Colors.white),
+                  ),
+                  Icon(
+                    Icons.control_camera_outlined,
+                    color: Colors.blue,
+                    size: 40,
+                  ),
+                ],
               ),
               const Icon(
                 Icons.add,
@@ -56,7 +54,7 @@ class CouponCard extends StatelessWidget {
                       icon: coupon.couponCategory == "ride"
                           ? Icons.directions_bike
                           : Icons.fastfood),
-                  SizedBox(
+                  const SizedBox(
                     width: 15,
                   ),
                   Column(
@@ -64,9 +62,10 @@ class CouponCard extends StatelessWidget {
                     children: [
                       Text(
                         coupon.couponName!,
-                        style: TextStyle(color: Colors.white, fontSize: 22),
+                        style:
+                            const TextStyle(color: Colors.white, fontSize: 22),
                       ),
-                      Text(
+                      const Text(
                         "Minimal transaksi 30rb",
                         style: TextStyle(color: Colors.white, fontSize: 14),
                       )

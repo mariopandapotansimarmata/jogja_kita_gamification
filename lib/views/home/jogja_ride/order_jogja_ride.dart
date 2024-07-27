@@ -50,7 +50,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
         orderCategory: "ride",
         orderName: "UPNYK Babarsari",
         isFinish: 0,
-        userId: currentUser!.userId.toString(),
+        userName: currentUser!.userName.toString(),
         dateTime: formattedDate,
         amount: total);
 
@@ -88,7 +88,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
           // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade100),
           ),
       home: Scaffold(
-        bottomSheet: Container(
+        bottomSheet: SizedBox(
           height: MediaQuery.of(context).size.height * 0.44,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
