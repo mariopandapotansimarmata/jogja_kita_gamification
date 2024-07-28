@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/user_db.dart';
 import 'package:jogja_kita_gamification/core/model/user_model.dart';
-import 'package:jogja_kita_gamification/main_view_model.dart';
-import 'package:jogja_kita_gamification/order_view_model/coupon_view_model.dart';
-import 'package:jogja_kita_gamification/order_view_model/order_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/screen.dart';
+import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
 import 'views/order/active_order/active_order.dart';
@@ -25,7 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => MainViewModel()),
+        ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => OrderViewModel()),
         ChangeNotifierProvider(create: (_) => CouponViewModel()),
       ],

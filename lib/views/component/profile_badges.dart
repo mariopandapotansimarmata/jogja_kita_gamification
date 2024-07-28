@@ -19,11 +19,11 @@ class _ProfileBadgesState extends State<ProfileBadges> {
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(50),
               border: Border.all(
-                  color: widget.exp <= 250
+                  color: widget.exp < 250
                       ? Colors.green
-                      : (widget.exp <= 600
+                      : (widget.exp < 600
                           ? Colors.red
-                          : (widget.exp <= 100 ? Colors.amber : Colors.indigo)),
+                          : (widget.exp < 1000 ? Colors.amber : Colors.indigo)),
                   width: widget.size <= 30 ? 2 : 4),
               color: const Color(0xffCAC6C5)),
           child: Icon(

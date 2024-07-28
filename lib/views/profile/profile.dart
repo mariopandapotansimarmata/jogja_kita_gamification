@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/model/user_model.dart';
-import 'package:jogja_kita_gamification/main_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/card_follower.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/exp_bar.dart';
@@ -27,7 +27,7 @@ class _ProfilPageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    user = context.watch<MainViewModel>().currentUser!;
+    user = context.watch<UserViewModel>().currentUser!;
 
     return ListView(
       children: [
@@ -68,7 +68,7 @@ class _ProfilPageState extends State<ProfilePage> {
                 ],
               ),
               ProfileBadges(
-                exp: context.watch<MainViewModel>().currentUser!.exp!,
+                exp: context.watch<UserViewModel>().currentUser!.exp!,
                 size: 60,
               ),
               const SizedBox(

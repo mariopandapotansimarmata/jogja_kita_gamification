@@ -7,8 +7,9 @@ import '../core/model/order_model.dart';
 import '../core/model/user_model.dart';
 
 class OrderViewModel extends ChangeNotifier {
-  // Assuming OrderDb is a singleton instance.
   final OrderDb orderDb = OrderDb.instance;
+
+  List<OrderModel> listOrders = [];
 
   int jogjaRidePrice = 12000;
   int? discountCoupon;
@@ -37,6 +38,16 @@ class OrderViewModel extends ChangeNotifier {
         amount: total);
 
     await orderDb.create(data);
+  }
+
+  Future<void> refreshActiveOrders() async {
+    final orders = await orderDb.readActiveOrders();
+    listOrders = orders;
+  }
+
+  Future<void> updateFinishStatus(OrderModel order) async {
+    await orderDb.update(order);
+    refreshActiveOrders();
   }
 
   void togglepoinDiscount(bool light) {

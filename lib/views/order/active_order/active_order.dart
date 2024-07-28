@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/order_db.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
-import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/model/order_model.dart';
-import '../../../main_view_model.dart';
+import '../../../view_model/user_view_model.dart';
 import '../../home/jogja_ride/pickup_jogja_ride.dart';
 
 class ActiveOrder extends StatefulWidget {
@@ -46,13 +45,6 @@ class _ActiveOrderState extends State<ActiveOrder> {
     super.initState();
   }
 
-  Future<void> refreshNotes() async {
-    final orders = await orderDb.readActiveOrders();
-    setState(() {
-      listOrders = orders;
-    });
-  }
-
   Future<void> showAllActiveOrder() async {
     final orders = await orderDb.readActiveOrders();
     setState(() {
@@ -60,23 +52,11 @@ class _ActiveOrderState extends State<ActiveOrder> {
     });
   }
 
-  Future<void> updateFinishStatus(OrderModel order) async {
-    await orderDb.update(order);
-    refreshNotes();
-  }
-
-  Future<void> updateUserExp(UserModel user) async {
-    await userDb.update(user);
-    refreshNotes();
-  }
-
-  Future<void> updateUserBadge(UserModel user) async {
-    await userDb.update(context.watch<MainViewModel>().currentUser!);
-    refreshNotes();
-  }
-
   @override
   Widget build(BuildContext context) {
+    var orderViewModel = context.watch<OrderViewModel>();
+    var userViewModel = context.watch<UserViewModel>();
+
     return Padding(
       padding: const EdgeInsets.only(top: 20),
       child: Column(
@@ -146,13 +126,9 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   listOrders.removeAt(index);
                                 });
                                 order.setIsFinish = 1;
-                                context
-                                    .read<MainViewModel>()
-                                    .currentUser!
-                                    .setExp = 50;
-                                updateFinishStatus(order);
-                                updateUserExp(
-                                    context.read<MainViewModel>().currentUser!);
+                                userViewModel.currentUser!.setExp = 50;
+                                orderViewModel.updateFinishStatus(order);
+
                                 scaffoldMessengerKey.currentState?.showSnackBar(
                                   SnackBar(
                                     backgroundColor: Colors.blue[300],
@@ -168,11 +144,9 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   ),
                                 );
                                 int currentindex = 0;
-                                listExpBadges.indexWhere((element) {
-                                  if (context
-                                          .read<MainViewModel>()
-                                          .currentUser!
-                                          .badge ==
+                                currentindex =
+                                    listExpBadges.indexWhere((element) {
+                                  if (userViewModel.currentUser!.badge ==
                                       element.badge) {
                                     index = listExpBadges.indexOf(
                                         element); // Store the index when found
@@ -180,51 +154,82 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   }
                                   return false;
                                 });
-                                if (context
-                                        .read<MainViewModel>()
-                                        .currentUser!
-                                        .exp! >
+
+                                if (userViewModel.currentUser!.exp! >
                                     listExpBadges[currentindex].maxExp) {
-                                  context
-                                          .read<MainViewModel>()
-                                          .currentUser!
-                                          .setBadge =
+                                  userViewModel.currentUser!.setBadge =
                                       listExpBadges[currentindex + 1].badge;
 
                                   OverlayLoadingProgress.start(context,
-                                      widget: const Scaffold(
+                                      widget: Scaffold(
                                         backgroundColor: Colors.transparent,
                                         body: Center(
                                           child: Column(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.center,
                                             children: [
-                                              CircularProgressIndicator(),
-                                              Text(
-                                                "Pesanan sedang di proses",
-                                                style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontSize: 20,
-                                                    fontWeight:
-                                                        FontWeight.bold),
-                                              )
+                                              // const CircularProgressIndicator(),
+                                              Container(
+                                                height: 200,
+                                                width: 300,
+                                                decoration: const BoxDecoration(
+                                                    color: Colors.white),
+                                                child: Center(
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .center,
+                                                    children: [
+                                                      const Text(
+                                                        "Selamat",
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      ),
+                                                      const Text(
+                                                        "Anda Naik Level",
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 16),
+                                                      ),
+                                                      Text(
+                                                        userViewModel
+                                                            .currentUser!
+                                                            .badge!,
+                                                        style: TextStyle(
+                                                            color: Colors.black,
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                                FontWeight
+                                                                    .bold),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
+                                              ),
+                                              ElevatedButton(
+                                                  onPressed: () {
+                                                    OverlayLoadingProgress
+                                                        .stop();
+                                                  },
+                                                  child: const Text("Tutup"))
                                             ],
                                           ),
                                         ),
                                       ));
+
                                   await Future.delayed(
                                       const Duration(seconds: 2));
-                                  OverlayLoadingProgress.stop();
-                                } else if (context
-                                        .watch<MainViewModel>()
-                                        .currentUser!
-                                        .exp! >
+                                } else if (userViewModel.currentUser!.exp! >
                                     listExpBadges.last.maxExp) {
-                                  context
-                                      .watch<MainViewModel>()
-                                      .currentUser!
-                                      .setBadge = "Legendary";
+                                  userViewModel.currentUser!.setBadge =
+                                      "Legendary";
                                 }
+                                userViewModel
+                                    .updateUserExp(userViewModel.currentUser!);
                               },
                               child: const DriverCard()),
                           const SizedBox(

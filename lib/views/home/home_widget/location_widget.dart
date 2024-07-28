@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/main_view_model.dart';
 import 'package:provider/provider.dart';
 
+import '../../../view_model/user_view_model.dart';
 import '../../component/profile_badges.dart';
 
 class LocationWidget extends StatefulWidget {
@@ -60,7 +60,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProfileBadges(
-                      exp: context.watch<MainViewModel>().currentUser!.exp!,
+                      exp: context.watch<UserViewModel>().currentUser!.exp!,
                     ),
                   ],
                 ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/model/coupon_model.dart';
-import 'package:jogja_kita_gamification/order_view_model/coupon_view_model.dart';
-import 'package:jogja_kita_gamification/order_view_model/order_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 
-import '../../../main_view_model.dart';
+import '../../../view_model/user_view_model.dart';
 
 class OrderJogjaRide extends StatefulWidget {
   const OrderJogjaRide({super.key, this.coupon});
@@ -33,8 +33,9 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
 
   @override
   Widget build(BuildContext context) {
-    var orderViewMpdel = context.watch<OrderViewModel>();
-    var user = context.watch<MainViewModel>().currentUser;
+    var orderViewModel = context.watch<OrderViewModel>();
+    var couponViewModel = context.watch<CouponViewModel>();
+    var user = context.watch<UserViewModel>().currentUser;
 
     return MaterialApp(
       theme: ThemeData(),
@@ -65,7 +66,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                       color: const Color(0xffFCE7E9),
                       icon: Icons.directions_bike,
                       name: "Jogja Ride",
-                      price: "Rp ${orderViewMpdel.jogjaRidePrice.toString()}",
+                      price: "Rp ${orderViewModel.jogjaRidePrice.toString()}",
                       isBordered: true,
                     ),
                     const PriceCardOrder(
@@ -148,14 +149,14 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       light = value;
-                                      orderViewMpdel.togglepoinDiscount(light);
-                                      orderViewMpdel
+                                      orderViewModel.togglepoinDiscount(light);
+                                      orderViewModel
                                           .refreshTotalPrice(widget.coupon);
                                     });
                                   },
                                 ),
                                 Text(
-                                  "- Rp ${orderViewMpdel.poinDiscount}",
+                                  "- Rp ${orderViewModel.poinDiscount}",
                                   style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -242,17 +243,15 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       ),
                                     ),
                                   ));
-                              await orderViewMpdel.createOrder(
-                                  orderViewMpdel.total, user!);
-                              await context
-                                  .read<CouponViewModel>()
-                                  .deleteCoupon(widget.coupon);
+                              await orderViewModel.createOrder(
+                                  orderViewModel.total, user!);
+                              await couponViewModel.deleteCoupon(widget.coupon);
                               await Future.delayed(const Duration(seconds: 2));
                               OverlayLoadingProgress.stop();
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
                                   return PickupJogjaRide(
-                                    total: orderViewMpdel.total,
+                                    total: orderViewModel.total,
                                   );
                                 },
                               ));
@@ -267,7 +266,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Rp ${orderViewMpdel.total}",
+                                  "Rp ${orderViewModel.total}",
                                   style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,

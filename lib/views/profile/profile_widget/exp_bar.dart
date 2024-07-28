@@ -14,12 +14,25 @@ class ExpBar extends StatefulWidget {
 }
 
 class _ExpBarState extends State<ExpBar> {
+  String leading = "assets/badges-green.png";
+  String trail = "assets/badges-red.png";
+  int minExp = 0;
+
   double getMaxExp(int exp) {
     if (exp < 250) {
+      leading = "assets/badges-green.png";
+      trail = "assets/badges-red.png";
+      minExp = 0;
       return 250;
     } else if (exp < 600) {
+      leading = "assets/badges-red.png";
+      trail = "assets/badges-amber.png";
+      minExp = 250;
       return 600;
     } else if (exp < 1000) {
+      leading = "assets/badges-amber.png";
+      trail = "assets/badges-indigo.png";
+      minExp = 600;
       return 1000;
     } else {
       return 1000; // Add further conditions if there are more levels
@@ -30,18 +43,19 @@ class _ExpBarState extends State<ExpBar> {
   Widget build(BuildContext context) {
     final int currentExp = widget.user.exp!;
     final double maxExp = getMaxExp(currentExp);
-    final double percent = (currentExp / maxExp).clamp(0.0, 1.0);
-
+    final double percent =
+        ((currentExp - minExp) / (maxExp - minExp)).clamp(0.0, 1.0);
+    print(minExp);
     return LinearPercentIndicator(
       leading: Image.asset(
-        "assets/badges-red.png",
+        leading,
         width: 25,
       ),
       alignment: MainAxisAlignment.spaceEvenly,
       animation: true,
       lineHeight: 24.0,
       animationDuration: 2500,
-      percent: percent,
+      percent: percent < 1 ? percent : 1,
       center: Text(
         "$currentExp / $maxExp",
         style: const TextStyle(
@@ -49,10 +63,15 @@ class _ExpBarState extends State<ExpBar> {
       ),
       barRadius: const Radius.circular(20),
       progressColor: Colors.blue,
-      trailing: Image.asset(
-        "assets/badges-amber.png",
-        width: 25,
-      ),
+      trailing: currentExp >= 1000
+          ? const SizedBox(
+              height: 25,
+              width: 25,
+            )
+          : Image.asset(
+              trail,
+              width: 25,
+            ),
     );
   }
 }

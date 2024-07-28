@@ -117,7 +117,7 @@ class JogjaKitaDb {
       'user_name': 'grace_taylor',
       'exp': 650,
       "poin": 50000,
-      "badge": "Professional"
+      "badge": "Champion"
     });
     batch.insert('users', {
       'name': 'Hank Anderson',
@@ -138,7 +138,7 @@ class JogjaKitaDb {
       'user_name': 'jack_lee',
       'exp': 650,
       "poin": 50000,
-      "badge": "Professional"
+      "badge": "Champion"
     });
     batch.insert('users', {
       'name': 'Mario Pandapotan S',

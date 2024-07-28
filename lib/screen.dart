@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
 import 'package:jogja_kita_gamification/views/order/order.dart';
 import 'package:jogja_kita_gamification/views/profile/profile.dart';
 import 'package:jogja_kita_gamification/views/temp_page.dart';
 import 'package:provider/provider.dart';
 
-import 'main_view_model.dart';
 import 'views/home/jogja_ride/order_jogja_ride.dart';
 import 'views/order/active_order/active_order.dart';
 
@@ -39,7 +39,7 @@ class _ScreenState extends State<Screen> {
 
   @override
   void initState() {
-    context.read<MainViewModel>().getCurrentUser("mario_pan");
+    context.read<UserViewModel>().getCurrentUser("mario_pan");
     super.initState();
   }
 

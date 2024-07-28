@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/main_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
 import 'package:provider/provider.dart';
 
+import '../../view_model/user_view_model.dart';
 import 'home_widget/location_widget.dart';
 import 'home_widget/recomendation.dart';
 import 'home_widget/services_icon_button.dart';
@@ -20,13 +20,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   @override
   void initState() {
-    context.read<MainViewModel>().getCurrentUser("mario_pan");
+    context.read<UserViewModel>().getCurrentUser("mario_pan");
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if (context.watch<MainViewModel>().currentUser == null) {
+    if (context.watch<UserViewModel>().currentUser == null) {
       return const CircularProgressIndicator();
     }
 
@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const LocationWidget(),
-          Text(context.watch<MainViewModel>().currentUser!.name!),
+          Text(context.watch<UserViewModel>().currentUser!.name!),
           const BonusCard()
         ],
       ),
