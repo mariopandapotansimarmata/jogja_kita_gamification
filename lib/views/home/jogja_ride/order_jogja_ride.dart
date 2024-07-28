@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/db/coupon_db.dart';
-import 'package:jogja_kita_gamification/core/db/order_db.dart';
 import 'package:jogja_kita_gamification/core/model/coupon_model.dart';
-import 'package:jogja_kita_gamification/core/model/order_model.dart';
-import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/order_view_model/coupon_view_model.dart';
+import 'package:jogja_kita_gamification/order_view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/google_maps.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
@@ -12,7 +10,6 @@ import 'package:jogja_kita_gamification/views/home/jogja_ride/pickup_jogja_ride.
 import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
-import 'package:intl/intl.dart';
 
 import '../../../main_view_model.dart';
 
@@ -25,72 +22,22 @@ class OrderJogjaRide extends StatefulWidget {
 
 class _OrderJogjaRideState extends State<OrderJogjaRide> {
   bool light = false;
-  bool isLoading = false;
-
-  int jogjaRidePrice = 12000;
-  int? discountCoupon;
-  int poinDiscount = 0;
-  int total = 0;
-
-  CouponDb couponDb = CouponDb.instance;
-
-  OrderDb orderDB = OrderDb.instance;
-
-  Future<void> deleteCoupon(CouponModel? coupon) async {
-    if (coupon != null && coupon.couponId != null) {
-      await couponDb.delete(coupon.couponId!);
-    }
-  }
-
-  Future<void> createNote(int total) async {
-    setState(() {
-      isLoading = true;
-    });
-    DateTime now = DateTime.now();
-    String formattedDate = DateFormat('dd/MM/yyyy  kk:mm').format(now);
-
-    final data = OrderModel(
-        orderCategory: "ride",
-        orderName: "UPNYK Babarsari",
-        isFinish: 0,
-        userName:
-            context.read<MainViewModel>().currentUser!.userName.toString(),
-        dateTime: formattedDate,
-        amount: total);
-
-    await orderDB.create(data);
-
-    setState(() {
-      isLoading = false;
-    });
-  }
-
-  void refreshTotalPrice(int discount) {
-    poinDiscount = discount;
-    setState(() {
-      if (widget.coupon != null) {
-        discountCoupon = widget.coupon!.discount;
-        total = jogjaRidePrice + (-discountCoupon!) + (-poinDiscount);
-      } else {
-        total = jogjaRidePrice - poinDiscount;
-      }
-    });
-  }
 
   @override
   void initState() {
     setState(() {
-      refreshTotalPrice(poinDiscount);
+      context.read<OrderViewModel>().refreshTotalPrice(widget.coupon);
     });
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    var orderViewMpdel = context.watch<OrderViewModel>();
+    var user = context.watch<MainViewModel>().currentUser;
+
     return MaterialApp(
-      theme: ThemeData(
-          // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue.shade100),
-          ),
+      theme: ThemeData(),
       home: Scaffold(
         bottomSheet: SizedBox(
           height: MediaQuery.of(context).size.height * 0.44,
@@ -118,7 +65,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                       color: const Color(0xffFCE7E9),
                       icon: Icons.directions_bike,
                       name: "Jogja Ride",
-                      price: "Rp ${jogjaRidePrice.toString()}",
+                      price: "Rp ${orderViewMpdel.jogjaRidePrice.toString()}",
                       isBordered: true,
                     ),
                     const PriceCardOrder(
@@ -159,7 +106,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                             ),
                             Text(
                               widget.coupon != null
-                                  ? "- Rp $discountCoupon"
+                                  ? "- Rp ${context.read<OrderViewModel>().discountCoupon}"
                                   : "",
                               style: const TextStyle(
                                   fontWeight: FontWeight.bold,
@@ -201,13 +148,14 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                   onChanged: (bool value) {
                                     setState(() {
                                       light = value;
-                                      poinDiscount = light ? 1000 : 0;
-                                      refreshTotalPrice(poinDiscount);
+                                      orderViewMpdel.togglepoinDiscount(light);
+                                      orderViewMpdel
+                                          .refreshTotalPrice(widget.coupon);
                                     });
                                   },
                                 ),
                                 Text(
-                                  "- Rp $poinDiscount",
+                                  "- Rp ${orderViewMpdel.poinDiscount}",
                                   style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold,
@@ -246,7 +194,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                 width: 10,
                               ),
                               InkWell(
-                                onTap: () {
+                                onTap: () async {
                                   widget.coupon == null
                                       ? Navigator.push(context,
                                           MaterialPageRoute(builder: (context) {
@@ -294,14 +242,17 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       ),
                                     ),
                                   ));
-                              createNote(total);
-                              deleteCoupon(widget.coupon);
+                              await orderViewMpdel.createOrder(
+                                  orderViewMpdel.total, user!);
+                              await context
+                                  .read<CouponViewModel>()
+                                  .deleteCoupon(widget.coupon);
                               await Future.delayed(const Duration(seconds: 2));
                               OverlayLoadingProgress.stop();
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
                                   return PickupJogjaRide(
-                                    total: total,
+                                    total: orderViewMpdel.total,
                                   );
                                 },
                               ));
@@ -316,7 +267,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       fontWeight: FontWeight.bold),
                                 ),
                                 Text(
-                                  "Rp $total",
+                                  "Rp ${orderViewMpdel.total}",
                                   style: const TextStyle(
                                       fontSize: 16,
                                       color: Colors.white,

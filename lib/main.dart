@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/user_db.dart';
 import 'package:jogja_kita_gamification/core/model/user_model.dart';
 import 'package:jogja_kita_gamification/main_view_model.dart';
+import 'package:jogja_kita_gamification/order_view_model/coupon_view_model.dart';
+import 'package:jogja_kita_gamification/order_view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/screen.dart';
 import 'package:provider/provider.dart';
 
@@ -24,6 +26,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => MainViewModel()),
+        ChangeNotifierProvider(create: (_) => OrderViewModel()),
+        ChangeNotifierProvider(create: (_) => CouponViewModel()),
       ],
       child: MaterialApp(
         scaffoldMessengerKey: scaffoldMessengerKey,
