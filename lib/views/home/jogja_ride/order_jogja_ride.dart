@@ -9,9 +9,12 @@ import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/bottom_payment.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride_widget/price_card.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/pickup_jogja_ride.dart';
+import 'package:provider/provider.dart';
 import 'package:sliding_up_panel/sliding_up_panel.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:intl/intl.dart';
+
+import '../../../main_view_model.dart';
 
 class OrderJogjaRide extends StatefulWidget {
   const OrderJogjaRide({super.key, this.coupon});
@@ -50,7 +53,8 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
         orderCategory: "ride",
         orderName: "UPNYK Babarsari",
         isFinish: 0,
-        userName: currentUser!.userName.toString(),
+        userName:
+            context.read<MainViewModel>().currentUser!.userName.toString(),
         dateTime: formattedDate,
         amount: total);
 

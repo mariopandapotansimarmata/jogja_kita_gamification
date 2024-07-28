@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/core/model/user_model.dart';
 import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/main_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/card_follower.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/exp_bar.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/profile_navbar.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/video_views.dart/leaderboard.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({
@@ -16,8 +20,17 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilPageState extends State<ProfilePage> {
+  late UserModel user;
+  @override
+  void initState() {
+    setState(() {});
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    user = context.watch<MainViewModel>().currentUser!;
+
     return ListView(
       children: [
         Container(
@@ -33,16 +46,16 @@ class _ProfilPageState extends State<ProfilePage> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.1,
                   ),
-                  const Column(
+                  Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        "Mario Pandapotan Simarmata",
-                        style: TextStyle(
+                        user.name!,
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold),
                       ),
-                      Text("@mario_pan",
-                          style: TextStyle(
+                      Text(user.userName!,
+                          style: const TextStyle(
                             fontSize: 14,
                           )),
                     ],
@@ -57,7 +70,7 @@ class _ProfilPageState extends State<ProfilePage> {
                 ],
               ),
               ProfileBadges(
-                exp: currentUser!.exp!,
+                exp: context.watch<MainViewModel>().currentUser!.exp!,
                 size: 60,
               ),
               const SizedBox(
@@ -71,7 +84,9 @@ class _ProfilPageState extends State<ProfilePage> {
                   ],
                 ),
               ),
-              const ExpBar(),
+              ExpBar(
+                user: user,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

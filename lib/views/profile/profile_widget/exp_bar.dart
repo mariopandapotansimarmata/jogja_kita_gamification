@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/core/model/user_model.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 
 class ExpBar extends StatefulWidget {
-  const ExpBar({super.key});
+  const ExpBar({
+    super.key,
+    required this.user,
+  });
+  final UserModel user;
 
   @override
   State<ExpBar> createState() => _ExpBarState();
@@ -11,11 +15,11 @@ class ExpBar extends StatefulWidget {
 
 class _ExpBarState extends State<ExpBar> {
   double getMaxExp(int exp) {
-    if (exp <= 250) {
+    if (exp < 250) {
       return 250;
-    } else if (exp <= 600) {
+    } else if (exp < 600) {
       return 600;
-    } else if (exp <= 1000) {
+    } else if (exp < 1000) {
       return 1000;
     } else {
       return 1000; // Add further conditions if there are more levels
@@ -24,7 +28,7 @@ class _ExpBarState extends State<ExpBar> {
 
   @override
   Widget build(BuildContext context) {
-    final int currentExp = currentUser!.exp!;
+    final int currentExp = widget.user.exp!;
     final double maxExp = getMaxExp(currentExp);
     final double percent = (currentExp / maxExp).clamp(0.0, 1.0);
 

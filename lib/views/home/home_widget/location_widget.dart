@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/main.dart';
+import 'package:jogja_kita_gamification/main_view_model.dart';
+import 'package:provider/provider.dart';
 
 import '../../component/profile_badges.dart';
 
@@ -40,7 +41,6 @@ class _LocationWidgetState extends State<LocationWidget> {
             ),
           ),
           SizedBox(
-            // decoration: BoxDecoration(border: Border.all(color: Colors.black)),
             width: MediaQuery.of(context).size.width * 0.3,
             child: const Row(
               children: [
@@ -60,7 +60,7 @@ class _LocationWidgetState extends State<LocationWidget> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ProfileBadges(
-                      exp: currentUser!.exp!,
+                      exp: context.watch<MainViewModel>().currentUser!.exp!,
                     ),
                   ],
                 ),

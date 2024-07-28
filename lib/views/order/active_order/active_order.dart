@@ -5,8 +5,10 @@ import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
+import 'package:provider/provider.dart';
 
 import '../../../core/model/order_model.dart';
+import '../../../main_view_model.dart';
 import '../../home/jogja_ride/pickup_jogja_ride.dart';
 
 class ActiveOrder extends StatefulWidget {
@@ -69,7 +71,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
   }
 
   Future<void> updateUserBadge(UserModel user) async {
-    await userDb.update(currentUser!);
+    await userDb.update(context.watch<MainViewModel>().currentUser!);
     refreshNotes();
   }
 
@@ -144,9 +146,13 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   listOrders.removeAt(index);
                                 });
                                 order.setIsFinish = 1;
-                                currentUser!.setExp = 50;
+                                context
+                                    .read<MainViewModel>()
+                                    .currentUser!
+                                    .setExp = 50;
                                 updateFinishStatus(order);
-                                updateUserExp(currentUser!);
+                                updateUserExp(
+                                    context.read<MainViewModel>().currentUser!);
                                 scaffoldMessengerKey.currentState?.showSnackBar(
                                   SnackBar(
                                     backgroundColor: Colors.blue[300],
@@ -163,16 +169,26 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                 );
                                 int currentindex = 0;
                                 listExpBadges.indexWhere((element) {
-                                  if (currentUser!.badge == element.badge) {
+                                  if (context
+                                          .read<MainViewModel>()
+                                          .currentUser!
+                                          .badge ==
+                                      element.badge) {
                                     index = listExpBadges.indexOf(
                                         element); // Store the index when found
                                     return true; // Return true when a match is found
                                   }
                                   return false;
                                 });
-                                if (currentUser!.exp! >
+                                if (context
+                                        .read<MainViewModel>()
+                                        .currentUser!
+                                        .exp! >
                                     listExpBadges[currentindex].maxExp) {
-                                  currentUser!.setBadge =
+                                  context
+                                          .read<MainViewModel>()
+                                          .currentUser!
+                                          .setBadge =
                                       listExpBadges[currentindex + 1].badge;
 
                                   OverlayLoadingProgress.start(context,
@@ -199,9 +215,15 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   await Future.delayed(
                                       const Duration(seconds: 2));
                                   OverlayLoadingProgress.stop();
-                                } else if (currentUser!.exp! >
+                                } else if (context
+                                        .watch<MainViewModel>()
+                                        .currentUser!
+                                        .exp! >
                                     listExpBadges.last.maxExp) {
-                                  currentUser!.setBadge = "Legendary";
+                                  context
+                                      .watch<MainViewModel>()
+                                      .currentUser!
+                                      .setBadge = "Legendary";
                                 }
                               },
                               child: const DriverCard()),

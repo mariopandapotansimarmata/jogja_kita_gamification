@@ -4,6 +4,9 @@ import 'package:jogja_kita_gamification/core/model/coupon_model.dart';
 import 'package:jogja_kita_gamification/main.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon_widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../../main_view_model.dart';
 
 class CouponPage extends StatefulWidget {
   const CouponPage({super.key});
@@ -43,7 +46,7 @@ class _CouponPageState extends State<CouponPage> {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: ProfileBadges(
-              exp: currentUser!.exp!,
+              exp: context.watch<MainViewModel>().currentUser!.exp!,
               size: 30,
             ),
           )
