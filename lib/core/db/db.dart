@@ -143,7 +143,7 @@ class JogjaKitaDb {
     batch.insert('users', {
       'name': 'Mario Pandapotan S',
       'user_name': 'mario_pan',
-      'exp': 200,
+      'exp': 200, // deafult value is 200 , 950 for testing
       "poin": 50000,
       "badge": "Amateur"
     });

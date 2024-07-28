@@ -155,78 +155,145 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   return false;
                                 });
 
-                                if (userViewModel.currentUser!.exp! >
-                                    listExpBadges[currentindex].maxExp) {
-                                  userViewModel.currentUser!.setBadge =
-                                      listExpBadges[currentindex + 1].badge;
-
-                                  OverlayLoadingProgress.start(context,
-                                      widget: Scaffold(
-                                        backgroundColor: Colors.transparent,
-                                        body: Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              // const CircularProgressIndicator(),
-                                              Container(
-                                                height: 200,
-                                                width: 300,
-                                                decoration: const BoxDecoration(
-                                                    color: Colors.white),
-                                                child: Center(
-                                                  child: Column(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .center,
-                                                    children: [
-                                                      const Text(
-                                                        "Selamat",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      const Text(
-                                                        "Anda Naik Level",
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 16),
-                                                      ),
-                                                      Text(
-                                                        userViewModel
-                                                            .currentUser!
-                                                            .badge!,
-                                                        style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontSize: 18,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      )
-                                                    ],
+                                if (!currentindex.isNegative) {
+                                  if (userViewModel.currentUser!.exp! >
+                                      listExpBadges.last.maxExp) {
+                                    userViewModel.currentUser!.setBadge =
+                                        "Legendary";
+                                    OverlayLoadingProgress.start(context,
+                                        widget: Scaffold(
+                                          backgroundColor: Colors.transparent,
+                                          body: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // const CircularProgressIndicator(),
+                                                Container(
+                                                  height: 200,
+                                                  width: 300,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          color: Colors.white),
+                                                  child: Center(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Text(
+                                                          "Selamat",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        const Text(
+                                                          "Anda Naik Level",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16),
+                                                        ),
+                                                        Text(
+                                                          userViewModel
+                                                              .currentUser!
+                                                              .badge!,
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      ],
+                                                    ),
                                                   ),
                                                 ),
-                                              ),
-                                              ElevatedButton(
-                                                  onPressed: () {
-                                                    OverlayLoadingProgress
-                                                        .stop();
-                                                  },
-                                                  child: const Text("Tutup"))
-                                            ],
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      OverlayLoadingProgress
+                                                          .stop();
+                                                    },
+                                                    child: const Text("Tutup"))
+                                              ],
+                                            ),
                                           ),
-                                        ),
-                                      ));
+                                        ));
+                                  } else if (userViewModel.currentUser!.exp! >
+                                      listExpBadges[currentindex].maxExp) {
+                                    userViewModel.currentUser!.setBadge =
+                                        listExpBadges[currentindex + 1].badge;
 
-                                  await Future.delayed(
-                                      const Duration(seconds: 2));
-                                } else if (userViewModel.currentUser!.exp! >
-                                    listExpBadges.last.maxExp) {
-                                  userViewModel.currentUser!.setBadge =
-                                      "Legendary";
+                                    OverlayLoadingProgress.start(context,
+                                        widget: Scaffold(
+                                          backgroundColor: Colors.transparent,
+                                          body: Center(
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                // const CircularProgressIndicator(),
+                                                Container(
+                                                  height: 200,
+                                                  width: 300,
+                                                  decoration:
+                                                      const BoxDecoration(
+                                                          color: Colors.white),
+                                                  child: Center(
+                                                    child: Column(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .center,
+                                                      children: [
+                                                        const Text(
+                                                          "Selamat",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        ),
+                                                        const Text(
+                                                          "Anda Naik Level",
+                                                          style: TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 16),
+                                                        ),
+                                                        Text(
+                                                          userViewModel
+                                                              .currentUser!
+                                                              .badge!,
+                                                          style: const TextStyle(
+                                                              color:
+                                                                  Colors.black,
+                                                              fontSize: 18,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold),
+                                                        )
+                                                      ],
+                                                    ),
+                                                  ),
+                                                ),
+                                                ElevatedButton(
+                                                    onPressed: () {
+                                                      OverlayLoadingProgress
+                                                          .stop();
+                                                    },
+                                                    child: const Text("Tutup"))
+                                              ],
+                                            ),
+                                          ),
+                                        ));
+                                  }
                                 }
                                 userViewModel
                                     .updateUserExp(userViewModel.currentUser!);

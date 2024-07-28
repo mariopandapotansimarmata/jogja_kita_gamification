@@ -110,8 +110,8 @@ class _CouponPageState extends State<CouponPage> {
                         final coupon = listCoupons[index];
                         return index == 0
                             ? Container(
-                                decoration: BoxDecoration(
-                                    border: Border.all(color: Colors.black)),
+                                // decoration: BoxDecoration(
+                                //     border: Border.all(color: Colors.black)),
                                 margin: const EdgeInsets.only(top: 10),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
