@@ -9,7 +9,8 @@ import '../core/model/user_model.dart';
 class OrderViewModel extends ChangeNotifier {
   final OrderDb orderDb = OrderDb.instance;
 
-  List<OrderModel> listOrders = [];
+  List<OrderModel> listActiveOrders = [];
+  List<OrderModel> listFinishOrders = [];
 
   int jogjaRidePrice = 12000;
   int? discountCoupon;
@@ -42,7 +43,14 @@ class OrderViewModel extends ChangeNotifier {
 
   Future<void> showAllActiveOrders() async {
     final orders = await orderDb.readActiveOrders();
-    listOrders = orders;
+    listActiveOrders = orders;
+    notifyListeners();
+  }
+
+  Future<void> showAllFinishOrders() async {
+    final orders = await orderDb.readFinisedOrders();
+    listFinishOrders = orders;
+    notifyListeners();
   }
 
   Future<void> updateFinishStatus(OrderModel order) async {

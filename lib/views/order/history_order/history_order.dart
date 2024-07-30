@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/order/history_order/history_order_widget/history_order_widget.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/db/order_db.dart';
 import '../../../core/model/order_model.dart';
 
 class HistoryOrder extends StatefulWidget {
@@ -13,30 +14,15 @@ class HistoryOrder extends StatefulWidget {
 }
 
 class _HistoryOrderState extends State<HistoryOrder> {
-  OrderDb orderDb = OrderDb.instance;
-  List<OrderModel> listOrders = [];
-
   @override
   void initState() {
-    showAllFinishOrders();
+    context.read<OrderViewModel>().showAllFinishOrders();
     super.initState();
-  }
-
-  Future<void> showAllFinishOrders() async {
-    final orders = await orderDb.readFinisedOrders();
-    setState(() {
-      listOrders = orders;
-    });
-  }
-
-  Future<void> deleteOrder(OrderModel? order) async {
-    if (order != null && order.orderId != null) {
-      await orderDb.delete(order.orderId!);
-    }
   }
 
   @override
   Widget build(BuildContext context) {
+    final orderVM = context.watch<OrderViewModel>();
     return Column(
       children: [
         Container(
@@ -66,7 +52,7 @@ class _HistoryOrderState extends State<HistoryOrder> {
         ),
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.55,
-          child: listOrders.isEmpty
+          child: orderVM.listFinishOrders.isEmpty
               ? Column(
                   children: [
                     Container(
@@ -87,14 +73,14 @@ class _HistoryOrderState extends State<HistoryOrder> {
                   ],
                 )
               : ListView.builder(
-                  itemCount: listOrders.length,
+                  itemCount: orderVM.listFinishOrders.length,
                   itemBuilder: (context, index) {
-                    OrderModel order = listOrders[index];
+                    OrderModel order = orderVM.listFinishOrders[index];
                     return InkWell(
                       onLongPress: () {
                         setState(() {
-                          listOrders.removeAt(index);
-                          deleteOrder(order);
+                          orderVM.listFinishOrders.removeAt(index);
+                          context.read<OrderViewModel>().deleteOrder(order);
                         });
                       },
                       child: Column(

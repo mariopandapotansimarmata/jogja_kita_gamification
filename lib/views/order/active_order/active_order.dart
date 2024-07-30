@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/db/order_db.dart';
 import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/active_order_card.dart';
 import 'package:jogja_kita_gamification/views/order/active_order/active_order_widget/driver_card.dart';
@@ -31,8 +30,6 @@ class ExpBadge {
 }
 
 class _ActiveOrderState extends State<ActiveOrder> {
-  OrderDb orderDb = OrderDb.instance;
-  List<OrderModel> listOrders = [];
   List<ExpBadge> listExpBadges = [
     ExpBadge(249, "Amateur"),
     ExpBadge(599, "Professional"),
@@ -41,15 +38,8 @@ class _ActiveOrderState extends State<ActiveOrder> {
 
   @override
   void initState() {
-    showAllActiveOrder();
+    context.read<OrderViewModel>().showAllActiveOrders();
     super.initState();
-  }
-
-  Future<void> showAllActiveOrder() async {
-    final orders = await orderDb.readActiveOrders();
-    setState(() {
-      listOrders = orders;
-    });
   }
 
   @override
@@ -78,7 +68,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
           SizedBox(
             width: MediaQuery.of(context).size.width,
             height: MediaQuery.of(context).size.height * 0.6,
-            child: listOrders.isEmpty
+            child: orderViewModel.listActiveOrders.isEmpty
                 ? Column(
                     children: [
                       Container(
@@ -99,9 +89,10 @@ class _ActiveOrderState extends State<ActiveOrder> {
                     ],
                   )
                 : ListView.builder(
-                    itemCount: listOrders.length,
+                    itemCount: orderViewModel.listActiveOrders.length,
                     itemBuilder: (context, index) {
-                      final OrderModel order = listOrders[index];
+                      final OrderModel order =
+                          orderViewModel.listActiveOrders[index];
                       return Column(
                         children: [
                           InkWell(
@@ -123,7 +114,8 @@ class _ActiveOrderState extends State<ActiveOrder> {
                           InkWell(
                               onLongPress: () async {
                                 setState(() {
-                                  listOrders.removeAt(index);
+                                  orderViewModel.listActiveOrders
+                                      .removeAt(index);
                                 });
                                 order.setIsFinish = 1;
                                 userViewModel.currentUser!.setExp = 50;

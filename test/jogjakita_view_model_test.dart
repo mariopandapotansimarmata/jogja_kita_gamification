@@ -16,9 +16,6 @@ void main() {
     "Test UserViewModel",
     () {
       test("test userVM, getCurrent user", () async {
-        var databasesPath = await databaseFactory.getDatabasesPath();
-
-        print("Database path: $databasesPath");
         await userVM.getCurrentUser("mario_pan");
         expect(userVM.currentUser!.userName, "mario_pan");
       });
