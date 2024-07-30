@@ -40,14 +40,20 @@ class OrderViewModel extends ChangeNotifier {
     await orderDb.create(data);
   }
 
-  Future<void> refreshActiveOrders() async {
+  Future<void> showAllActiveOrders() async {
     final orders = await orderDb.readActiveOrders();
     listOrders = orders;
   }
 
   Future<void> updateFinishStatus(OrderModel order) async {
     await orderDb.update(order);
-    refreshActiveOrders();
+    showAllActiveOrders();
+  }
+
+  Future<void> deleteOrder(OrderModel? order) async {
+    if (order != null && order.orderId != null) {
+      await orderDb.delete(order.orderId!);
+    }
   }
 
   void togglepoinDiscount(bool light) {
