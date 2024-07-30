@@ -5,6 +5,13 @@ import '../core/model/coupon_model.dart';
 
 class CouponViewModel extends ChangeNotifier {
   CouponDb couponDb = CouponDb.instance;
+  List<CouponModel> listCoupons = [];
+
+  Future<void> showAllCoupons() async {
+    final coupons = await couponDb.readAll();
+    listCoupons = coupons;
+    notifyListeners();
+  }
 
   Future<void> deleteCoupon(CouponModel? coupon) async {
     if (coupon != null && coupon.couponId != null) {

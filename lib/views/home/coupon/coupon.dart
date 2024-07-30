@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/db/coupon_db.dart';
-import 'package:jogja_kita_gamification/core/model/coupon_model.dart';
+
+import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon_widget.dart';
 import 'package:provider/provider.dart';
@@ -15,24 +15,15 @@ class CouponPage extends StatefulWidget {
 }
 
 class _CouponPageState extends State<CouponPage> {
-  CouponDb couponDb = CouponDb.instance;
-  List<CouponModel> listCoupons = [];
-
-  Future<void> showAllCoupons() async {
-    final coupons = await couponDb.readAll();
-    setState(() {
-      listCoupons = coupons;
-    });
-  }
-
   @override
   void initState() {
-    showAllCoupons();
+    context.read<CouponViewModel>().showAllCoupons();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final couponVM = context.watch<CouponViewModel>();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -59,7 +50,7 @@ class _CouponPageState extends State<CouponPage> {
       body: Container(
         height: MediaQuery.of(context).size.height,
         padding: const EdgeInsets.symmetric(horizontal: 16),
-        child: listCoupons.isEmpty
+        child: couponVM.listCoupons.isEmpty
             ? Container(
                 margin: const EdgeInsets.only(top: 20),
                 child: Center(
@@ -105,9 +96,9 @@ class _CouponPageState extends State<CouponPage> {
                     margin: const EdgeInsets.only(top: 16),
                     height: MediaQuery.of(context).size.height * 0.86,
                     child: ListView.builder(
-                      itemCount: listCoupons.length,
+                      itemCount: couponVM.listCoupons.length,
                       itemBuilder: (context, index) {
-                        final coupon = listCoupons[index];
+                        final coupon = couponVM.listCoupons[index];
                         return index == 0
                             ? Container(
                                 // decoration: BoxDecoration(
