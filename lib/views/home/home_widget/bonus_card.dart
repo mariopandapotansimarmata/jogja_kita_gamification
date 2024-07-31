@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/views/home/quiz/quiz.dart';
 
 class BonusCard extends StatefulWidget {
   const BonusCard({super.key});
@@ -14,6 +15,7 @@ class _BonusCardState extends State<BonusCard> {
         top: MediaQuery.of(context).size.height * 0.125 -
             ((MediaQuery.of(context).size.height * 0.075) / 2),
         child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           height: MediaQuery.of(context).size.height * 0.075,
           decoration: BoxDecoration(
             boxShadow: [
@@ -30,15 +32,10 @@ class _BonusCardState extends State<BonusCard> {
           width: MediaQuery.of(context).size.width - 32,
           // height: MediaQuery.of(context).size.height * 0.,
           child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.fromLTRB(
-                  0,
-                  8,
-                  0,
-                  8,
-                ),
-                width: MediaQuery.of(context).size.width * 0.45,
+                width: MediaQuery.of(context).size.width * 0.38,
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -73,13 +70,9 @@ class _BonusCardState extends State<BonusCard> {
                 ),
               ),
               Container(
-                height: 40,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(color: Colors.grey)),
-              ),
-              Container(
-                padding: const EdgeInsets.fromLTRB(12, 8.0, 0, 8.0),
+                decoration: const BoxDecoration(
+                    border: Border(left: BorderSide(color: Colors.grey))),
+                padding: const EdgeInsets.fromLTRB(12, 0, 0, 0),
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,6 +100,17 @@ class _BonusCardState extends State<BonusCard> {
                   ],
                 ),
               ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return const QuizzPage();
+                  }));
+                },
+                child: const Icon(
+                  Icons.qr_code_scanner_rounded,
+                  size: 40,
+                ),
+              )
             ],
           ),
         ));
