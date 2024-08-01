@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/core/model/quiz_model.dart';
 import 'package:jogja_kita_gamification/views/home/quiz/quiz.dart';
 
 class BonusCard extends StatefulWidget {
@@ -9,6 +10,12 @@ class BonusCard extends StatefulWidget {
 }
 
 class _BonusCardState extends State<BonusCard> {
+  List<QuizModel> dummyData = [
+    QuizModel(question: "soal 1", listChoices: ["1 a", "1 b", "1 c", "1 d"]),
+    QuizModel(question: "soal 2", listChoices: ["2 a", "2 b", "2 c", "2 d"]),
+    QuizModel(question: "soal 3", listChoices: ["3 a", "3 b", "3 c", "3 d"]),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -103,7 +110,10 @@ class _BonusCardState extends State<BonusCard> {
               InkWell(
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return const QuizzPage();
+                    return QuizzPage(
+                      indexQuestion: 0,
+                      listQuiz: dummyData,
+                    );
                   }));
                 },
                 child: const Icon(

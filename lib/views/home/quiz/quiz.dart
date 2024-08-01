@@ -1,24 +1,35 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
-import 'package:jogja_kita_gamification/views/home/quiz/button_answer.dart';
+import 'package:jogja_kita_gamification/views/home/quiz/quiz_widget/button_answer.dart';
+import 'package:jogja_kita_gamification/views/home/quiz/quiz_widget/result_overlay.dart';
+import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:provider/provider.dart';
 
-class QuizzPage extends StatefulWidget {
-  const QuizzPage({super.key});
+import '../../../core/model/quiz_model.dart';
 
+class QuizzPage extends StatefulWidget {
+  const QuizzPage(
+      {super.key, required this.listQuiz, required this.indexQuestion});
+  final int indexQuestion;
+  final List<QuizModel> listQuiz;
   @override
   State<QuizzPage> createState() => _QuizzPageState();
 }
 
 class _QuizzPageState extends State<QuizzPage> {
+  int _selectedAnswerIndex = -1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
-        leading: Container(child: const Icon(Icons.arrow_back)),
+        leading: IconButton(
+            onPressed: () => Navigator.pop(context),
+            icon: Icon(Icons.arrow_back)),
         actions: [
           Container(
               padding: const EdgeInsets.only(right: 16),
@@ -35,24 +46,24 @@ class _QuizzPageState extends State<QuizzPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
+                SizedBox(
                   height: 80,
-                  child: const Center(
-                    child: const Text(
-                        "Apa nama keraton atau istana resmi dari Sultan Yogyakarta",
-                        style: TextStyle(
+                  child: Center(
+                    child: Text(
+                        "${widget.listQuiz[widget.indexQuestion].question}",
+                        style: const TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                 ),
-                const Row(
+                Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     Text(
-                      "1 ",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                      "${widget.indexQuestion + 1} ",
+                      style: const TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.bold),
                     ),
-                    Text("dari 3"),
+                    Text("dari ${widget.listQuiz.length}"),
                   ],
                 )
               ],
@@ -68,13 +79,30 @@ class _QuizzPageState extends State<QuizzPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                const Column(
+                Column(
                   children: [
-                    ButtonAnswerQuizz(),
-                    ButtonAnswerQuizz(),
-                    ButtonAnswerQuizz(),
-                    ButtonAnswerQuizz(),
-                    Column(
+                    SizedBox(
+                      height: 350,
+                      child: ListView.builder(
+                        itemCount: 4,
+                        itemBuilder: (context, index) {
+                          final question =
+                              widget.listQuiz[widget.indexQuestion];
+                          return InkWell(
+                            onTap: () {
+                              setState(() {
+                                _selectedAnswerIndex = index;
+                              });
+                            },
+                            child: ButtonAnswerQuizz(
+                              answer: question.listChoices![index],
+                              isSelected: _selectedAnswerIndex == index,
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                    const Column(
                       children: [
                         Icon(
                           Icons.control_camera_outlined,
@@ -90,23 +118,48 @@ class _QuizzPageState extends State<QuizzPage> {
                   ],
                 ),
                 Container(
-                  margin: const EdgeInsets.only(bottom: 20),
-                  height: 68,
-                  width: MediaQuery.of(context).size.width,
-                  // decoration: BoxDecoration(
-                  //   border: Border.all(color: Colors.grey),
-                  //   color: Colors.white,
-                  //   // borderRadius: BorderRadius.circular(16)
-                  // ),
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: const Color(0xffF2D726),
-                    ),
-                    child: const Text("Next",
-                        style: TextStyle(color: Colors.black, fontSize: 18)),
-                  ),
-                ),
+                    margin: const EdgeInsets.only(bottom: 20),
+                    height: 68,
+                    width: MediaQuery.of(context).size.width,
+                    child: widget.indexQuestion == (widget.listQuiz.length - 1)
+                        ? ElevatedButton(
+                            onPressed: () async {
+                              var overlayCompleter = Completer<void>();
+                              await OverlayLoadingProgress.start(
+                                context,
+                                widget: ResultOverlay(onComplete: () {
+                                  overlayCompleter.complete();
+                                }),
+                              );
+                              await overlayCompleter.future;
+
+                              Navigator.of(context)
+                                  .popUntil((route) => route.isFirst);
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.green,
+                            ),
+                            child: const Text("Submit",
+                                style: TextStyle(
+                                    color: Colors.white, fontSize: 18)),
+                          )
+                        : ElevatedButton(
+                            onPressed: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return QuizzPage(
+                                      listQuiz: widget.listQuiz,
+                                      indexQuestion: widget.indexQuestion + 1);
+                                },
+                              ));
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: const Color(0xffF2D726),
+                            ),
+                            child: const Text("Next",
+                                style: TextStyle(
+                                    color: Colors.black, fontSize: 18)),
+                          )),
               ],
             ),
           ),
