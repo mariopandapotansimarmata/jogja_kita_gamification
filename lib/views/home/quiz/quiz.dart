@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/view_model/quiz_view_model.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/home/quiz/quiz_widget/button_answer.dart';
@@ -9,6 +10,7 @@ import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/model/quiz_model.dart';
+import '../../order/active_order/active_order.dart';
 
 class QuizzPage extends StatefulWidget {
   const QuizzPage(
@@ -20,16 +22,27 @@ class QuizzPage extends StatefulWidget {
 }
 
 class _QuizzPageState extends State<QuizzPage> {
+  final GlobalKey<ScaffoldMessengerState> scaffoldErrorQuizMessenger =
+      GlobalKey<ScaffoldMessengerState>();
+
+  @override
+  void initState() {
+    context.read<QuizViewModel>().showAllQuestion();
+    super.initState();
+  }
+
   int _selectedAnswerIndex = -1;
+
   @override
   Widget build(BuildContext context) {
+    var quizVM = context.watch<QuizViewModel>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         toolbarHeight: MediaQuery.of(context).size.height * 0.1,
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
-            icon: Icon(Icons.arrow_back)),
+            icon: const Icon(Icons.arrow_back)),
         actions: [
           Container(
               padding: const EdgeInsets.only(right: 16),
@@ -95,12 +108,22 @@ class _QuizzPageState extends State<QuizzPage> {
                               });
                             },
                             child: ButtonAnswerQuizz(
-                              answer: question.listChoices![index],
+                              answer: question.listChoices![index]!,
                               isSelected: _selectedAnswerIndex == index,
                             ),
                           );
                         },
                       ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Container(
+                      height: 10,
+                      // color: Colors.red,
+                      width: MediaQuery.of(context).size.width * 0.1,
                     ),
                     const Column(
                       children: [
@@ -114,27 +137,57 @@ class _QuizzPageState extends State<QuizzPage> {
                               fontWeight: FontWeight.bold, fontSize: 16),
                         )
                       ],
+                    ),
+                    InkWell(
+                      onTap: () => setState(() {
+                        _selectedAnswerIndex = -1;
+                      }),
+                      child: Column(
+                        children: [Icon(Icons.refresh), Text("Reset")],
+                      ),
                     )
                   ],
                 ),
                 Container(
-                    margin: const EdgeInsets.only(bottom: 20),
+                    // margin: const EdgeInsets.only(bottom: 20),
                     height: 68,
                     width: MediaQuery.of(context).size.width,
                     child: widget.indexQuestion == (widget.listQuiz.length - 1)
                         ? ElevatedButton(
                             onPressed: () async {
-                              var overlayCompleter = Completer<void>();
-                              await OverlayLoadingProgress.start(
-                                context,
-                                widget: ResultOverlay(onComplete: () {
-                                  overlayCompleter.complete();
-                                }),
-                              );
-                              await overlayCompleter.future;
+                              if (_selectedAnswerIndex >= 0) {
+                                if (quizVM.listQuestion[widget.indexQuestion]
+                                        .correctAnswer ==
+                                    quizVM.listQuestion[widget.indexQuestion]
+                                        .listChoices![_selectedAnswerIndex]) {
+                                  quizVM.setTotalScoreAnswer = 1;
+                                } else {}
+                                var overlayCompleter = Completer<void>();
+                                await OverlayLoadingProgress.start(
+                                  context,
+                                  widget: ResultOverlay(onComplete: () {
+                                    overlayCompleter.complete();
+                                  }),
+                                );
+                                await overlayCompleter.future;
 
-                              Navigator.of(context)
-                                  .popUntil((route) => route.isFirst);
+                                Navigator.of(context)
+                                    .popUntil((route) => route.isFirst);
+                                print("Jawaban benar");
+                              } else {
+                                scaffoldMessengerKey.currentState?.showSnackBar(
+                                  const SnackBar(
+                                    backgroundColor: Color(0xffCA110F),
+                                    content: Row(
+                                      children: [
+                                        Text('Silahkan pilih jawaban'),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                                print("jawaban salah");
+                              }
+                              quizVM.setTotalScoreToZero();
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.green,
@@ -145,13 +198,37 @@ class _QuizzPageState extends State<QuizzPage> {
                           )
                         : ElevatedButton(
                             onPressed: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return QuizzPage(
-                                      listQuiz: widget.listQuiz,
-                                      indexQuestion: widget.indexQuestion + 1);
-                                },
-                              ));
+                              if (_selectedAnswerIndex >= 0) {
+                                if (quizVM.listQuestion[widget.indexQuestion]
+                                        .correctAnswer ==
+                                    quizVM.listQuestion[widget.indexQuestion]
+                                        .listChoices![_selectedAnswerIndex]) {
+                                  quizVM.setTotalScoreAnswer = 1;
+                                  print("Jawaban benar");
+                                } else {
+                                  print("jawaban salah");
+                                }
+
+                                Navigator.push(context, MaterialPageRoute(
+                                  builder: (context) {
+                                    return QuizzPage(
+                                        listQuiz: widget.listQuiz,
+                                        indexQuestion:
+                                            widget.indexQuestion + 1);
+                                  },
+                                ));
+                              } else {
+                                scaffoldMessengerKey.currentState?.showSnackBar(
+                                  const SnackBar(
+                                    backgroundColor: Color(0xffCA110F),
+                                    content: Row(
+                                      children: [
+                                        Text('Silahkan pilih jawaban'),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              }
                             },
                             style: ElevatedButton.styleFrom(
                               backgroundColor: const Color(0xffF2D726),

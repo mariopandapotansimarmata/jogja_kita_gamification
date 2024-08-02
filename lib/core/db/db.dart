@@ -1,4 +1,5 @@
 import 'package:jogja_kita_gamification/core/db/coupon_db.dart';
+import 'package:jogja_kita_gamification/core/db/quiz_db.dart';
 import 'package:jogja_kita_gamification/core/db/user_db.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -23,6 +24,7 @@ class JogjaKitaDb {
   Future<Database> _initDatabase() async {
     final databasePath = await getDatabasesPath();
     final path = '$databasePath/jogja_kita.db';
+    print(databasePath);
     return await openDatabase(
       path,
       version: 1,
@@ -64,6 +66,17 @@ class JogjaKitaDb {
       discount INTEGER NOT NULL,
       FOREIGN KEY (user_name) REFERENCES users (user_name)                  
        ON DELETE NO ACTION ON UPDATE NO ACTION
+    )
+  ''');
+    await db.execute('''
+    CREATE TABLE ${QuizDB.tableName} (
+      quiz_id INTEGER PRIMARY KEY AUTOINCREMENT,
+      question VARCHAR NOT NULL,
+      first_choice VARCHAR NOT NULL,
+      second_choice VARCHAR NOT NULL,
+      third_choice VARCHAR NOT NULL,
+      forth_choice VARCHAR NOT NULL,
+      correct_answer VARCHAR NOT NULL               
     )
   ''');
 
@@ -160,6 +173,35 @@ class JogjaKitaDb {
       'coupon_name': "Discount 2rb",
       "coupon_category": "ride",
       "discount": 2000,
+    });
+
+    batch.insert('quiz', {
+      'question':
+          'Kapan Perjanjian Giyanti, yang membagi Kerajaan Mataram menjadi Kesultanan Yogyakarta dan Kasunanan Surakarta, ditandatangani ?',
+      'first_choice': "1745",
+      "second_choice": "1755",
+      "third_choice": "1765",
+      "forth_choice": "1775",
+      "correct_answer": "1755"
+    });
+
+    batch.insert('quiz', {
+      'question': 'Apa nama keraton atau istana resmi dari Sultan Yogyakarta ?',
+      'first_choice': "Keraton Surakarta",
+      "second_choice": "Pura Pakualaman",
+      "third_choice": "Keraton Ngayogyakarta",
+      "forth_choice": "Pura Mangkunegara",
+      "correct_answer": "Keraton Ngayogyakarta"
+    });
+
+    batch.insert('quiz', {
+      'question':
+          'Apa peristiwa yang dikenal sebagai "Serangan Umum 1 Maret 1949" di Yogyakarta ?',
+      'first_choice': "Serangan TNI terhadap Belanda di Yogyakarta",
+      "second_choice": "Serangan Belanda terhadap rakyat Yogyakarta",
+      "third_choice": "Deklarasi kemerdekaan Yogyakarta",
+      "forth_choice": "Pemindahan ibu kota Indonesia ke Yogyakarta",
+      "correct_answer": "Serangan TNI terhadap Belanda di Yogyakarta"
     });
 
     // Map<String, Object?> toJson() => {

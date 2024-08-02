@@ -9,6 +9,7 @@ import '../../view_model/user_view_model.dart';
 import 'home_widget/location_widget.dart';
 import 'home_widget/recomendation.dart';
 import 'home_widget/services_icon_button.dart';
+import 'quiz/qr_code_scanner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -99,8 +100,17 @@ class _HomePageState extends State<HomePage> {
                               name: "Jogja Car", icon: Icons.car_repair),
                           const ServiceIcon(
                               name: "Jogja Food", icon: Icons.fastfood),
-                          const ServiceIcon(
-                              name: "Jogja Kurir", icon: Icons.pages),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return QRViewExample();
+                                },
+                              ));
+                            },
+                            child: const ServiceIcon(
+                                name: "Jogja Kurir", icon: Icons.pages),
+                          ),
                         ],
                       ),
                     ),

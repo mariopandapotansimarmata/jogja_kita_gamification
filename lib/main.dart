@@ -5,6 +5,7 @@ import 'package:jogja_kita_gamification/screen.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:provider/provider.dart';
 
+import 'view_model/quiz_view_model.dart';
 import 'views/order/active_order/active_order.dart';
 
 void main() async {
@@ -22,6 +23,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => UserViewModel()),
         ChangeNotifierProvider(create: (_) => OrderViewModel()),
         ChangeNotifierProvider(create: (_) => CouponViewModel()),
+        ChangeNotifierProvider(create: (_) => QuizViewModel()),
       ],
       child: MaterialApp(
         scaffoldMessengerKey: scaffoldMessengerKey,

@@ -28,7 +28,7 @@ class _ButtonAnswerQuizzState extends State<ButtonAnswerQuizz> {
           child: Text(
             widget.answer,
             style: TextStyle(
-                fontSize: 18,
+                fontSize: 16,
                 fontWeight: FontWeight.bold,
                 color: widget.isSelected ? Colors.white : Colors.black),
           ),
