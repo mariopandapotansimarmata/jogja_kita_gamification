@@ -109,6 +109,7 @@ class _QRViewExampleState extends State<QRViewExample> {
                   .read<QuizViewModel>()
                   .isQuestionPackageExist(scanData.code!) ==
               true) {
+        await context.read<QuizViewModel>().showQuestionsByQR(result!.code!);
         await Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return QuizzPage(
@@ -143,14 +144,14 @@ class _QRViewExampleState extends State<QRViewExample> {
       final image = await _picker.pickImage(source: ImageSource.gallery);
       if (image != null) {
         final results = await Scan.parse(image.path);
-        if (results!.isNotEmpty) {
-          setState(() {
-            result = Barcode(
-              results,
-              BarcodeFormat.qrcode,
-              null,
-            );
-          });
+        print(results);
+        if (results != null &&
+            results.isNotEmpty &&
+            await context
+                    .read<QuizViewModel>()
+                    .isQuestionPackageExist(results) ==
+                true) {
+          await context.read<QuizViewModel>().showQuestionsByQR(results);
           await Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return QuizzPage(
@@ -159,9 +160,10 @@ class _QRViewExampleState extends State<QRViewExample> {
             );
           }));
         } else {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('No barcode found in the image')),
-          );
+          setState(() {
+            result =
+                Barcode("QR Code tidak ditemukan", BarcodeFormat.qrcode, []);
+          });
         }
       }
     } catch (e) {

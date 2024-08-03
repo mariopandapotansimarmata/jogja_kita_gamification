@@ -18,8 +18,9 @@ class FormFieldText extends StatelessWidget {
       height: 49,
       child: TextFormField(
         decoration: InputDecoration(
-          hintStyle: const TextStyle(
-            color: Color.fromARGB(255, 122, 108, 112),
+          hintStyle: TextStyle(
+            fontSize: 14,
+            color: Colors.grey[800],
           ),
           hintText: name,
           prefixIcon: Icon(
@@ -28,7 +29,7 @@ class FormFieldText extends StatelessWidget {
             size: 30,
           ),
           filled: true,
-          fillColor: const Color.fromARGB(255, 230, 228, 228),
+          fillColor: Colors.grey[200],
           focusedBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: Colors.transparent, width: 0),
               borderRadius: BorderRadius.all(Radius.circular(12))),

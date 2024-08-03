@@ -23,7 +23,6 @@ class CouponCard extends StatelessWidget {
                 ],
               ),
               color: Color.fromARGB(255, 236, 32, 59),
-              // border: Border.all(color: Colors.black),
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           child: Row(
@@ -80,8 +79,16 @@ class CouponCard extends StatelessWidget {
           padding: const EdgeInsets.all(5),
           height: 50,
           decoration: BoxDecoration(
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.2),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: const Offset(0, 3),
+                )
+              ],
               // color: Color(0xffF87474),
-              border: Border.all(color: Colors.black),
+              border: Border.all(color: Colors.black54),
               borderRadius: const BorderRadius.only(
                   bottomLeft: Radius.circular(20),
                   bottomRight: Radius.circular(20))),

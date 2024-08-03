@@ -9,7 +9,6 @@ class CouponDb {
   static const String tableName = "coupons";
 
   CouponDb._();
-  // final _instance = CouponDb();
 
   Future<CouponModel> create(CouponModel coupon) async {
     final db = await jogjaKitaDb.database;
