@@ -9,7 +9,6 @@ import '../../view_model/user_view_model.dart';
 import 'home_widget/location_widget.dart';
 import 'home_widget/recomendation.dart';
 import 'home_widget/services_icon_button.dart';
-import 'quiz/qr_code_scanner.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
