@@ -28,12 +28,12 @@ void main() {
         final oldExp = userVM.currentUser!.exp!;
         userVM.currentUser!.setExp = 50;
 
-        await userVM.updateUserExp(userVM.currentUser!);
+        await userVM.updateUser(userVM.currentUser!);
 
         final newExp = userVM.currentUser!.exp!;
 
         userVM.currentUser!.setExp = (-50); // to deny changes
-        await userVM.updateUserExp(userVM.currentUser!); // to deny changes
+        await userVM.updateUser(userVM.currentUser!); // to deny changes
 
         expect(newExp, (oldExp + 50));
       });

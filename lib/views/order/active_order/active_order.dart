@@ -233,9 +233,18 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                                 Container(
                                                   height: 200,
                                                   width: 300,
-                                                  decoration:
-                                                      const BoxDecoration(
-                                                          color: Colors.white),
+                                                  decoration: BoxDecoration(
+                                                      border: Border.all(
+                                                          color: const Color(
+                                                              0xFFD32F2F)),
+                                                      color: const Color(
+                                                              0xFFffffff)
+                                                          .withOpacity(0.9),
+                                                      borderRadius:
+                                                          const BorderRadius
+                                                              .all(
+                                                              Radius.circular(
+                                                                  24))),
                                                   child: Center(
                                                     child: Column(
                                                       mainAxisAlignment:

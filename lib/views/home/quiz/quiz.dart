@@ -30,6 +30,7 @@ class _QuizzPageState extends State<QuizzPage> {
   @override
   Widget build(BuildContext context) {
     var quizVM = context.watch<QuizViewModel>();
+    var user = context.read<UserViewModel>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -143,7 +144,6 @@ class _QuizzPageState extends State<QuizzPage> {
                   ],
                 ),
                 SizedBox(
-                    // margin: const EdgeInsets.only(bottom: 20),
                     height: 68,
                     width: MediaQuery.of(context).size.width,
                     child: widget.indexQuestion == (widget.listQuiz.length - 1)
@@ -179,6 +179,10 @@ class _QuizzPageState extends State<QuizzPage> {
                                   ),
                                 );
                               }
+
+                              user.currentUser!.setExp =
+                                  (quizVM.totalCorrectAnswer * 5);
+                              await user.updateUser(user.currentUser!);
                               quizVM.setTotalScoreToZero();
                             },
                             style: ElevatedButton.styleFrom(
