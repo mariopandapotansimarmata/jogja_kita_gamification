@@ -16,6 +16,10 @@ class UserModel {
     badge = newBadge;
   }
 
+  set setPoin(int addedPoin) {
+    poin = poin! + addedPoin;
+  }
+
   Map<String, Object?> toJson() => {
         "name": name,
         "user_name": userName,

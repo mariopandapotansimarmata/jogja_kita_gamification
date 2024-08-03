@@ -123,16 +123,16 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Row(
+                            Row(
                               children: [
-                                Icon(
+                                const Icon(
                                   color: Colors.amber,
                                   Icons.currency_bitcoin,
                                   size: 30,
                                 ),
                                 Text(
-                                  "Poinmu (100.000)",
-                                  style: TextStyle(
+                                  "${user!.poin}",
+                                  style: const TextStyle(
                                       fontSize: 14,
                                       fontWeight: FontWeight.bold),
                                 ),
@@ -145,19 +145,33 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  Switch(
-                                    // This bool value toggles the switch.
-                                    value: light,
-                                    activeColor: Colors.red,
-                                    onChanged: (bool value) {
-                                      setState(() {
-                                        light = value;
-                                        orderViewModel
-                                            .togglepoinDiscount(light);
-                                        orderViewModel
-                                            .refreshTotalPrice(widget.coupon);
-                                      });
-                                    },
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 50.0),
+                                    child: Switch(
+                                      // This bool value toggles the switch.
+                                      value: light,
+                                      activeColor: Colors.red,
+                                      onChanged: (bool value) {
+                                        setState(() {
+                                          light = value;
+                                          if (light == true) {
+                                            user.setPoin = -1000;
+                                            orderViewModel
+                                                .togglepoinDiscount(light);
+                                            orderViewModel.refreshTotalPrice(
+                                                widget.coupon);
+                                          } else {
+                                            setState(() {
+                                              user.setPoin = 1000;
+                                            });
+                                            orderViewModel
+                                                .togglepoinDiscount(light);
+                                            orderViewModel.refreshTotalPrice(
+                                                widget.coupon);
+                                          }
+                                        });
+                                      },
+                                    ),
                                   ),
                                   Text(
                                     "- Rp ${orderViewModel.poinDiscount}",
@@ -249,9 +263,12 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       ),
                                     ));
                                 await orderViewModel.createOrder(
-                                    orderViewModel.total, user!);
+                                    orderViewModel.total, user);
                                 await couponViewModel
                                     .deleteCoupon(widget.coupon);
+                                await context
+                                    .read<UserViewModel>()
+                                    .updateUser(user);
                                 await Future.delayed(
                                     const Duration(seconds: 2));
                                 OverlayLoadingProgress.stop();
@@ -294,11 +311,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
             isDraggable: false,
             panel: const Stack(
               alignment: Alignment.topLeft,
-              children: [
-                // Positioned(
-                //     top: 10,
-                //     child: ),
-              ],
+              children: [],
             ),
             body: Stack(
               children: [

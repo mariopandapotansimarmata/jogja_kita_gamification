@@ -13,7 +13,7 @@ class UserViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<void> updateUserExp(UserModel user) async {
+  Future<void> updateUser(UserModel user) async {
     await userDb.update(user);
     notifyListeners();
   }

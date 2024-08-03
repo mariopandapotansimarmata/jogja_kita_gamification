@@ -288,7 +288,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                   }
                                 }
                                 userViewModel
-                                    .updateUserExp(userViewModel.currentUser!);
+                                    .updateUser(userViewModel.currentUser!);
                               },
                               child: const DriverCard()),
                           const SizedBox(

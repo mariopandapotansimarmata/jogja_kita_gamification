@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/quiz/qr_code_scanner.dart';
+import 'package:provider/provider.dart';
 
 class BonusCard extends StatefulWidget {
   const BonusCard({super.key});
@@ -9,6 +12,7 @@ class BonusCard extends StatefulWidget {
 }
 
 class _BonusCardState extends State<BonusCard> {
+  var f = NumberFormat("#,###,000");
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -36,27 +40,27 @@ class _BonusCardState extends State<BonusCard> {
             children: [
               SizedBox(
                 width: MediaQuery.of(context).size.width * 0.38,
-                child: const Column(
+                child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
                       child: Row(
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.monetization_on,
                             color: Colors.amber,
                           ),
                           Text(
-                            "100.000",
-                            style: TextStyle(
+                            "${f.format(context.watch<UserViewModel>().currentUser!.poin)}",
+                            style: const TextStyle(
                                 fontSize: 16, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
                     ),
-                    Padding(
+                    const Padding(
                       padding: EdgeInsets.symmetric(horizontal: 10),
                       child: Text(
                         "Pakai Bonusmu",
@@ -104,7 +108,7 @@ class _BonusCardState extends State<BonusCard> {
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(
                     builder: (context) {
-                      return QRViewExample();
+                      return const QRViewExample();
                     },
                   ));
                 },
