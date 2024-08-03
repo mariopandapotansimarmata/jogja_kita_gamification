@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/model/quiz_model.dart';
-import 'package:jogja_kita_gamification/views/home/quiz/quiz.dart';
-import 'package:provider/provider.dart';
-
-import '../../../view_model/quiz_view_model.dart';
+import 'package:jogja_kita_gamification/views/home/quiz/qr_code_scanner.dart';
 
 class BonusCard extends StatefulWidget {
   const BonusCard({super.key});
@@ -13,18 +9,6 @@ class BonusCard extends StatefulWidget {
 }
 
 class _BonusCardState extends State<BonusCard> {
-  // List<QuizModel> dummyData = [
-  //   QuizModel(question: "soal 1", listChoices: ["1 a", "1 b", "1 c", "1 d"]),
-  //   QuizModel(question: "soal 2", listChoices: ["2 a", "2 b", "2 c", "2 d"]),
-  //   QuizModel(question: "soal 3", listChoices: ["3 a", "3 b", "3 c", "3 d"]),
-  // ];
-
-  @override
-  void initState() {
-    context.read<QuizViewModel>().showAllQuestion();
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -50,7 +34,7 @@ class _BonusCardState extends State<BonusCard> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width * 0.38,
                 child: const Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -118,12 +102,11 @@ class _BonusCardState extends State<BonusCard> {
               ),
               InkWell(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) {
-                    return QuizzPage(
-                      indexQuestion: 0,
-                      listQuiz: context.watch<QuizViewModel>().listQuestion,
-                    );
-                  }));
+                  Navigator.push(context, MaterialPageRoute(
+                    builder: (context) {
+                      return QRViewExample();
+                    },
+                  ));
                 },
                 child: const Icon(
                   Icons.qr_code_scanner_rounded,

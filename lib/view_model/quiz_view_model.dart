@@ -17,7 +17,21 @@ class QuizViewModel extends ChangeNotifier {
 
   Future<void> showAllQuestion() async {
     final questions = await quizDb.readAll();
+    listQuestion = [];
     listQuestion = questions;
     notifyListeners();
+  }
+
+  Future<void> showQuestionsByQR(String questionPackage) async {
+    final questions = await quizDb.readAllByQRCode(questionPackage);
+    listQuestion = [];
+    if (questions.isNotEmpty) {
+      listQuestion = questions;
+      notifyListeners();
+    }
+  }
+
+  Future<bool> isQuestionPackageExist(String questionPackage) async {
+    return await quizDb.checkQuestionPackage(questionPackage);
   }
 }

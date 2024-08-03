@@ -25,12 +25,6 @@ class _QuizzPageState extends State<QuizzPage> {
   final GlobalKey<ScaffoldMessengerState> scaffoldErrorQuizMessenger =
       GlobalKey<ScaffoldMessengerState>();
 
-  @override
-  void initState() {
-    context.read<QuizViewModel>().showAllQuestion();
-    super.initState();
-  }
-
   int _selectedAnswerIndex = -1;
 
   @override
@@ -120,7 +114,7 @@ class _QuizzPageState extends State<QuizzPage> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 10,
                       // color: Colors.red,
                       width: MediaQuery.of(context).size.width * 0.1,
@@ -142,13 +136,13 @@ class _QuizzPageState extends State<QuizzPage> {
                       onTap: () => setState(() {
                         _selectedAnswerIndex = -1;
                       }),
-                      child: Column(
+                      child: const Column(
                         children: [Icon(Icons.refresh), Text("Reset")],
                       ),
                     )
                   ],
                 ),
-                Container(
+                SizedBox(
                     // margin: const EdgeInsets.only(bottom: 20),
                     height: 68,
                     width: MediaQuery.of(context).size.width,
@@ -173,7 +167,6 @@ class _QuizzPageState extends State<QuizzPage> {
 
                                 Navigator.of(context)
                                     .popUntil((route) => route.isFirst);
-                                print("Jawaban benar");
                               } else {
                                 scaffoldMessengerKey.currentState?.showSnackBar(
                                   const SnackBar(
@@ -185,7 +178,6 @@ class _QuizzPageState extends State<QuizzPage> {
                                     ),
                                   ),
                                 );
-                                print("jawaban salah");
                               }
                               quizVM.setTotalScoreToZero();
                             },
@@ -204,11 +196,7 @@ class _QuizzPageState extends State<QuizzPage> {
                                     quizVM.listQuestion[widget.indexQuestion]
                                         .listChoices![_selectedAnswerIndex]) {
                                   quizVM.setTotalScoreAnswer = 1;
-                                  print("Jawaban benar");
-                                } else {
-                                  print("jawaban salah");
                                 }
-
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return QuizzPage(

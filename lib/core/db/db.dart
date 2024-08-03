@@ -76,7 +76,8 @@ class JogjaKitaDb {
       second_choice VARCHAR NOT NULL,
       third_choice VARCHAR NOT NULL,
       forth_choice VARCHAR NOT NULL,
-      correct_answer VARCHAR NOT NULL               
+      correct_answer VARCHAR NOT NULL,
+      question_package VARCHAR NOT NULL               
     )
   ''');
 
@@ -182,7 +183,8 @@ class JogjaKitaDb {
       "second_choice": "1755",
       "third_choice": "1765",
       "forth_choice": "1775",
-      "correct_answer": "1755"
+      "correct_answer": "1755",
+      "question_package": "quiz-jk-001"
     });
 
     batch.insert('quiz', {
@@ -191,7 +193,8 @@ class JogjaKitaDb {
       "second_choice": "Pura Pakualaman",
       "third_choice": "Keraton Ngayogyakarta",
       "forth_choice": "Pura Mangkunegara",
-      "correct_answer": "Keraton Ngayogyakarta"
+      "correct_answer": "Keraton Ngayogyakarta",
+      "question_package": "quiz-jk-001"
     });
 
     batch.insert('quiz', {
@@ -201,7 +204,8 @@ class JogjaKitaDb {
       "second_choice": "Serangan Belanda terhadap rakyat Yogyakarta",
       "third_choice": "Deklarasi kemerdekaan Yogyakarta",
       "forth_choice": "Pemindahan ibu kota Indonesia ke Yogyakarta",
-      "correct_answer": "Serangan TNI terhadap Belanda di Yogyakarta"
+      "correct_answer": "Serangan TNI terhadap Belanda di Yogyakarta",
+      "question_package": "quiz-jk-001"
     });
 
     // Map<String, Object?> toJson() => {

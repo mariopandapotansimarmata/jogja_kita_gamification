@@ -26,7 +26,7 @@ class ResultOverlay extends StatelessWidget {
                   children: [
                     const Text(
                       "Selamat",
-                      style: const TextStyle(
+                      style: TextStyle(
                           color: Colors.black,
                           fontSize: 18,
                           fontWeight: FontWeight.bold),

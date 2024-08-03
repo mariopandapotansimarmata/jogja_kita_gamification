@@ -100,17 +100,8 @@ class _HomePageState extends State<HomePage> {
                               name: "Jogja Car", icon: Icons.car_repair),
                           const ServiceIcon(
                               name: "Jogja Food", icon: Icons.fastfood),
-                          InkWell(
-                            onTap: () {
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return QRViewExample();
-                                },
-                              ));
-                            },
-                            child: const ServiceIcon(
-                                name: "Jogja Kurir", icon: Icons.pages),
-                          ),
+                          const ServiceIcon(
+                              name: "Jogja Kurir", icon: Icons.pages),
                         ],
                       ),
                     ),

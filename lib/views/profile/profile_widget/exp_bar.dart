@@ -45,7 +45,6 @@ class _ExpBarState extends State<ExpBar> {
     final double maxExp = getMaxExp(currentExp);
     final double percent =
         ((currentExp - minExp) / (maxExp - minExp)).clamp(0.0, 1.0);
-    print(minExp);
     return LinearPercentIndicator(
       leading: Image.asset(
         leading,

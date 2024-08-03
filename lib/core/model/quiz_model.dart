@@ -3,8 +3,14 @@ class QuizModel {
   final String? question;
   final List<String?>? listChoices;
   final String? correctAnswer;
+  final String? questionPackage;
 
-  QuizModel({this.quizId, this.question, this.listChoices, this.correctAnswer});
+  QuizModel(
+      {this.quizId,
+      this.question,
+      this.listChoices,
+      this.correctAnswer,
+      this.questionPackage});
 
   factory QuizModel.fromJson(Map<String?, Object?> json) => QuizModel(
       quizId: json["quiz_id"] as int?,
@@ -15,5 +21,6 @@ class QuizModel {
         json["third_choice"] as String?,
         json["forth_choice"] as String?
       ],
-      correctAnswer: json["correct_answer"] as String?);
+      correctAnswer: json["correct_answer"] as String?,
+      questionPackage: json["question_package"] as String?);
 }
