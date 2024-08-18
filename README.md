@@ -15,14 +15,9 @@ This project is a starting point for a Flutter application.
 * Quizzes
   
 ## UI Screenshots
-<img src="UI Screenshots/Home Page.png" width=180> 
-<img src="UI Screenshots/History Order.png" width=180> 
-<img src="UI Screenshots/Leader Board.png" width=180> 
-<img src="UI Screenshots/Achieve Next Badge.png" width=180> 
-<img src="UI Screenshots/Coupon.png" width=180> 
-<img src="UI Screenshots/Detail Order.png" width=180> 
-<img src="UI Screenshots/Order 1.png" width=180> 
-<img src="UI Screenshots/Quiz.png" width=180> 
+<img src="UI Screenshots/Home Page.png" width=180> <img src="UI Screenshots/History Order.png" width=180> <img src="UI Screenshots/Leader Board.png" width=180> 
+<img src="UI Screenshots/Achieve Next Badge.png" width=180> <img src="UI Screenshots/Coupon.png" width=180> <img src="UI Screenshots/Detail Order.png" width=180> 
+<img src="UI Screenshots/Order 1.png" width=180> <img src="UI Screenshots/Quiz.png" width=180> 
 
 
 
