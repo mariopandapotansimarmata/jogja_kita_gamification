@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
@@ -19,17 +21,12 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
-  void initState() {
-    context.read<UserViewModel>().getCurrentUser("mario_pan");
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
     if (context.watch<UserViewModel>().currentUser == null) {
       return const CircularProgressIndicator();
     }
-
+    UserModel currentUser = context.read<UserViewModel>().currentUser!;
+    context.read<CouponViewModel>().generateCoupon(currentUser);
     return ListView(children: [
       Stack(
         alignment: Alignment.topCenter,

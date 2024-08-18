@@ -67,7 +67,7 @@ void main() {
           couponId: 1,
           couponName: "weekly discount",
           discount: 2000,
-          userId: "mario_pan");
+          userName: "mario_pan");
 
       orderVM.refreshTotalPrice(mockCoupon);
 

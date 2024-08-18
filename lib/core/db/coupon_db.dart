@@ -57,4 +57,12 @@ class CouponDb {
       whereArgs: [couponId],
     );
   }
+
+  Future<List<Map<String, Object?>>> getLastId() async {
+    final db = await jogjaKitaDb.database;
+    return await db.rawQuery("""SELECT coupon_id 
+                                FROM coupons 
+                                ORDER BY coupon_id DESC 
+                                LIMIT 1""");
+  }
 }

@@ -1,6 +1,6 @@
 class CouponModel {
   final int? couponId;
-  final String? userId;
+  final String? userName;
   final String? couponName;
   final String? couponCategory;
   final int? discount;
@@ -8,7 +8,7 @@ class CouponModel {
 
   CouponModel({
     this.couponId,
-    this.userId,
+    this.userName,
     this.couponName,
     this.couponCategory,
     this.discount,
@@ -17,7 +17,7 @@ class CouponModel {
 
   Map<String, Object?> toJson() => {
         "coupon_id": couponId,
-        "user_id": userId,
+        "user_name": userName,
         "coupon_name": couponName,
         "coupon_category": couponCategory,
         "discount": discount,
@@ -26,7 +26,7 @@ class CouponModel {
 
   CouponModel copy({
     int? couponId,
-    String? userId,
+    String? userName,
     String? couponName,
     String? couponCategory,
     int? discount,
@@ -34,7 +34,7 @@ class CouponModel {
   }) =>
       CouponModel(
         couponId: couponId ?? this.couponId,
-        userId: userId ?? this.userId,
+        userName: userName ?? this.userName,
         couponName: couponName ?? this.couponName,
         couponCategory: couponCategory ?? this.couponCategory,
         discount: discount ?? this.discount,
@@ -43,7 +43,7 @@ class CouponModel {
 
   factory CouponModel.fromJson(Map<String?, Object?> json) => CouponModel(
         couponId: json["coupon_id"] as int?,
-        userId: json["user_id"] as String?,
+        userName: json["user_id"] as String?,
         couponName: json["coupon_name"] as String?,
         couponCategory: json["coupon_category"] as String?,
         discount: json["discount"] as int?,
