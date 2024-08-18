@@ -182,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
           const LocationWidget(),
-          Text(context.watch<UserViewModel>().currentUser!.name!),
+          // Text(context.watch<UserViewModel>().currentUser!.name!),
           const BonusCard()
         ],
       ),

@@ -1,16 +1,29 @@
-# jogja_kita_gamification
+# Jogja Kita Gamification
 
-A new Flutter project.
+ JogjaKita, a popular ride-hailing app in Yogyakarta, aims to enhance user engagement and loyalty through innovative features. Recognizing the
+ growing trend and success of gamification in mobile applications, I decided to integrate these elements into this app. By introducing gamification
+ concept, JogjaKita aspires to create a more enjoyable and rewarding experience for its users, ultimately boosting customer satisfaction and retention.
 
-## Getting Started
+## Gamification Features
 
 This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+* User Badges Leveling System
+* Exp Progress Bar
+* Rewarding System
+* Leaderboards
+* Quizzes
+  
+## UI Screenshots
+<img src="UI Screenshots/Home Page.png" width=180> 
+<img src="UI Screenshots/History Order.png" width=180> 
+<img src="UI Screenshots/Leader Board.png" width=180> 
+<img src="UI Screenshots/Achieve Next Badge.png" width=180> 
+<img src="UI Screenshots/Coupon.png" width=180> 
+<img src="UI Screenshots/Detail Order.png" width=180> 
+<img src="UI Screenshots/Order 1.png" width=180> 
+<img src="UI Screenshots/Quiz.png" width=180> 
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+
