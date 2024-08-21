@@ -35,7 +35,7 @@ class CouponViewModel extends ChangeNotifier {
     Timer.periodic(
       const Duration(hours: 24),
       (timer) async {
-        if (DateTime.now().weekday == DateTime.sunday) {
+        if (DateTime.now().weekday == DateTime.monday) {
           id++;
           await couponDb.create(CouponModel(
               couponId: id,

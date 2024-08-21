@@ -6,7 +6,8 @@ import '../../component/form_field_text.dart';
 import '../../component/google_maps.dart';
 
 class JogjaRide extends StatefulWidget {
-  const JogjaRide({super.key});
+  const JogjaRide({super.key, required this.initialService});
+  final bool initialService;
 
   @override
   State<JogjaRide> createState() => _JogjaRideState();
@@ -40,9 +41,11 @@ class _JogjaRideState extends State<JogjaRide> {
                       icon: const Icon(Icons.arrow_back),
                       color: Colors.white,
                     ),
-                    title: const Text(
-                      "Jogja Ride",
-                      style: TextStyle(
+                    title: Text(
+                      widget.initialService == true
+                          ? "Jogja Ride"
+                          : "Jogja Car",
+                      style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,
                           color: Colors.white),
@@ -83,7 +86,8 @@ class _JogjaRideState extends State<JogjaRide> {
                               onTap: () =>
                                   Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return const OrderJogjaRide();
+                                  return OrderJogjaRide(
+                                      initialService: widget.initialService);
                                 },
                               )),
                               child: Container(

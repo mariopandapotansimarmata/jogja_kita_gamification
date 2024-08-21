@@ -13,6 +13,8 @@ class OrderViewModel extends ChangeNotifier {
   List<OrderModel> listFinishOrders = [];
 
   int jogjaRidePrice = 12000;
+  int jogjaCarPrice = 24000;
+  int price = 12000;
   int? discountCoupon;
   int poinDiscount = 0;
   int total = 0;
@@ -20,9 +22,9 @@ class OrderViewModel extends ChangeNotifier {
   void refreshTotalPrice(CouponModel? coupon) {
     if (coupon != null) {
       discountCoupon = coupon.discount;
-      total = jogjaRidePrice - discountCoupon! - poinDiscount;
+      total = price - discountCoupon! - poinDiscount;
     } else {
-      total = jogjaRidePrice - poinDiscount;
+      total = price - poinDiscount;
     }
   }
 

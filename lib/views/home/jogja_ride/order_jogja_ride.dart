@@ -14,18 +14,21 @@ import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import '../../../view_model/user_view_model.dart';
 
 class OrderJogjaRide extends StatefulWidget {
-  const OrderJogjaRide({super.key, this.coupon});
+  const OrderJogjaRide({super.key, this.coupon, required this.initialService});
   final CouponModel? coupon;
+  final bool initialService;
   @override
   State<OrderJogjaRide> createState() => _OrderJogjaRideState();
 }
 
 class _OrderJogjaRideState extends State<OrderJogjaRide> {
   bool light = false;
+  late bool rideSwitch;
 
   @override
   void initState() {
     setState(() {
+      rideSwitch = widget.initialService;
       context.read<OrderViewModel>().refreshTotalPrice(widget.coupon);
     });
     super.initState();
@@ -63,19 +66,42 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       // Text("data"),
-                      PriceCardOrder(
-                        color: const Color(0xffFCE7E9),
-                        icon: Icons.directions_bike,
-                        name: "Jogja Ride",
-                        price: "Rp ${orderViewModel.jogjaRidePrice.toString()}",
-                        isBordered: true,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            rideSwitch = true;
+
+                            orderViewModel.price =
+                                orderViewModel.jogjaRidePrice;
+                            print(orderViewModel.price);
+                            orderViewModel.refreshTotalPrice(widget.coupon);
+                          });
+                        },
+                        child: PriceCardOrder(
+                          icon: Icons.directions_bike,
+                          name: "Jogja Ride",
+                          price:
+                              "Rp ${orderViewModel.jogjaRidePrice.toString()}",
+                          isBordered: rideSwitch,
+                        ),
                       ),
-                      const PriceCardOrder(
-                        color: Colors.transparent,
-                        icon: Icons.car_repair,
-                        name: "Jogja Car",
-                        price: "Rp 24.000",
-                        isBordered: false,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            rideSwitch = false;
+
+                            orderViewModel.price = orderViewModel.jogjaCarPrice;
+                            print(orderViewModel.price);
+                            orderViewModel.refreshTotalPrice(widget.coupon);
+                          });
+                        },
+                        child: PriceCardOrder(
+                          icon: Icons.car_repair,
+                          name: "Jogja Car",
+                          price:
+                              "Rp ${orderViewModel.jogjaCarPrice.toString()}",
+                          isBordered: !rideSwitch,
+                        ),
                       ),
                       Container(
                         padding: const EdgeInsets.only(right: 10),

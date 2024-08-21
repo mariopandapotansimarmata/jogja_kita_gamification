@@ -84,7 +84,9 @@ class _HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.push(context, MaterialPageRoute(
                                 builder: (context) {
-                                  return const JogjaRide();
+                                  return const JogjaRide(
+                                    initialService: true,
+                                  );
                                 },
                               ));
                             },
@@ -92,8 +94,19 @@ class _HomePageState extends State<HomePage> {
                                 name: "Jogja Ride",
                                 icon: Icons.directions_bike),
                           ),
-                          const ServiceIcon(
-                              name: "Jogja Car", icon: Icons.car_repair),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const JogjaRide(
+                                    initialService: false,
+                                  );
+                                },
+                              ));
+                            },
+                            child: const ServiceIcon(
+                                name: "Jogja Car", icon: Icons.car_repair),
+                          ),
                           const ServiceIcon(
                               name: "Jogja Food", icon: Icons.fastfood),
                           const ServiceIcon(

@@ -6,13 +6,11 @@ class PriceCardOrder extends StatelessWidget {
       required this.icon,
       required this.name,
       required this.price,
-      required this.color,
       required this.isBordered});
 
   final IconData icon;
   final String name;
   final String price;
-  final Color color;
   final bool isBordered;
 
   @override
@@ -21,7 +19,7 @@ class PriceCardOrder extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 10),
       height: 75,
       decoration: BoxDecoration(
-          color: color,
+          color: isBordered ? const Color(0xffFCE7E9) : Colors.transparent,
           borderRadius: BorderRadius.circular(24),
           border: isBordered
               ? Border.all(color: const Color(0xffC21515))

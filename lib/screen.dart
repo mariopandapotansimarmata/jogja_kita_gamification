@@ -45,91 +45,96 @@ class _ScreenState extends State<Screen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        bottomNavigationBar: SizedBox(
-          height: MediaQuery.of(context).size.height * 0.07,
-          child: BottomNavigationBar(
-            elevation: 0,
-            enableFeedback: false,
-            type: BottomNavigationBarType.fixed,
-            iconSize: 25,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-                label: 'Home',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.play_circle_fill),
-                label: 'Video',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.video_call),
-                label: 'Posting',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.list_alt),
-                label: 'Pesanan',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profil',
-              ),
-            ],
-            currentIndex: _selectedIndex,
-            selectedItemColor: const Color(0xffB30F10),
-            onTap: _onItemTapped,
-          ),
-        ),
-        appBar: _selectedIndex == 0
-            ? AppBar(
-                backgroundColor: const Color(0xffCA110F),
-                leading: Container(
-                    margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
-                    width: 5,
-                    height: 5,
-                    child: const Image(image: AssetImage('assets/PUTIH.png'))),
-                actions: [
-                  Padding(
-                    padding: const EdgeInsets.only(right: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: [
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.mail,
-                              color: Colors.white,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.shopping_cart,
-                              color: Colors.white,
-                            )),
-                        IconButton(
-                            onPressed: () {},
-                            icon: const Icon(
-                              Icons.search,
-                              color: Colors.white,
-                            )),
-                      ],
-                    ),
+    return SafeArea(
+      child: Scaffold(
+          bottomNavigationBar: SizedBox(
+            height: MediaQuery.of(context).size.height * 0.07,
+            child: BottomNavigationBar(
+              elevation: 0,
+              enableFeedback: false,
+              type: BottomNavigationBarType.fixed,
+              iconSize: 25,
+              items: const <BottomNavigationBarItem>[
+                BottomNavigationBarItem(
+                  icon: Icon(
+                    Icons.home,
                   ),
-                ],
-              )
-            : PreferredSize(
-                preferredSize: const Size.fromHeight(0),
-                child: SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.06,
-                )),
-        body: <Widget>[
-          const HomePage(),
-          const TempPage(),
-          const OrderJogjaRide(),
-          const OrderPage(),
-          const ProfilePage()
-        ][_selectedIndex]);
+                  label: 'Home',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.play_circle_fill),
+                  label: 'Video',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.video_call),
+                  label: 'Posting',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.list_alt),
+                  label: 'Pesanan',
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(Icons.person),
+                  label: 'Profil',
+                ),
+              ],
+              currentIndex: _selectedIndex,
+              selectedItemColor: const Color(0xffB30F10),
+              onTap: _onItemTapped,
+            ),
+          ),
+          appBar: _selectedIndex == 0
+              ? AppBar(
+                  backgroundColor: const Color(0xffCA110F),
+                  leading: Container(
+                      margin: const EdgeInsets.fromLTRB(8, 0, 0, 0),
+                      width: 5,
+                      height: 5,
+                      child:
+                          const Image(image: AssetImage('assets/PUTIH.png'))),
+                  actions: [
+                    Padding(
+                      padding: const EdgeInsets.only(right: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.mail,
+                                color: Colors.white,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.shopping_cart,
+                                color: Colors.white,
+                              )),
+                          IconButton(
+                              onPressed: () {},
+                              icon: const Icon(
+                                Icons.search,
+                                color: Colors.white,
+                              )),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
+              : PreferredSize(
+                  preferredSize: const Size.fromHeight(0),
+                  child: SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.06,
+                  )),
+          body: <Widget>[
+            const HomePage(),
+            const TempPage(),
+            const OrderJogjaRide(
+              initialService: false,
+            ),
+            const OrderPage(),
+            const ProfilePage()
+          ][_selectedIndex]),
+    );
   }
 }
