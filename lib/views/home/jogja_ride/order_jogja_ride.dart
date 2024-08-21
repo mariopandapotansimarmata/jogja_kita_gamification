@@ -29,6 +29,13 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
   void initState() {
     setState(() {
       rideSwitch = widget.initialService;
+      if (rideSwitch) {
+        context.read<OrderViewModel>().price =
+            context.read<OrderViewModel>().jogjaRidePrice;
+      } else {
+        context.read<OrderViewModel>().price =
+            context.read<OrderViewModel>().jogjaCarPrice;
+      }
       context.read<OrderViewModel>().refreshTotalPrice(widget.coupon);
     });
     super.initState();
@@ -346,7 +353,9 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                     left: 16,
                     top: MediaQuery.of(context).size.height * 0.42,
                     child: InkWell(
-                      onTap: () => Navigator.pop(context),
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
                       child: Container(
                           height: 45,
                           width: 45,
