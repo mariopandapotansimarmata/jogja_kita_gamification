@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 
-import '../../../../core/db/user_db.dart';
-import '../../../../core/model/user_model.dart';
+import '../../../core/db/user_db.dart';
+import '../../../core/model/user_model.dart';
 
 class Leaderboard extends StatefulWidget {
   const Leaderboard({super.key});
