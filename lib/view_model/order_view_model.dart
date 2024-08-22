@@ -28,12 +28,12 @@ class OrderViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createOrder(int total, UserModel user) async {
+  Future<void> createOrder(int total, UserModel user, bool category) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy  kk:mm').format(now);
 
     final data = OrderModel(
-        orderCategory: "ride",
+        orderCategory: category == true ? "ride" : "car",
         orderName: "UPNYK Babarsari",
         isFinish: 0,
         userName: user.userName.toString(),

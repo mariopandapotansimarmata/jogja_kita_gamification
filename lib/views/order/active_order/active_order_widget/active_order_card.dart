@@ -3,7 +3,7 @@ import 'package:jogja_kita_gamification/core/model/order_model.dart';
 
 import 'order_icons.dart';
 
-class ActiveOrderRideCard extends StatelessWidget {
+class ActiveOrderRideCard extends StatefulWidget {
   const ActiveOrderRideCard({
     super.key,
     required this.order,
@@ -18,15 +18,24 @@ class ActiveOrderRideCard extends StatelessWidget {
   final OrderModel order;
 
   @override
+  State<ActiveOrderRideCard> createState() => _ActiveOrderRideCardState();
+}
+
+class _ActiveOrderRideCardState extends State<ActiveOrderRideCard> {
+  Map<String, IconData> iconMap = {
+    "ride": Icons.directions_bike,
+    "food": Icons.fastfood,
+    "car": Icons.car_repair
+  };
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 86,
       child: Row(
         children: [
           ActiveOrderIcon(
-            icon: order.orderCategory == "ride"
-                ? Icons.directions_bike
-                : Icons.fastfood,
+            icon: iconMap[widget.order.orderCategory]!,
             size: 75,
           ),
           const SizedBox(
@@ -37,7 +46,7 @@ class ActiveOrderRideCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                order.orderName!,
+                widget.order.orderName!,
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
@@ -56,7 +65,7 @@ class ActiveOrderRideCard extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               Text(
-                order.dateTime!,
+                widget.order.dateTime!,
                 style:
                     const TextStyle(fontSize: 14, fontWeight: FontWeight.w900),
               )
