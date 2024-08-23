@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../core/db/user_db.dart';
-import '../core/model/user_model.dart';
+import '../model/user_model.dart';
 
 class TempPage extends StatefulWidget {
   const TempPage({super.key});

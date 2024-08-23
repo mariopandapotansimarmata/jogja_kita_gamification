@@ -1,5 +1,5 @@
 import 'package:jogja_kita_gamification/core/db/db.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/model/user_model.dart';
 
 class UserDb {
   JogjaKitaDb jogjaKitaDb = JogjaKitaDb.instance;

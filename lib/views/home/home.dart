@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/model/user_model.dart';
 import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
