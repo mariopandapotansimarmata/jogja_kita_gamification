@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/model/order_model.dart';
+import 'package:jogja_kita_gamification/model/order_model.dart';
 
 import 'order_icons.dart';
 

@@ -4,7 +4,7 @@ import 'package:jogja_kita_gamification/views/component/form_field_text.dart';
 import 'package:jogja_kita_gamification/views/order/history_order/history_order_widget/history_order_widget.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/model/order_model.dart';
+import '../../../model/order_model.dart';
 
 class HistoryOrder extends StatefulWidget {
   const HistoryOrder({super.key});

@@ -1,6 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:jogja_kita_gamification/core/model/coupon_model.dart';
-import 'package:jogja_kita_gamification/core/model/order_model.dart';
+import 'package:jogja_kita_gamification/model/coupon_model.dart';
+import 'package:jogja_kita_gamification/model/order_model.dart';
 import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
@@ -48,7 +48,7 @@ void main() {
       const query = "SELECT COUNT(order_id) as total_order from orders";
 
       final totalBefore = await db.rawQuery(query);
-      await orderVM.createOrder(total, userVM.currentUser!);
+      await orderVM.createOrder(total, userVM.currentUser!, true);
 
       final totalAfter = await db.rawQuery(query);
 

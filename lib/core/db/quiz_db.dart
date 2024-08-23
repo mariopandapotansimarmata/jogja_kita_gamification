@@ -1,4 +1,4 @@
-import 'package:jogja_kita_gamification/core/model/quiz_model.dart';
+import 'package:jogja_kita_gamification/model/quiz_model.dart';
 
 import 'db.dart';
 

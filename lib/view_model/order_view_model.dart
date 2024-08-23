@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import '../core/db/order_db.dart';
-import '../core/model/coupon_model.dart';
-import '../core/model/order_model.dart';
-import '../core/model/user_model.dart';
+import '../model/coupon_model.dart';
+import '../model/order_model.dart';
+import '../model/user_model.dart';
 
 class OrderViewModel extends ChangeNotifier {
   final OrderDb orderDb = OrderDb.instance;

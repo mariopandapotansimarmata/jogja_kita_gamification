@@ -28,19 +28,6 @@ class UserModel {
         "badge": badge
       };
 
-  UserModel copy(
-          {String? userName,
-          String? name,
-          int? exp,
-          int? poin,
-          String? badge}) =>
-      UserModel(
-          userName: userName ?? this.userName,
-          name: name ?? this.name,
-          exp: exp ?? 0,
-          poin: poin ?? 0,
-          badge: badge ?? "Amateur");
-
   factory UserModel.fromJson(Map<String?, Object?> json) => UserModel(
         userName: json["user_name"] as String?,
         name: json["name"] as String?,

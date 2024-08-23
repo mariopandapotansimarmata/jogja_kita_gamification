@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/model/user_model.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
 import 'package:jogja_kita_gamification/views/profile/profile_widget/card_follower.dart';

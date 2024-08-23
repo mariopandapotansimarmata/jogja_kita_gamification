@@ -1,6 +1,6 @@
 import 'package:jogja_kita_gamification/core/db/db.dart';
 
-import '../model/order_model.dart';
+import '../../model/order_model.dart';
 
 class OrderDb {
   JogjaKitaDb jogjaKitaDb = JogjaKitaDb.instance;

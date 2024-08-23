@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride.dart';
 
-import '../../../core/model/coupon_model.dart';
+import '../../../model/coupon_model.dart';
 import '../../order/active_order/active_order_widget/order_icons.dart';
 
 class CouponCard extends StatelessWidget {

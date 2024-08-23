@@ -1,0 +1,204 @@
+@startuml JogjaKita Gamification
+skinparam defaultFontSize 20
+
+
+package "repository.db" {
+    class JogjaKitaDb {
+        +instance: JogjaKitaDb
+        +database: Future<Database>
+    }
+
+    class UserDb {
+        -JogjaKitaDb jogjaKitaDb
+        +static final UserDb instance
+        +static const String tableName = "users"
+
+        +UserDb._()
+        +Future<void> create(UserModel user)
+        +Future<UserModel> read(String userName)
+        +Future<List<UserModel>> readAll()
+        +Future<int> update(UserModel user)
+        +Future<int> delete(String userName)
+        +Future<int> updateExp(UserModel user)
+    }
+    
+     class OrderDb {
+        -JogjaKitaDb jogjaKitaDb
+        +static final OrderDb instance
+        +static const String tableName = "orders"
+
+        +OrderDb._()
+        +Future<OrderModel> create(OrderModel order)
+        +Future<OrderModel> read(String userName)
+        +Future<List<OrderModel>> readActiveOrders()
+        +Future<List<OrderModel>> readAll()
+        +Future<List<OrderModel>> readFinisedOrders()
+        +Future<int> update(OrderModel order)
+        +Future<int> delete(int orderId)
+    }
+    class QuizDb {
+        -JogjaKitaDb jogjaKitaDb
+        +static final QuizDB instance
+        +static const String tableName
+
+        +QuizDB._()
+        +Future<List<QuizModel>> readAll(): 
+        Future<List<QuizModel>>
+        +Future<List<QuizModel>> readAllByQRCode(
+        questionPackage: String): Future<List<QuizModel>>
+        +Future<bool> checkQuestionPackage(
+        questionPackage: String): Future<bool>
+    }
+
+ class CouponDb {
+        -JogjaKitaDb jogjaKitaDb
+        +static final CouponDb instance
+        +static const String tableName
+
+        +CouponDb()
+        +create(coupon: CouponModel): Future<CouponModel>
+        +read(couponId: int): Future<UserModel>
+        +readAll(): Future<List<CouponModel>>
+        +update(coupon: CouponModel): Future<int>
+        +delete(couponId: int): Future<int>
+        +getLastId(): Future<List<Map<String, Object?>>>
+    }
+     QuizDb -[hidden]d-> OrderDb
+     CouponDb -[hidden]d-> UserDb
+
+}
+
+package "model" {
+    class UserModel {
+        +String? userName
+        +String? name
+        +int? exp
+        +int? poin
+        +String? badge
+
+        +UserModel(name: String?, userName: String?, 
+        exp: int = 0, poin: int = 0, badge: String?)
+        +setExp(addExp: int): void
+        +setBadge(newBadge: String): void
+        +setPoin(addedPoin: int): void
+        +toJson(): Map<String, Object?>
+        +copy(userName: String?, name: String?, exp: int?,
+        poin: int?, badge: String?): UserModel
+        +fromJson(json: Map<String?, Object?>): UserModel
+    }
+
+ class OrderModel {
+        +int? orderId
+        +String? userName
+        +String? dateTime
+        +String? orderName
+        +String? orderCategory
+        +int? amount
+        +int? isFinish
+
+        +OrderModel(orderId: int?, userName: String?, \ndateTime: String?, orderName: String?, 
+        orderCategory: String?, amount: int?, isFinish: int?)
+        +setIsFinish(status: int?): void
+        +toJson(): Map<String, Object?>
+        +copy(orderId: int?, userName: String?, dateTime: String?, \norderName: String?, orderCategory: String?, amount: int?, 
+        isFinish: int?): OrderModel
+        +fromJson(json: Map<String?, Object?>): OrderModel
+    }
+
+   class CouponModel {
+        +int? couponId
+        +String? userName
+        +String? couponName
+        +String? couponCategory
+        +int? discount
+
+        +CouponModel( couponId: int?, userName: String?, 
+        couponName: String?, couponCategory: String?, discount: int?)
+        +toJson(): Map<String, Object?>
+        +copy(couponId: int?, userName: String?, couponName: String?, 
+        couponCategory: String?, discount: int?): CouponModel
+        +fromJson(json: Map<String?, Object?>): CouponModel
+    }
+
+ class QuizModel {
+    +int? quizId
+    +String? question
+    +List<String?>? listChoices
+    +String? correctAnswer
+    +String? questionPackage
+
+    +QuizModel(int? quizId, String? question, List<String?>? 
+    listChoices, String? correctAnswer, String? questionPackage)
+    +fromJson(Map<String?, Object?> json): QuizModel
+}
+    QuizModel -[hidden]d->OrderModel
+    CouponModel -[hidden]d-> UserModel
+}
+
+package "view_model" {
+    class UserViewModel {
+        -UserModel? currentUser
+        -UserDb userDb
+
+        +UserViewModel()
+        +Future<void> getCurrentUser(String userName)
+        +Future<void> updateUser(UserModel user)
+    }
+
+    class OrderViewModel {
+        -List<OrderModel> listActiveOrders
+        -List<OrderModel> listFinishOrders
+        -int jogjaRidePrice
+        -int jogjaCarPrice
+        -int price
+        -int? discountCoupon
+        -int poinDiscount
+        -int total
+
+        +void refreshTotalPrice(CouponModel? coupon)
+        +Future<void> createOrder(int total, UserModel user, bool category)
+        +Future<void> showAllActiveOrders()
+        +Future<void> showAllFinishOrders()
+        +Future<void> updateFinishStatus(OrderModel order)
+        +Future<void> deleteOrder(OrderModel? order)
+        +void togglepoinDiscount(bool light)
+    }
+
+     class CouponViewModel {
+        -CouponDb couponDb
+        -List<CouponModel> listCoupons
+        -int id
+
+        +showAllCoupons(): Future<void>
+        +generateCoupon(user: UserModel?): Future<void>
+        +deleteCoupon(coupon: CouponModel?): Future<void>
+    }
+     class QuizViewModel {
+        -quizDb: QuizDB
+        -totalCorrectAnswer: int
+        -listQuestion: List<QuizModel>
+
+        +set setTotalScoreAnswer(score: int): void
+        +setTotalScoreToZero(): void
+        +showAllQuestion(): Future<void>
+        +showQuestionsByQR(questionPackage: String): Future<void>
+        +isQuestionPackageExist(questionPackage: String): Future<bool>
+    }
+    OrderViewModel -[hidden]d-> CouponViewModel 
+    QuizViewModel -[hidden]d->  UserViewModel 
+}
+UserViewModel ..> UserDb : uses
+OrderViewModel ..>OrderDb: uses
+CouponViewModel ..>CouponDb: uses
+QuizViewModel ..>QuizDb: uses
+
+UserViewModel ..> UserModel : manages
+OrderViewModel ..>OrderModel: manages
+CouponViewModel ..>CouponModel: manages
+QuizViewModel ..>QuizModel: manages
+
+UserDb ..* JogjaKitaDb : composition
+OrderDb ..* JogjaKitaDb : composition
+CouponDb ..* JogjaKitaDb : composition
+QuizDb ..* JogjaKitaDb : composition
+@enduml

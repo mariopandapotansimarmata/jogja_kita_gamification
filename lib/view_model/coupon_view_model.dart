@@ -2,9 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/coupon_db.dart';
-import 'package:jogja_kita_gamification/core/model/user_model.dart';
+import 'package:jogja_kita_gamification/model/user_model.dart';
 
-import '../core/model/coupon_model.dart';
+import '../model/coupon_model.dart';
 
 class CouponViewModel extends ChangeNotifier {
   CouponDb couponDb = CouponDb.instance;
