@@ -5,7 +5,7 @@ import 'package:jogja_kita_gamification/views/order/active_order/active_order_wi
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/model/order_model.dart';
+import '../../../model/order_model.dart';
 import '../../../view_model/user_view_model.dart';
 import '../../home/jogja_ride/pickup_jogja_ride.dart';
 

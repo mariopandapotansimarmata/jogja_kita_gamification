@@ -9,7 +9,7 @@ import 'package:jogja_kita_gamification/views/home/quiz/quiz_widget/result_overl
 import 'package:overlay_loading_progress/overlay_loading_progress.dart';
 import 'package:provider/provider.dart';
 
-import '../../../core/model/quiz_model.dart';
+import '../../../model/quiz_model.dart';
 import '../../order/active_order/active_order.dart';
 
 class QuizzPage extends StatefulWidget {

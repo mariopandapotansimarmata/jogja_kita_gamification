@@ -3,57 +3,55 @@ skinparam defaultFontSize 20
 
 
 package "repository.db" {
-    class JogjaKitaDb {
+    class JogjaKitaDb <<(S,#FF7700)Singleton>> {
         +instance: JogjaKitaDb
         +database: Future<Database>
     }
 
     class UserDb {
         -JogjaKitaDb jogjaKitaDb
-        +static final UserDb instance
-        +static const String tableName = "users"
+        +{static} final UserDb instance
+        +{static} const String tableName = "users"
 
         +UserDb._()
-        +Future<void> create(UserModel user)
-        +Future<UserModel> read(String userName)
-        +Future<List<UserModel>> readAll()
-        +Future<int> update(UserModel user)
-        +Future<int> delete(String userName)
-        +Future<int> updateExp(UserModel user)
+        +create(UserModel user): Future<void> 
+        +read(String userName): Future<UserModel> 
+        +readAll(): Future<List<UserModel>>
+        +update(UserModel user): Future<int>
+        +delete(String userName): Future<int>
+        +updateExp(UserModel user): Future<int> 
     }
     
      class OrderDb {
         -JogjaKitaDb jogjaKitaDb
-        +static final OrderDb instance
-        +static const String tableName = "orders"
+        +{static} final OrderDb instance
+        +{static} const String tableName = "orders"
 
         +OrderDb._()
-        +Future<OrderModel> create(OrderModel order)
-        +Future<OrderModel> read(String userName)
-        +Future<List<OrderModel>> readActiveOrders()
-        +Future<List<OrderModel>> readAll()
-        +Future<List<OrderModel>> readFinisedOrders()
-        +Future<int> update(OrderModel order)
-        +Future<int> delete(int orderId)
+        +create(OrderModel order):Future<OrderModel> 
+        +read(String userName) :Future<OrderModel> 
+        +readActiveOrders():Future<List<OrderModel>> 
+        +readAll():Future<List<OrderModel>>
+        +readFinisedOrders():Future<List<OrderModel>>
+        +update(OrderModel order): Future<int> 
+        +delete(int orderId): Future<int> 
     }
     class QuizDb {
         -JogjaKitaDb jogjaKitaDb
-        +static final QuizDB instance
-        +static const String tableName
+        +{static} final QuizDB instance
+        +{static} const String tableName
 
         +QuizDB._()
-        +Future<List<QuizModel>> readAll(): 
-        Future<List<QuizModel>>
-        +Future<List<QuizModel>> readAllByQRCode(
-        questionPackage: String): Future<List<QuizModel>>
-        +Future<bool> checkQuestionPackage(
+        +readAll(): Future<List<QuizModel>>
+        +readAllByQRCode(questionPackage: String): Future<List<QuizModel>>
+        +checkQuestionPackage(
         questionPackage: String): Future<bool>
     }
 
  class CouponDb {
         -JogjaKitaDb jogjaKitaDb
-        +static final CouponDb instance
-        +static const String tableName
+        +{static} final CouponDb instance
+        +{static} const String tableName
 
         +CouponDb()
         +create(coupon: CouponModel): Future<CouponModel>
@@ -141,13 +139,14 @@ package "view_model" {
         -UserDb userDb
 
         +UserViewModel()
-        +Future<void> getCurrentUser(String userName)
-        +Future<void> updateUser(UserModel user)
+        +getCurrentUser(String userName): Future<void> 
+        +updateUser(UserModel user) : Future<void> 
     }
 
     class OrderViewModel {
         -List<OrderModel> listActiveOrders
         -List<OrderModel> listFinishOrders
+         -OrderDb orderDb
         -int jogjaRidePrice
         -int jogjaCarPrice
         -int price
@@ -155,13 +154,13 @@ package "view_model" {
         -int poinDiscount
         -int total
 
-        +void refreshTotalPrice(CouponModel? coupon)
-        +Future<void> createOrder(int total, UserModel user, bool category)
-        +Future<void> showAllActiveOrders()
-        +Future<void> showAllFinishOrders()
-        +Future<void> updateFinishStatus(OrderModel order)
-        +Future<void> deleteOrder(OrderModel? order)
-        +void togglepoinDiscount(bool light)
+        +refreshTotalPrice(CouponModel? coupon): void 
+        +createOrder(int total, UserModel user, bool category) :Future<void> 
+        +showAllActiveOrders(): Future<void> 
+        +showAllFinishOrders(): Future<void>
+        +updateFinishStatus(OrderModel order): Future<void>
+        +deleteOrder(OrderModel? order): Future<void>
+        +togglepoinDiscount(bool light): void
     }
 
      class CouponViewModel {
@@ -174,11 +173,11 @@ package "view_model" {
         +deleteCoupon(coupon: CouponModel?): Future<void>
     }
      class QuizViewModel {
-        -quizDb: QuizDB
-        -totalCorrectAnswer: int
-        -listQuestion: List<QuizModel>
+        - QuizDB quizDb
+        - int totalCorrectAnswer
+        - List<QuizModel> listQuestion
 
-        +set setTotalScoreAnswer(score: int): void
+        +setTotalScoreAnswer(score: int): void
         +setTotalScoreToZero(): void
         +showAllQuestion(): Future<void>
         +showQuestionsByQR(questionPackage: String): Future<void>

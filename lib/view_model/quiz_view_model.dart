@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/core/db/quiz_db.dart';
-import 'package:jogja_kita_gamification/core/model/quiz_model.dart';
+import 'package:jogja_kita_gamification/model/quiz_model.dart';
 
 class QuizViewModel extends ChangeNotifier {
   final QuizDB quizDb = QuizDB.instance;
