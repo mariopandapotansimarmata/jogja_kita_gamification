@@ -1,0 +1,28 @@
+@startuml Weekly Reward
+
+
+
+boundary Halaman_Profile as Halaman_Profile
+control Coupon_View_Model as Coupon_View_Model
+entity User_Repository as User_Repository
+entity Coupon_Repository as Coupon_Repository
+
+
+Coupon_View_Model -> User_Repository : Check User Badges
+activate Coupon_View_Model
+activate User_Repository
+
+Coupon_View_Model <-- User_Repository : User badges
+deactivate User_Repository
+
+Coupon_View_Model -> Coupon_Repository : Tambah Coupon
+activate Coupon_Repository
+
+Coupon_View_Model <-- Coupon_Repository: Coupon Baru
+deactivate Coupon_Repository
+
+Halaman_Profile <-- Coupon_View_Model : List Coupon
+activate Halaman_Profile
+deactivate Halaman_Profile
+@enduml
+

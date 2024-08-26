@@ -1,0 +1,24 @@
+@startuml Finish Order Sequence Diagram
+
+actor User as User 
+boundary Halaman_Profile as Halaman_Profile
+control User_View_Model as User_View_Model
+entity User_Repository as User_Repository
+
+
+User -> Halaman_Profile: Halaman Profile
+activate User
+
+Halaman_Profile -> User_View_Model : Get Leadeboard
+activate Halaman_Profile
+activate User_View_Model
+
+User_View_Model -> User_Repository : Load Data Users
+activate User_Repository
+User_Repository -> User_Repository : List Data User
+
+User_View_Model <-- User_Repository : Sort data users
+
+Halaman_Profile <-- User_View_Model : Data Leaderboard
+@enduml
+

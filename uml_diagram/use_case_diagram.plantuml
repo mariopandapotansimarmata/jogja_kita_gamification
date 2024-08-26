@@ -1,0 +1,14 @@
+@startuml Use Case Diagram
+left to right direction
+actor "User" as User_Actor
+actor "Driver" as Driver_Actor
+rectangle Restaurant {
+  usecase "Eat Food" as UC1
+  usecase "Pay for Food" as UC2
+  usecase "Drink" as UC3
+}
+User_Actor --> UC1
+
+' Place Driver actor to the right of the rectangle
+Driver_Actor -right-> UC2
+@enduml

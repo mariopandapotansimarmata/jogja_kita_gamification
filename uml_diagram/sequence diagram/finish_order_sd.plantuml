@@ -1,0 +1,29 @@
+@startuml Finish Order Sequence Diagram
+
+actor Driver as Driver
+actor User as User 
+boundary Halaman_Order as Halaman_Order
+entity Order_Repository as Order_Repository
+entity User_Repository as User_Repository
+
+Driver->User: Driver tiba
+activate User
+deactivate User
+activate Driver
+activate Halaman_Order
+
+
+
+Driver -> Order_Repository : Konfirmasi order
+activate Order_Repository
+
+Order_Repository -> Order_Repository : validasi
+Order_Repository -> User_Repository : Update Exp
+activate User_Repository
+deactivate User_Repository
+
+Halaman_Order <-- Order_Repository : Order Selesai
+
+
+@enduml
+

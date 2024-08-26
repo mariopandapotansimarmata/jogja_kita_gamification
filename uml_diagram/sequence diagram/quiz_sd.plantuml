@@ -1,0 +1,58 @@
+@startuml Quiz Sequence Diagram
+actor Driver as Driver
+actor User as User 
+boundary Halaman_Home as Halaman_Home
+boundary Halaman_Quiz as Halaman_Quiz
+control Quiz_View_Model as Quiz_View_Model
+entity Quiz_Repository as Quiz_Repository
+entity Order_Repository as Order_Repository
+entity User_Repository as User_Repository
+
+
+Driver->User: Driver tiba
+activate User
+Activate Driver
+
+User -> Halaman_Home : Pilih Scan QR
+activate Halaman_Home
+
+Halaman_Home -> Halaman_Home
+
+Halaman_Home --> User : Halaman Scan
+Deactivate Halaman_Home
+
+Driver <- User : Scan QR Quiz
+
+Driver -> Order_Repository : Konfirmasi order
+activate Order_Repository
+
+Order_Repository -> Order_Repository : validasi
+Order_Repository -> User_Repository : Update Exp
+activate User_Repository
+deactivate User_Repository
+deactivate Order_Repository
+
+
+Driver --> User : Mengirim Soal 
+Deactivate Driver
+
+User -> Halaman_Quiz : Mengerjakan Quiz
+activate Halaman_Quiz
+
+Halaman_Quiz -> Quiz_View_Model: Mengirim Jawaban
+activate Quiz_View_Model
+
+Quiz_View_Model -> Quiz_Repository: Memeriksa Jawaban
+activate Quiz_Repository
+
+Quiz_Repository -> User_Repository : update exp
+activate User_Repository
+deactivate User_Repository
+
+Quiz_View_Model <-- Quiz_Repository : Mengirim Hasil
+Halaman_Quiz <-- Quiz_View_Model  : Mengirim Hasil
+
+User <-- Halaman_Quiz : Mengirim Hasil
+
+@enduml
+

@@ -1,0 +1,28 @@
+@startuml Order Jogja Car Sequence Diagram
+actor User as User
+boundary Halaman_Home as Halaman_Home
+boundary Halaman_Order_JogjaCar as Halaman_Order_JogjaCar
+control Order_View_Model as Order_View_Model
+entity Order_Repository as Order_Repository
+
+User -> Halaman_Home: Akses Halaman utama
+activate User
+activate Halaman_Home
+
+Halaman_Home -> Halaman_Order_JogjaCar : Pilih Jogja Car
+deactivate Halaman_Home
+activate Halaman_Order_JogjaCar
+
+Halaman_Order_JogjaCar -> Order_View_Model : Melakukan pemesanan
+deactivate Halaman_Order_JogjaCar
+activate Order_View_Model
+
+Order_View_Model -> Order_Repository: Create Order
+activate Order_Repository
+
+Order_View_Model <-- Order_Repository: Update Order List
+deactivate Order_Repository
+deactivate User
+
+@enduml
+
