@@ -47,9 +47,11 @@ class _ScreenState extends State<Screen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+          backgroundColor: Colors.white,
           bottomNavigationBar: SizedBox(
             height: MediaQuery.of(context).size.height * 0.07,
             child: BottomNavigationBar(
+              backgroundColor: Colors.white,
               elevation: 0,
               enableFeedback: false,
               type: BottomNavigationBarType.fixed,

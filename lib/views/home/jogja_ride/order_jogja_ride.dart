@@ -260,7 +260,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       Icons.discount,
                                       color: Color(0xff299640),
                                     ),
-                                    name: "Pakai Voucher",
+                                    name: "Pakai Kupon",
                                   ),
                                 ),
                                 const Icon(Icons.more_horiz)

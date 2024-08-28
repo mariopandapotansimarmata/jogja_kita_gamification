@@ -55,10 +55,19 @@ class _ExpBarState extends State<ExpBar> {
       lineHeight: 24.0,
       animationDuration: 2500,
       percent: percent < 1 ? percent : 1,
-      center: Text(
-        "$currentExp / $maxExp",
-        style: const TextStyle(
-            color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
+      center: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "$currentExp / $maxExp ",
+            style: const TextStyle(
+                color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
+          ),
+          const Icon(
+            Icons.control_camera,
+            color: Colors.blue,
+          )
+        ],
       ),
       barRadius: const Radius.circular(20),
       progressColor: Colors.blue,

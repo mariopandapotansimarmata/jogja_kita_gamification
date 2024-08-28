@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/component/profile_badges.dart';
+import 'package:provider/provider.dart';
 
-import '../../../core/db/user_db.dart';
-import '../../../model/user_model.dart';
+import '../../../view_model/user_view_model.dart';
 
 class Leaderboard extends StatefulWidget {
   const Leaderboard({super.key});
@@ -12,37 +12,21 @@ class Leaderboard extends StatefulWidget {
 }
 
 class _LeaderboardState extends State<Leaderboard> {
-  UserDb userDb = UserDb.instance;
-
-  List<UserModel> usersList = [];
-
   @override
   void initState() {
-    refreshNotes();
+    context.read<UserViewModel>().readAllUsers();
     super.initState();
-  }
-
-  // @override
-  // void dispose() {
-  //   userDb.jogjaKitaDb.close();
-  //   super.dispose();
-  // }
-
-  Future<void> refreshNotes() async {
-    final users = await userDb.readAll();
-    setState(() {
-      usersList = users;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
+    var usersVM = context.watch<UserViewModel>();
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: ListView.builder(
-          itemCount: usersList.length,
+          itemCount: usersVM.usersList.length,
           itemBuilder: (context, index) {
-            final user = usersList[index];
+            final user = usersVM.usersList[index];
 
             return Container(
               padding: const EdgeInsets.symmetric(vertical: 9),

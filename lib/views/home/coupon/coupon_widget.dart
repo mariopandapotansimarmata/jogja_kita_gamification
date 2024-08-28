@@ -29,23 +29,6 @@ class CouponCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Row(
-                children: [
-                  Text(
-                    "50",
-                    style: TextStyle(fontSize: 25, color: Colors.white),
-                  ),
-                  Icon(
-                    Icons.control_camera_outlined,
-                    color: Colors.blue,
-                    size: 40,
-                  ),
-                ],
-              ),
-              const Icon(
-                Icons.add,
-                color: Colors.white,
-              ),
               Row(
                 children: [
                   ActiveOrderIcon(

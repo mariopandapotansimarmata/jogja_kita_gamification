@@ -2,7 +2,7 @@
 
 
 
-boundary Halaman_Profile as Halaman_Profile
+boundary Halaman_Coupon as Halaman_Coupon
 control Coupon_View_Model as Coupon_View_Model
 entity User_Repository as User_Repository
 entity Coupon_Repository as Coupon_Repository
@@ -21,8 +21,8 @@ activate Coupon_Repository
 Coupon_View_Model <-- Coupon_Repository: Coupon Baru
 deactivate Coupon_Repository
 
-Halaman_Profile <-- Coupon_View_Model : List Coupon
-activate Halaman_Profile
-deactivate Halaman_Profile
+Halaman_Coupon <-- Coupon_View_Model : List Coupon
+activate Halaman_Coupon
+deactivate Halaman_Coupon
 @enduml
 
