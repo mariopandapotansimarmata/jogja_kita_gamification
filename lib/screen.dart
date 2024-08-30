@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/view_model/user_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/home.dart';
@@ -39,6 +40,11 @@ class _ScreenState extends State<Screen> {
 
   @override
   void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((allowed) {
+      if (!allowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
     context.read<UserViewModel>().getCurrentUser("mario_pan");
     super.initState();
   }

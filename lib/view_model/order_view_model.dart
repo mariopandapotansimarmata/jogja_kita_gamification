@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -28,12 +29,12 @@ class OrderViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createOrder(int total, UserModel user, bool category) async {
+  Future<void> createOrder(int total, UserModel user, String category) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy  kk:mm').format(now);
 
     final data = OrderModel(
-        orderCategory: category == true ? "ride" : "car",
+        orderCategory: category,
         orderName: "UPNYK Babarsari",
         isFinish: 0,
         userName: user.userName.toString(),
@@ -41,6 +42,11 @@ class OrderViewModel extends ChangeNotifier {
         amount: total);
 
     await orderDb.create(data);
+
+    // Delay 5 seconds before spawning notification
+    Future.delayed(const Duration(seconds: 5), () {
+      spawnNotification(category, "Driver telah tiba");
+    });
   }
 
   Future<void> showAllActiveOrders() async {
@@ -68,5 +74,16 @@ class OrderViewModel extends ChangeNotifier {
 
   void togglepoinDiscount(bool light) {
     poinDiscount = light ? 1000 : 0;
+  }
+
+  void spawnNotification(String category, String message) {
+    AwesomeNotifications().createNotification(
+        content: NotificationContent(
+            largeIcon: "asset://assets/PUTIH.png",
+            bigPicture: "asset://assets/PUTIH.png",
+            id: 1,
+            channelKey: "order_channel",
+            title: "Jogja$category",
+            body: message));
   }
 }

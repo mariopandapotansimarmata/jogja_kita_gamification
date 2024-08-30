@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
 import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
@@ -9,6 +10,16 @@ import 'view_model/quiz_view_model.dart';
 import 'views/order/active_order/active_order.dart';
 
 void main() async {
+  AwesomeNotifications().initialize(
+      null,
+      [
+        NotificationChannel(
+            channelKey: 'order_channel',
+            channelName: 'orrder_channel',
+            channelDescription: 'order_channel')
+      ],
+      debug: true);
+
   runApp(const MyApp());
 }
 

@@ -48,7 +48,7 @@ void main() {
       const query = "SELECT COUNT(order_id) as total_order from orders";
 
       final totalBefore = await db.rawQuery(query);
-      await orderVM.createOrder(total, userVM.currentUser!, true);
+      await orderVM.createOrder(total, userVM.currentUser!, "ride");
 
       final totalAfter = await db.rawQuery(query);
 

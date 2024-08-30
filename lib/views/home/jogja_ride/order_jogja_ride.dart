@@ -296,7 +296,9 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                       ),
                                     ));
                                 await orderViewModel.createOrder(
-                                    orderViewModel.total, user, rideSwitch);
+                                    orderViewModel.total,
+                                    user,
+                                    rideSwitch == true ? "ride" : "car");
                                 await couponViewModel
                                     .deleteCoupon(widget.coupon);
                                 await context
