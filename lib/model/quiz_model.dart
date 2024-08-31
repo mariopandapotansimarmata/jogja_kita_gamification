@@ -19,7 +19,8 @@ class QuizModel {
         json["first_choice"] as String?,
         json["second_choice"] as String?,
         json["third_choice"] as String?,
-        json["forth_choice"] as String?
+        json["forth_choice"] as String?,
+        json["pass_choice"] as String?
       ],
       correctAnswer: json["correct_answer"] as String?,
       questionPackage: json["question_package"] as String?);

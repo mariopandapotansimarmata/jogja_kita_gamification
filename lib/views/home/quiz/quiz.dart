@@ -14,9 +14,13 @@ import '../../order/active_order/active_order.dart';
 
 class QuizzPage extends StatefulWidget {
   const QuizzPage(
-      {super.key, required this.listQuiz, required this.indexQuestion});
+      {super.key,
+      required this.listQuiz,
+      required this.indexQuestion,
+      required this.remainingTime});
   final int indexQuestion;
   final List<QuizModel> listQuiz;
+  final int remainingTime;
   @override
   State<QuizzPage> createState() => _QuizzPageState();
 }
@@ -26,6 +30,55 @@ class _QuizzPageState extends State<QuizzPage> {
       GlobalKey<ScaffoldMessengerState>();
 
   int _selectedAnswerIndex = -1;
+
+  late int _remainingTime;
+  Timer? _timer;
+
+  @override
+  void initState() {
+    super.initState();
+    _remainingTime = widget.remainingTime; // Atur sisa waktu dari parameter
+    _startTimer();
+  }
+
+  void _startTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 1), (timer) async {
+      if (_remainingTime > 0) {
+        setState(() {
+          _remainingTime--;
+        });
+      } else {
+        _timer?.cancel();
+        // Logika ketika waktu habis, otomatis submit jawaban
+        await _autoSubmit();
+      }
+    });
+  }
+
+  Future<void> _autoSubmit() async {
+    var quizVM = context.read<QuizViewModel>();
+    var user = context.read<UserViewModel>();
+
+    var overlayCompleter = Completer<void>();
+    await OverlayLoadingProgress.start(
+      context,
+      widget: ResultOverlay(onComplete: () {
+        overlayCompleter.complete();
+      }),
+    );
+    await overlayCompleter.future;
+
+    user.currentUser!.setExp = (quizVM.totalCorrectAnswer * 5);
+    await user.updateUser(user.currentUser!);
+    quizVM.setTotalScoreToZero();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,6 +91,10 @@ class _QuizzPageState extends State<QuizzPage> {
         leading: IconButton(
             onPressed: () => Navigator.pop(context),
             icon: const Icon(Icons.arrow_back)),
+        title: Text(
+          "Time: $_remainingTime seconds", // Menampilkan timer di AppBar
+          style: const TextStyle(color: Colors.black),
+        ),
         actions: [
           Container(
               padding: const EdgeInsets.only(right: 16),
@@ -100,6 +157,12 @@ class _QuizzPageState extends State<QuizzPage> {
                             onTap: () {
                               setState(() {
                                 _selectedAnswerIndex = index;
+                                if (quizVM.listQuestion[widget.indexQuestion]
+                                        .correctAnswer ==
+                                    quizVM.listQuestion[widget.indexQuestion]
+                                        .listChoices![_selectedAnswerIndex]) {
+                                  quizVM.setTotalScoreAnswer = 1;
+                                }
                               });
                             },
                             child: ButtonAnswerQuizz(
@@ -150,12 +213,6 @@ class _QuizzPageState extends State<QuizzPage> {
                         ? ElevatedButton(
                             onPressed: () async {
                               if (_selectedAnswerIndex >= 0) {
-                                if (quizVM.listQuestion[widget.indexQuestion]
-                                        .correctAnswer ==
-                                    quizVM.listQuestion[widget.indexQuestion]
-                                        .listChoices![_selectedAnswerIndex]) {
-                                  quizVM.setTotalScoreAnswer = 1;
-                                } else {}
                                 var overlayCompleter = Completer<void>();
                                 await OverlayLoadingProgress.start(
                                   context,
@@ -195,18 +252,13 @@ class _QuizzPageState extends State<QuizzPage> {
                         : ElevatedButton(
                             onPressed: () {
                               if (_selectedAnswerIndex >= 0) {
-                                if (quizVM.listQuestion[widget.indexQuestion]
-                                        .correctAnswer ==
-                                    quizVM.listQuestion[widget.indexQuestion]
-                                        .listChoices![_selectedAnswerIndex]) {
-                                  quizVM.setTotalScoreAnswer = 1;
-                                }
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return QuizzPage(
-                                        listQuiz: widget.listQuiz,
-                                        indexQuestion:
-                                            widget.indexQuestion + 1);
+                                      listQuiz: widget.listQuiz,
+                                      indexQuestion: widget.indexQuestion + 1,
+                                      remainingTime: _remainingTime,
+                                    );
                                   },
                                 ));
                               } else {

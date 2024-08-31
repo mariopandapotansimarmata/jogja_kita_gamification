@@ -113,6 +113,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         await Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
           return QuizzPage(
+            remainingTime: context.read<QuizViewModel>().quizTime,
             indexQuestion: 0,
             listQuiz: context.read<QuizViewModel>().listQuestion,
           );
@@ -155,6 +156,7 @@ class _QRViewExampleState extends State<QRViewExample> {
           await Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
             return QuizzPage(
+              remainingTime: context.read<QuizViewModel>().quizTime,
               indexQuestion: 0,
               listQuiz: context.read<QuizViewModel>().listQuestion,
             );

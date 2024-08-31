@@ -7,6 +7,8 @@ class QuizViewModel extends ChangeNotifier {
   int totalCorrectAnswer = 0;
   List<QuizModel> listQuestion = [];
 
+  int quizTime = 15;
+
   set setTotalScoreAnswer(int score) {
     totalCorrectAnswer = totalCorrectAnswer + score;
   }
