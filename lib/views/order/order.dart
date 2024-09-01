@@ -20,7 +20,9 @@ class _OrderPageState extends State<OrderPage> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
+            backgroundColor: Colors.white,
             centerTitle: true,
             title: const Text('Pesanan',
                 style: TextStyle(
