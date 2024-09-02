@@ -158,6 +158,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                       listExpBadges.last.maxExp) {
                                     userViewModel.currentUser!.setBadge =
                                         "Legendary";
+
                                     OverlayLoadingProgress.start(context,
                                         widget: Scaffold(
                                           backgroundColor: Colors.transparent,
@@ -231,9 +232,23 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                         ));
                                   } else if (userViewModel.currentUser!.exp! >
                                       listExpBadges[currentindex].maxExp) {
+                                    int addedPoin = 0;
                                     userViewModel.currentUser!.setBadge =
                                         listExpBadges[currentindex + 1].badge;
 
+                                    switch (userViewModel.currentUser!.badge) {
+                                      case "Amateur":
+                                        addedPoin = 15000;
+                                        break;
+                                      case "Professional":
+                                        addedPoin = 20000;
+                                        break;
+                                      case "Champion":
+                                        addedPoin = 25000;
+                                        break;
+                                    }
+                                    userViewModel.currentUser!.setPoin =
+                                        addedPoin;
                                     OverlayLoadingProgress.start(context,
                                         widget: Scaffold(
                                           backgroundColor: Colors.transparent,
@@ -302,6 +317,32 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                                                   userViewModel
                                                                       .currentUser!
                                                                       .badge!]!),
+                                                        ),
+                                                        Row(
+                                                          mainAxisAlignment:
+                                                              MainAxisAlignment
+                                                                  .center,
+                                                          children: [
+                                                            const Icon(
+                                                                Icons.add),
+                                                            const Icon(
+                                                              Icons
+                                                                  .currency_bitcoin,
+                                                              color:
+                                                                  Colors.amber,
+                                                            ),
+                                                            Text(
+                                                              "$addedPoin",
+                                                              style: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .titleMedium!
+                                                                  .copyWith(
+                                                                      fontWeight:
+                                                                          FontWeight
+                                                                              .bold),
+                                                            )
+                                                          ],
                                                         )
                                                       ],
                                                     ),
@@ -319,6 +360,7 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                         ));
                                   }
                                 }
+
                                 userViewModel
                                     .updateUser(userViewModel.currentUser!);
                               },
