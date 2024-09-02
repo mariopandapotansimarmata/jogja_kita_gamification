@@ -24,6 +24,8 @@ class CouponViewModel extends ChangeNotifier {
   }
 
   generateCoupon(UserModel? user) async {
+    String category;
+
     int? discount;
     List<Map<String, Object?>> lastId = await couponDb.getLastId();
     var id = int.parse((lastId[0]["coupon_id"]).toString());
@@ -41,15 +43,30 @@ class CouponViewModel extends ChangeNotifier {
     Timer.periodic(
       const Duration(hours: 24),
       (timer) async {
+        switch (DateTime.now().day ~/ 7) {
+          case 0:
+            category = "ride";
+          case 1:
+            category = "food";
+          case 2:
+            category = "car";
+          case 3:
+            category = "food";
+          default:
+            category = "ride";
+        }
+
         if (DateTime.now().weekday == DateTime.monday) {
           id++;
+          String capCategory =
+              category[0].toUpperCase() + category.substring(1);
           await couponDb.create(CouponModel(
               couponId: id,
-              couponName: "Badge Coupon",
-              couponCategory: "ride",
+              couponName: "$capCategory Rp.$discount",
+              couponCategory: category,
               discount: discount,
               userName: user.userName));
-          print("coupon added, couponid $id");
+          print("coupon added, couponid $id, $category");
         }
       },
     );
