@@ -36,6 +36,12 @@ class _ActiveOrderState extends State<ActiveOrder> {
     ExpBadge(999, "Champion")
   ];
 
+  Map<String, String> iconBadge = {
+    "Amateur": "assets/badges-green.png",
+    "Professional": "assets/badges-red.png",
+    "Champion": "assets/badges-amber.png",
+  };
+
   @override
   void initState() {
     context.read<OrderViewModel>().showAllActiveOrders();
@@ -201,6 +207,13 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
+                                                        ),
+                                                        Container(
+                                                          height: 50,
+                                                          width: 50,
+                                                          child: Image.asset(
+                                                              fit: BoxFit.cover,
+                                                              "assets/badges-indigo.png"),
                                                         )
                                                       ],
                                                     ),
@@ -279,6 +292,16 @@ class _ActiveOrderState extends State<ActiveOrder> {
                                                               fontWeight:
                                                                   FontWeight
                                                                       .bold),
+                                                        ),
+                                                        Container(
+                                                          height: 50,
+                                                          width: 50,
+                                                          child: Image.asset(
+                                                              fit: BoxFit.cover,
+                                                              iconBadge[
+                                                                  userViewModel
+                                                                      .currentUser!
+                                                                      .badge!]!),
                                                         )
                                                       ],
                                                     ),

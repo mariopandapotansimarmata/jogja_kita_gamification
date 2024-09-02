@@ -251,7 +251,10 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                         ? Navigator.push(context,
                                             MaterialPageRoute(
                                                 builder: (context) {
-                                            return const CouponPage();
+                                            return CouponPage(
+                                              category:
+                                                  rideSwitch ? "ride" : "car",
+                                            );
                                           }))
                                         : setState(() {});
                                   },
@@ -298,7 +301,8 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                                 await orderViewModel.createOrder(
                                     orderViewModel.total,
                                     user,
-                                    rideSwitch == true ? "ride" : "car");
+                                    rideSwitch == true ? "ride" : "car",
+                                    "UPNYK Babarsari");
                                 await couponViewModel
                                     .deleteCoupon(widget.coupon);
                                 await context
@@ -356,6 +360,7 @@ class _OrderJogjaRideState extends State<OrderJogjaRide> {
                     top: MediaQuery.of(context).size.height * 0.42,
                     child: InkWell(
                       onTap: () {
+                        orderViewModel.total = 0;
                         Navigator.pop(context);
                       },
                       child: Container(

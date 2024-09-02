@@ -50,9 +50,11 @@ class _ActiveOrderRideCardState extends State<ActiveOrderRideCard> {
                 style:
                     const TextStyle(fontSize: 16, fontWeight: FontWeight.w900),
               ),
-              const Text(
-                "Driver menuju resto Mie Gacoan, Gejayan",
-                style: TextStyle(
+              Text(
+                widget.order.orderCategory == "food"
+                    ? "Driver menuju resto Mie Gacoan, Gejayan"
+                    : "Driver menuju lokasi anda",
+                style: const TextStyle(
                     fontSize: 12,
                     color: Color(0xffAB1F21),
                     fontWeight: FontWeight.bold),

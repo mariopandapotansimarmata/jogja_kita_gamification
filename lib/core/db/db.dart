@@ -158,7 +158,7 @@ class JogjaKitaDb {
       'name': 'Mario Pandapotan S',
       'user_name': 'mario_pan',
       'exp': 200, // deafult value is 200 , 950 for testing
-      "poin": 50000,
+      "poin": 10000,
       "badge": "Amateur"
     });
 

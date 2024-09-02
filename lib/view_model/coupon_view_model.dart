@@ -17,6 +17,12 @@ class CouponViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<void> showCouponsByCategory(String category) async {
+    final coupons = await couponDb.readBasedCategory(category);
+    listCoupons = coupons;
+    notifyListeners();
+  }
+
   generateCoupon(UserModel? user) async {
     int? discount;
     List<Map<String, Object?>> lastId = await couponDb.getLastId();

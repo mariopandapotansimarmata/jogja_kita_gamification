@@ -4,6 +4,7 @@ import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_food/jogja_food.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/jogja_ride.dart';
 import 'package:provider/provider.dart';
 
@@ -107,8 +108,17 @@ class _HomePageState extends State<HomePage> {
                             child: const ServiceIcon(
                                 name: "Jogja Car", icon: Icons.car_repair),
                           ),
-                          const ServiceIcon(
-                              name: "Jogja Food", icon: Icons.fastfood),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(context, MaterialPageRoute(
+                                builder: (context) {
+                                  return const JogjaFood();
+                                },
+                              ));
+                            },
+                            child: const ServiceIcon(
+                                name: "Jogja Food", icon: Icons.fastfood),
+                          ),
                           const ServiceIcon(
                               name: "Jogja Kurir", icon: Icons.pages),
                         ],

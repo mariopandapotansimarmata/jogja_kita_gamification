@@ -8,8 +8,8 @@ import 'package:provider/provider.dart';
 import '../../../view_model/user_view_model.dart';
 
 class CouponPage extends StatefulWidget {
-  const CouponPage({super.key});
-
+  const CouponPage({super.key, this.category});
+  final String? category;
   @override
   State<CouponPage> createState() => _CouponPageState();
 }
@@ -17,7 +17,11 @@ class CouponPage extends StatefulWidget {
 class _CouponPageState extends State<CouponPage> {
   @override
   void initState() {
-    context.read<CouponViewModel>().showAllCoupons();
+    if (widget.category != null) {
+      context.read<CouponViewModel>().showCouponsByCategory(widget.category!);
+    } else {
+      context.read<CouponViewModel>().showAllCoupons();
+    }
     super.initState();
   }
 

@@ -30,11 +30,13 @@ class _ExpBarState extends State<ExpBar> {
       minExp = 250;
       return 600;
     } else if (exp < 1000) {
+      leading = "assets/badges-amber.png";
       trail = "assets/badges-indigo.png";
       minExp = 600;
       return 1000;
     } else {
       leading = "assets/badges-indigo.png";
+      trail = "assets/badges-indigo.png";
       return 1000; // Add further conditions if there are more levels
     }
   }

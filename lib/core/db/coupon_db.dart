@@ -39,6 +39,14 @@ class CouponDb {
     return result.map((json) => CouponModel.fromJson(json)).toList();
   }
 
+  Future<List<CouponModel>> readBasedCategory(String category) async {
+    final db = await jogjaKitaDb.database;
+    const orderBy = 'coupon_id DESC';
+    final result = await db.query(tableName,
+        orderBy: orderBy, where: "coupon_category = ?", whereArgs: [category]);
+    return result.map((json) => CouponModel.fromJson(json)).toList();
+  }
+
   Future<int> update(CouponModel coupon) async {
     final db = await jogjaKitaDb.database;
     return db.update(

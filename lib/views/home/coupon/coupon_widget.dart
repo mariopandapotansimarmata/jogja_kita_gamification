@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/views/home/jogja_food/order_jogja_food.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/order_jogja_ride.dart';
 
 import '../../../model/coupon_model.dart';
@@ -93,10 +94,16 @@ class CouponCard extends StatelessWidget {
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(
                         builder: (context) {
-                          return OrderJogjaRide(
-                            initialService: false,
-                            coupon: coupon,
-                          );
+                          if (coupon.couponCategory == "food") {
+                            return OrderJogjaFood(
+                              coupon: coupon,
+                            );
+                          } else {
+                            return OrderJogjaRide(
+                              initialService: false,
+                              coupon: coupon,
+                            );
+                          }
                         },
                       ));
                     },

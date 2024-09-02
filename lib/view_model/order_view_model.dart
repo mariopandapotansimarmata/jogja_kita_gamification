@@ -15,7 +15,8 @@ class OrderViewModel extends ChangeNotifier {
 
   int jogjaRidePrice = 12000;
   int jogjaCarPrice = 24000;
-  int price = 12000;
+  int jogjaFood = 30000;
+  int price = 0;
   int? discountCoupon;
   int poinDiscount = 0;
   int total = 0;
@@ -29,13 +30,14 @@ class OrderViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> createOrder(int total, UserModel user, String category) async {
+  Future<void> createOrder(
+      int total, UserModel user, String category, String name) async {
     DateTime now = DateTime.now();
     String formattedDate = DateFormat('dd/MM/yyyy  kk:mm').format(now);
 
     final data = OrderModel(
         orderCategory: category,
-        orderName: "UPNYK Babarsari",
+        orderName: name,
         isFinish: 0,
         userName: user.userName.toString(),
         dateTime: formattedDate,
@@ -74,6 +76,7 @@ class OrderViewModel extends ChangeNotifier {
 
   void togglepoinDiscount(bool light) {
     poinDiscount = light ? 1000 : 0;
+    notifyListeners();
   }
 
   void spawnNotification(String category, String message) {
