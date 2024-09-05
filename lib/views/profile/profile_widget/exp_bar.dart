@@ -65,9 +65,9 @@ class _ExpBarState extends State<ExpBar> {
             style: const TextStyle(
                 color: Colors.white, fontSize: 16, fontWeight: FontWeight.w800),
           ),
-          const Icon(
+          Icon(
             Icons.control_camera,
-            color: Colors.blue,
+            color: Colors.blue[200],
           )
         ],
       ),
