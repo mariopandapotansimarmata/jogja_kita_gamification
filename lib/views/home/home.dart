@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/model/user_model.dart';
 import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
-import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
@@ -122,9 +121,7 @@ class _HomePageState extends State<HomePage> {
                           ),
                           InkWell(
                             onTap: () {
-                              context
-                                  .read<OrderViewModel>()
-                                  .isActiveOrdersExist();
+                              context.read<UserViewModel>().getContacts();
                             },
                             child: const ServiceIcon(
                                 name: "Jogja Kurir", icon: Icons.pages),

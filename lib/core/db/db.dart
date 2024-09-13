@@ -1,6 +1,11 @@
+import 'dart:math';
+
+import 'package:contacts_service/contacts_service.dart';
 import 'package:jogja_kita_gamification/core/db/coupon_db.dart';
 import 'package:jogja_kita_gamification/core/db/quiz_db.dart';
 import 'package:jogja_kita_gamification/core/db/user_db.dart';
+import 'package:jogja_kita_gamification/model/user_model.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 
 import 'order_db.dart';
@@ -216,7 +221,31 @@ class JogjaKitaDb {
     //       "discount": discount,
     //       "is_claim": isClaim
     //     };
+    List<String> levels = ["Amateur", "Professional", "Champion", "Legendary"];
 
+    if (await Permission.contacts.request().isGranted) {
+      Iterable<Contact> contacts = await ContactsService.getContacts();
+      var listContacts = contacts.toList();
+      var limit = min(5, listContacts.length);
+
+      for (var i = 0; i < limit; i++) {
+        var data = listContacts[i + 200];
+        Random random = Random();
+        var userData = UserModel(
+            userName:
+                "${(data.givenName ?? "user$i").toLowerCase()}_${(data.middleName ?? "").toLowerCase()}_${(data.familyName ?? "").toLowerCase()}",
+            name:
+                "${(data.givenName ?? "")} ${(data.middleName ?? "")} ${(data.familyName ?? "")}",
+            badge: levels[random.nextInt(levels.length)],
+            poin: 10000,
+            exp: random.nextInt(900));
+
+        await db.insert(UserDb.tableName, userData.toJson());
+        print(userData);
+      }
+    } else {
+      print('Permission to access contacts was denied.');
+    }
     await batch.commit(noResult: true);
   }
 

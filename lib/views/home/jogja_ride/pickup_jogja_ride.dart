@@ -1,3 +1,4 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/pickup_jogja_ride_widget/detail_pickup.dart';
 import 'package:jogja_kita_gamification/views/home/jogja_ride/pickup_jogja_ride_widget/pick_up_driver_card.dart';
@@ -17,6 +18,16 @@ class PickupJogjaRide extends StatefulWidget {
 }
 
 class _PickupJogjaRideState extends State<PickupJogjaRide> {
+  @override
+  void initState() {
+    AwesomeNotifications().isNotificationAllowed().then((allowed) {
+      if (!allowed) {
+        AwesomeNotifications().requestPermissionToSendNotifications();
+      }
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

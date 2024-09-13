@@ -1,11 +1,15 @@
+import 'package:contacts_service/contacts_service.dart';
 import 'package:jogja_kita_gamification/core/db/db.dart';
 import 'package:jogja_kita_gamification/model/user_model.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class UserDb {
   JogjaKitaDb jogjaKitaDb = JogjaKitaDb.instance;
   static final UserDb instance = UserDb._();
 
   static const String tableName = "users";
+
+  List<String> levels = ["Amateur", "Professional", "Champion", "Legendary"];
 
   UserDb._();
   // final _instance = UserDb();
@@ -70,5 +74,19 @@ class UserDb {
         "exp": user.exp! + 50
       },
     );
+  }
+
+  Future<void> createFromContacts() async {
+    if (await Permission.contacts.request().isGranted) {
+      Iterable<Contact> contact = await ContactsService.getContacts();
+
+      var listContacts = contact.toList();
+      for (var data in listContacts) {
+        print(data.givenName);
+      }
+      print(listContacts.length);
+    } else {
+      print('Permission Denied');
+    }
   }
 }

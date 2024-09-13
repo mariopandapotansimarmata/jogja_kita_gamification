@@ -24,4 +24,8 @@ class UserViewModel extends ChangeNotifier {
     usersList = users;
     notifyListeners();
   }
+
+  Future<void> getContacts() async {
+    await userDb.createFromContacts();
+  }
 }

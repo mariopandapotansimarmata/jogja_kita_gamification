@@ -73,10 +73,14 @@ class _LeaderboardState extends State<Leaderboard> {
                             const SizedBox(
                               width: 15,
                             ),
-                            Text(
-                              "${user.name}",
-                              style: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.bold),
+                            SizedBox(
+                              width: MediaQuery.of(context).size.width * 0.35,
+                              child: Text(
+                                "${user.name}",
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
+                              ),
                             )
                           ],
                         ),
