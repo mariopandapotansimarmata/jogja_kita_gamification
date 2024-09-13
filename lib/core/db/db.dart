@@ -229,7 +229,7 @@ class JogjaKitaDb {
       var limit = min(5, listContacts.length);
 
       for (var i = 0; i < limit; i++) {
-        var data = listContacts[i + 200];
+        var data = listContacts[i];
         Random random = Random();
         var userData = UserModel(
             userName:
