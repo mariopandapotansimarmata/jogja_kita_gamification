@@ -48,7 +48,8 @@ void main() {
       const query = "SELECT COUNT(order_id) as total_order from orders";
 
       final totalBefore = await db.rawQuery(query);
-      await orderVM.createOrder(total, userVM.currentUser!, "ride");
+      await orderVM.createOrder(
+          total, userVM.currentUser!, "ride", "UPNYK Babarsari");
 
       final totalAfter = await db.rawQuery(query);
 
@@ -68,10 +69,10 @@ void main() {
           couponName: "weekly discount",
           discount: 2000,
           userName: "mario_pan");
-
+      orderVM.price = orderVM.jogjaCarPrice;
       orderVM.refreshTotalPrice(mockCoupon);
 
-      expect(orderVM.total, 10000);
+      expect(orderVM.total, orderVM.price - mockCoupon.discount!);
     });
 
     test("test orderVM, Show all active orders", () async {

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jogja_kita_gamification/model/user_model.dart';
 import 'package:jogja_kita_gamification/view_model/coupon_view_model.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
 import 'package:jogja_kita_gamification/views/home/coupon/coupon.dart';
 
 import 'package:jogja_kita_gamification/views/home/home_widget/bonus_card.dart';
@@ -119,8 +120,15 @@ class _HomePageState extends State<HomePage> {
                             child: const ServiceIcon(
                                 name: "Jogja Food", icon: Icons.fastfood),
                           ),
-                          const ServiceIcon(
-                              name: "Jogja Kurir", icon: Icons.pages),
+                          InkWell(
+                            onTap: () {
+                              context
+                                  .read<OrderViewModel>()
+                                  .isActiveOrdersExist();
+                            },
+                            child: const ServiceIcon(
+                                name: "Jogja Kurir", icon: Icons.pages),
+                          ),
                         ],
                       ),
                     ),

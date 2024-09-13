@@ -38,10 +38,19 @@ class OrderDb {
 
   Future<List<OrderModel>> readActiveOrders() async {
     final db = await jogjaKitaDb.database;
-    const orderBy = 'order_id DESC';
+    const orderBy = 'date_time DESC';
     final result = await db.query(tableName,
         orderBy: orderBy, where: "is_finish = ?", whereArgs: [0]);
 
+    return result.map((json) => OrderModel.fromJson(json)).toList();
+  }
+
+  Future<List<OrderModel>> readOneActiveOrders() async {
+    final db = await jogjaKitaDb.database;
+    const orderBy = 'date_time ASC';
+    final result = await db.query(tableName,
+        orderBy: orderBy, where: "is_finish = ?", whereArgs: [0], limit: 1);
+    print(result);
     return result.map((json) => OrderModel.fromJson(json)).toList();
   }
 
@@ -55,7 +64,7 @@ class OrderDb {
 
   Future<List<OrderModel>> readFinisedOrders() async {
     final db = await jogjaKitaDb.database;
-    const orderBy = 'order_id DESC';
+    const orderBy = 'date_time DESC';
     final result = await db.query(tableName,
         orderBy: orderBy, where: "is_finish = ?", whereArgs: [1]);
 
@@ -81,5 +90,20 @@ class OrderDb {
       where: 'order_id = ?',
       whereArgs: [orderId],
     );
+  }
+
+  Future<bool> readIfAnyActiveOrders() async {
+    final db = await jogjaKitaDb.database;
+    final result =
+        await db.query(tableName, where: "is_finish = ?", whereArgs: [0]);
+
+    print(result);
+    if (result.isNotEmpty) {
+      print(result);
+      return true;
+    } else {
+      print("kosong");
+      return false;
+    }
   }
 }

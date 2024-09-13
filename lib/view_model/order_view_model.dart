@@ -57,6 +57,10 @@ class OrderViewModel extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future<List<OrderModel>> showOneActiveOrders() async {
+    return await orderDb.readOneActiveOrders();
+  }
+
   Future<void> showAllFinishOrders() async {
     final orders = await orderDb.readFinisedOrders();
     listFinishOrders = orders;
@@ -88,5 +92,14 @@ class OrderViewModel extends ChangeNotifier {
             channelKey: "order_channel",
             title: "Jogja$category",
             body: message));
+  }
+
+  Future<bool> isActiveOrdersExist() async {
+    return await orderDb.readIfAnyActiveOrders();
+  }
+
+  Future<void> updateFinishStatusFromQuiz(OrderModel order) async {
+    await orderDb.update(order);
+    showAllActiveOrders();
   }
 }

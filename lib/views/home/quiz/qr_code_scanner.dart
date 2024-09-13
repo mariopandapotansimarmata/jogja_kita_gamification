@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:jogja_kita_gamification/view_model/order_view_model.dart';
+import 'package:jogja_kita_gamification/views/order/active_order/active_order.dart';
 import 'package:provider/provider.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:image_picker/image_picker.dart';
@@ -108,7 +110,29 @@ class _QRViewExampleState extends State<QRViewExample> {
           await context
                   .read<QuizViewModel>()
                   .isQuestionPackageExist(scanData.code!) ==
-              true) {
+              true &&
+          await context.read<OrderViewModel>().isActiveOrdersExist() == true) {
+        var order = await context.read<OrderViewModel>().showOneActiveOrders();
+        order[0].setIsFinish = 1;
+
+        await context
+            .read<OrderViewModel>()
+            .updateFinishStatusFromQuiz(order[0]);
+        scaffoldMessengerKey.currentState?.showSnackBar(
+          SnackBar(
+            backgroundColor: Colors.blue[300],
+            content: const Row(
+              children: [
+                Text('Selamat Anda mendapatkan + 50'),
+                Icon(
+                  Icons.control_camera_outlined,
+                  color: Colors.blue,
+                ),
+              ],
+            ),
+          ),
+        );
+
         await context.read<QuizViewModel>().showQuestionsByQR(result!.code!);
         await Navigator.pushReplacement(context,
             MaterialPageRoute(builder: (context) {
@@ -151,7 +175,29 @@ class _QRViewExampleState extends State<QRViewExample> {
             await context
                     .read<QuizViewModel>()
                     .isQuestionPackageExist(results) ==
+                true &&
+            await context.read<OrderViewModel>().isActiveOrdersExist() ==
                 true) {
+          var order =
+              await context.read<OrderViewModel>().showOneActiveOrders();
+          order[0].setIsFinish = 1;
+          await context
+              .read<OrderViewModel>()
+              .updateFinishStatusFromQuiz(order[0]);
+          scaffoldMessengerKey.currentState?.showSnackBar(
+            SnackBar(
+              backgroundColor: Colors.blue[300],
+              content: const Row(
+                children: [
+                  Text('Selamat Anda mendapatkan + 50'),
+                  Icon(
+                    Icons.control_camera_outlined,
+                    color: Colors.blue,
+                  ),
+                ],
+              ),
+            ),
+          );
           await context.read<QuizViewModel>().showQuestionsByQR(results);
           await Navigator.pushReplacement(context,
               MaterialPageRoute(builder: (context) {
